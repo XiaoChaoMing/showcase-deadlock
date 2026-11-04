@@ -45,7 +45,7 @@ export const buildCharacterModel = (hero: HeroDefinition, opts: CharacterModelOp
   const anatomy = hero.bodyDesign ? resolveBodyDesign(hero.bodyDesign).anatomy : undefined;
   const surface = createBodySurface(proportions, hero.bodyShape, layout, anatomy ? createAnatomyField(anatomy) : undefined);
   const materials = createMaterials(hero.palette, { flatShading: hero.bodyShape.shading === 'flat' });
-  const bodyGeometry = buildBodyGeometry(surface, hero.bodyShape, anatomy && opts.refinedSurface !== false ? { transitions: true, adaptive: true, junctionBlend: { k: blendRadiusFor(anatomy.smoothness), overall: overallSmoothingFor(anatomy.smoothness) } } : {});
+  const bodyGeometry = buildBodyGeometry(surface, hero.bodyShape, anatomy && opts.refinedSurface !== false ? { transitions: true, adaptive: true, midlineGuard: true, junctionBlend: { k: blendRadiusFor(anatomy.smoothness), overall: overallSmoothingFor(anatomy.smoothness) } } : {});
   const bodyMaterialOf = anatomy ? createBodyMaterials(materials, anatomy.material) : (ref: string) => materials.get(ref);
   const bodyMaterials = BODY_REGIONS.map((r) => bodyMaterialOf(hero.bodyPaint[REGION_PART[r].part]));
   if (anatomy) bodyGeometry.setAttribute('color', cavityColors(bodyGeometry, anatomy.material.anatomicalContrast));
