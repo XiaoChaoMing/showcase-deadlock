@@ -42,8 +42,8 @@
   },
   "bodyShape": {
     "radialSegments": 16,
-    "ringsPerMeter": 50,
-    "shading": "flat",
+    "ringsPerMeter": 60,
+    "shading": "smooth",
     "torso": {
       "squareness": 3.0,
       "sections": [
@@ -74,8 +74,8 @@
         {
           "t": 0.76,
           "width": 0.4,
-          "depth": 0.24,
-          "forward": 0.025
+          "depth": 0.23,
+          "forward": 0.012
         },
         {
           "t": 0.88,
@@ -238,11 +238,11 @@
     "muscles": [
       {
         "part": "torso",
-        "t": 0.77,
-        "length": 0.09,
-        "angleDeg": 28,
-        "spreadDeg": 32,
-        "amount": 0.026
+        "t": 0.72,
+        "length": 0.07,
+        "angleDeg": 18,
+        "spreadDeg": 25,
+        "amount": 0.018
       },
       {
         "part": "torso",

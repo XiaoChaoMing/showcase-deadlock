@@ -216,5 +216,39 @@
       "name": "hip-side-solid",
       "query": "hero=kestrel&stage=skinned&view=side&zoom=hipL"
     }
+  ],
+  "m4e": [
+    {
+      "name": "chest-side",
+      "query": "hero=kestrel&stage=skinned&view=side&zoom=shoulderL"
+    },
+    {
+      "name": "chest-side-wire",
+      "query": "hero=kestrel&stage=skinned&view=side&zoom=shoulderL&overlay=wireframe"
+    },
+    {
+      "name": "body-side",
+      "query": "hero=kestrel&stage=skinned&view=side"
+    },
+    {
+      "name": "body-threeQuarter",
+      "query": "hero=kestrel&stage=skinned&view=threeQuarter"
+    },
+    {
+      "name": "body-front",
+      "query": "hero=kestrel&stage=skinned&view=front"
+    },
+    {
+      "name": "hip-side",
+      "query": "hero=kestrel&stage=skinned&view=side&zoom=hipL"
+    },
+    {
+      "name": "full-threeQuarter",
+      "query": "hero=kestrel&stage=full&view=threeQuarter"
+    },
+    {
+      "name": "full-side",
+      "query": "hero=kestrel&stage=full&view=side"
+    }
   ]
 }

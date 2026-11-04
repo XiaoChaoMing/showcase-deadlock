@@ -33,6 +33,25 @@ describe('boneSegment', () => {
   });
 });
 
+describe('chi to, nhiều cơ không làm lệch weight', () => {
+  it('giữa bắp tay vẫn ≥ 0.9 UpperArm khi cánh tay rất to', () => {
+    const bulky = { ...kestrel, bodyShape: { ...kestrel.bodyShape, arm: { ...kestrel.bodyShape.arm, sections: kestrel.bodyShape.arm.sections.map((x) => ({ ...x, width: x.width * 1.6, depth: x.depth * 1.6 })) } } };
+    const m = buildCharacterModel(bulky);
+    const w = generateSkinWeights(m.bodyGeometry, m.layout);
+    const r = m.bodyGeometry.getAttribute('region');
+    const t = m.bodyGeometry.getAttribute('chainT');
+    let checked = 0;
+    for (let v = 0; v < r.count; v++) {
+      if (r.getX(v) !== BodyRegion.ArmL || t.getX(v) < 0.2 || t.getX(v) > 0.3) continue;
+      let ua = 0;
+      for (let k = 0; k < 4; k++) if (w.skinIndex[v * 4 + k] === boneIndex('LeftUpperArm')) ua += w.skinWeight[v * 4 + k]!;
+      expect(ua).toBeGreaterThanOrEqual(0.9);
+      checked++;
+    }
+    expect(checked).toBeGreaterThan(0);
+  });
+});
+
 describe('generateSkinWeights', () => {
   it('kích thước mảng = 4 × số vertex', () => {
     expect(skinIndex.length).toBe(count * 4);

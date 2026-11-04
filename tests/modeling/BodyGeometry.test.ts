@@ -67,7 +67,7 @@ describe.each(SAMPLE_HEROES)('buildBodyGeometry: %s', (_name, hero) => {
 
 describe('flat vs smooth', () => {
   it('flat → non-indexed, smooth → indexed', () => {
-    expect(geometryOf(kestrel).geometry.index).toBeNull();
+    expect(geometryOf(kestrel, { ...kestrel.bodyShape, shading: 'flat' }).geometry.index).toBeNull();
     expect(geometryOf(kestrel, { ...kestrel.bodyShape, shading: 'smooth' }).geometry.index).not.toBeNull();
   });
 });
