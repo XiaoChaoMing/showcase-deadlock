@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { boneIndex, type BoneName } from '../definitions/BoneNames';
 import type { CharacterInstance } from '../runtime/CharacterFactory';
 
-const originals = new WeakMap<THREE.SkinnedMesh, THREE.Material | THREE.Material[]>();
+const originals = new WeakMap<THREE.SkinnedMesh, { material: THREE.Material | THREE.Material[]; color?: THREE.BufferAttribute | THREE.InterleavedBufferAttribute }>();
 const COLD = new THREE.Color('#2b59ff');
 const MID = new THREE.Color('#2bd96b');
 const HOT = new THREE.Color('#ff3b2b');
@@ -15,11 +15,17 @@ export const setWeightView = (instance: CharacterInstance, bone: BoneName | null
   const body = instance.body;
   if (bone === null) {
     const original = originals.get(body);
-    if (original) body.material = original;
+    if (original) {
+      for (const m of [body.material].flat()) if (m.name === 'debug:weights') m.dispose();
+      body.material = original.material;
+      if (original.color) body.geometry.setAttribute('color', original.color);
+      else body.geometry.deleteAttribute('color');
+    }
     originals.delete(body);
     return;
   }
-  if (!originals.has(body)) originals.set(body, body.material);
+  if (!originals.has(body)) originals.set(body, { material: body.material, color: body.geometry.getAttribute('color') });
+  else for (const m of [body.material].flat()) if (m.name === 'debug:weights') m.dispose();
   const geometry = body.geometry;
   const skinIndex = geometry.getAttribute('skinIndex');
   const skinWeight = geometry.getAttribute('skinWeight');

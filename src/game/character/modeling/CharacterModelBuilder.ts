@@ -10,6 +10,7 @@ import { createMaterials, type MaterialSet } from './materials/MaterialBuilder';
 import { resolveBodyDesign, type AnatomyConfig } from '../body/config/resolveBodyDesign';
 import { createAnatomyField } from '../body/anatomy/anatomyField';
 import { blendRadiusFor, overallSmoothingFor } from '../body/surface/JunctionBlend';
+import { cavityColors, createBodyMaterials } from '../body/materials/bodyMaterial';
 
 /** Thân anatomical dày tới 32 cạnh mỗi vòng; giáp không cần dày như vậy (đo: 32 → 16 giảm ~45% thời gian dựng giáp). */
 const ANATOMY_EQUIPMENT_SEGMENTS = 16;
@@ -45,7 +46,9 @@ export const buildCharacterModel = (hero: HeroDefinition, opts: CharacterModelOp
   const surface = createBodySurface(proportions, hero.bodyShape, layout, anatomy ? createAnatomyField(anatomy) : undefined);
   const materials = createMaterials(hero.palette, { flatShading: hero.bodyShape.shading === 'flat' });
   const bodyGeometry = buildBodyGeometry(surface, hero.bodyShape, anatomy && opts.refinedSurface !== false ? { transitions: true, adaptive: true, junctionBlend: { k: blendRadiusFor(anatomy.smoothness), overall: overallSmoothingFor(anatomy.smoothness) } } : {});
-  const bodyMaterials = BODY_REGIONS.map((r) => materials.get(hero.bodyPaint[REGION_PART[r].part]));
+  const bodyMaterialOf = anatomy ? createBodyMaterials(materials, anatomy.material) : (ref: string) => materials.get(ref);
+  const bodyMaterials = BODY_REGIONS.map((r) => bodyMaterialOf(hero.bodyPaint[REGION_PART[r].part]));
+  if (anatomy) bodyGeometry.setAttribute('color', cavityColors(bodyGeometry, anatomy.material.anatomicalContrast));
   const collider = createBodyCollider(bodyGeometry);
   const ctx = { surface, layout, materials, sockets: hero.sockets, radialSegments: anatomy ? Math.min(hero.bodyShape.radialSegments, ANATOMY_EQUIPMENT_SEGMENTS) : hero.bodyShape.radialSegments, collider };
   const equipment = hero.equipment.map((item) => buildEquipment(item, ctx));

@@ -4,8 +4,8 @@ import { resetToBindPose } from '../rigging/SkeletonBuilder';
 import { buildCharacter } from '../runtime/CharacterFactory';
 import { summarizeCharacter, type CharacterSummary } from './CharacterSummary';
 
-/** Thuộc tính chỉ dùng nội bộ khi dựng/skin, không đưa vào file. */
-const INTERNAL_ATTRIBUTES = ['region', 'chainT', 'color'];
+/** Thuộc tính chỉ dùng nội bộ khi dựng/skin, không đưa vào file. Màu đỉnh giữ lại khi vật liệu thân dùng nó (tô rãnh cơ). */
+const INTERNAL_ATTRIBUTES = ['region', 'chainT'];
 
 /**
  * Xuất GLB từ một bản dựng MỚI ở bind pose (không dùng bản đang hiển thị),
@@ -15,6 +15,8 @@ export const exportCharacterGlb = async (hero: HeroDefinition): Promise<{ buffer
   const instance = buildCharacter(hero);
   resetToBindPose(instance.rig);
   for (const name of INTERNAL_ATTRIBUTES) instance.body.geometry.deleteAttribute(name);
+  const usesVertexColors = [instance.body.material].flat().some((m) => 'vertexColors' in m && m.vertexColors);
+  if (!usesVertexColors) instance.body.geometry.deleteAttribute('color');
   const result = await new GLTFExporter().parseAsync(instance.root, { binary: true, onlyVisible: false });
   if (!(result instanceof ArrayBuffer)) throw new Error('GLTFExporter không trả về dữ liệu nhị phân');
   return { buffer: result, summary: summarizeCharacter(instance.root) };

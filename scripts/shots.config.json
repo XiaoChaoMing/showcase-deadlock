@@ -997,6 +997,42 @@
     {
       "name": "fighter-feminine-torso-after",
       "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=feminine&stage=body&lighting=legacy&shadows=soft&zoom=torso&view=threeQuarter"
+    },
+    {
+      "name": "fighter-masculine-torso-contrast-front",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=masculine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-masculine-torso-contrast-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=masculine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-masculine-torso-contrast-back",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=masculine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-feminine-torso-contrast-front",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=feminine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-feminine-torso-contrast-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=feminine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-feminine-torso-contrast-back",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=feminine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-masculine-torso-contrast-front",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=masculine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-masculine-torso-contrast-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=masculine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-masculine-torso-contrast-back",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=masculine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
     }
   ]
 }
