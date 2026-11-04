@@ -1207,6 +1207,12 @@
                 "maximum": 360,
                 "description": "Độ rộng ô hở mặt quanh phía trước (độ, 0 = kín)"
               },
+              "faceOpeningTop": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Mép trên của ô hở mặt theo t của đầu (0 = cằm, 1 = đỉnh); phần trên mép này kín. Mặc định 0.72 (ngang lông mày)"
+              },
               "thickness": {
                 "type": "number",
                 "minimum": 0,

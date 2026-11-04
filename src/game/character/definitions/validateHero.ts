@@ -58,7 +58,13 @@ const translate = (e: ErrorObject): HeroError => {
       if (parent.pattern === HEX_COLOR.source) {
         return { path: e.instancePath, message: `phải là mã màu dạng #RRGGBB (đang là ${formatValue(e.data)})` };
       }
-      return { path: e.instancePath, message: `không đúng định dạng ${String(params.pattern)} (đang là ${formatValue(e.data)})` };
+      return {
+        path: e.instancePath,
+        message:
+          typeof parent.description === 'string'
+            ? `không đúng định dạng — ${parent.description} (đang là ${formatValue(e.data)})`
+            : `không đúng định dạng ${String(params.pattern)} (đang là ${formatValue(e.data)})`,
+      };
     case 'enum':
       return { path: e.instancePath, message: `phải là một trong: ${(params.allowedValues as unknown[]).join(', ')} (đang là ${formatValue(e.data)})` };
     case 'const':

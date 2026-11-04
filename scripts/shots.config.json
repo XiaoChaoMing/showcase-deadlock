@@ -476,5 +476,31 @@
       "name": "heroes-lineup",
       "query": "preview=1&lineup=heroes&stage=full&view=threeQuarter&pose=idle"
     }
+  ],
+  "morrow": [
+    {
+      "name": "morrow-showcase",
+      "query": "hero=morrow",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "name": "morrow-front",
+      "query": "preview=1&hero=morrow&stage=full&view=front&pose=idle"
+    },
+    {
+      "name": "morrow-back",
+      "query": "preview=1&hero=morrow&stage=full&view=back&pose=idle"
+    },
+    {
+      "name": "morrow-side",
+      "query": "preview=1&hero=morrow&stage=full&view=side&pose=idle"
+    },
+    {
+      "name": "morrow-armRaise",
+      "query": "preview=1&hero=morrow&stage=full&view=threeQuarter&pose=armRaise"
+    }
   ]
 }

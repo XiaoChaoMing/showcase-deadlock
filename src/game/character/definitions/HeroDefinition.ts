@@ -122,6 +122,8 @@ export interface ShellItem extends ItemBase {
   kind: 'shell';
   coverage: number;
   faceOpeningDeg: number;
+  /** Mép trên ô hở mặt (t của đầu); phía trên kín. Mặc định 0.72. */
+  faceOpeningTop?: number;
   thickness: number;
   gap: number;
   crest?: { height: number; width: number };

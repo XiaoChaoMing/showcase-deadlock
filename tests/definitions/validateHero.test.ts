@@ -58,6 +58,16 @@ describe('validateHero', () => {
     expect(!r.ok && r.errors.some((e) => e.path === '/bodyShape/radialSegments' && e.message.includes('bội số của 8'))).toBe(true);
   });
 
+  it('sai định dạng mã thì giải thích bằng lời, không in regex', () => {
+    const h = structuredClone(kestrelJson) as Mutable;
+    h.equipment[0].id = 'back_hammer';
+    const r = validateHero(h);
+    const e = !r.ok ? r.errors.find((x) => x.path === '/equipment/0/id') : undefined;
+    expect(e?.message).toContain('gạch nối');
+    expect(e?.message).toContain('back_hammer');
+    expect(e?.message).not.toContain('^[');
+  });
+
   it('không phải object → lỗi tại gốc', () => {
     const r = validateHero(42);
     expect(r.ok).toBe(false);

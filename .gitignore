@@ -3,3 +3,4 @@ dist
 snapshots
 *.glb
 .superpowers
+.DS_Store

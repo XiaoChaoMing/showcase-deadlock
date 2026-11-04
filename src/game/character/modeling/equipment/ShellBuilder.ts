@@ -2,10 +2,13 @@ import * as THREE from 'three';
 import type { ShellItem } from '../../definitions/HeroDefinition';
 import type { CharacterLayout } from '../../definitions/CharacterLayout';
 import type { BodySurface } from '../BodySurface';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { buildSlab, type SlabSample } from '../geometry/Slab';
 
 const ROWS = 14;
 const CREST_START_OFFSET = 0.1;
+/** Mép trên mặc định của ô hở mặt (t của đầu, ngang lông mày). */
+const DEFAULT_FACE_OPENING_TOP = 0.72;
 
 /** Vỏ mũ: phủ đầu từ đỉnh xuống `coverage`, chừa ô mặt quanh góc 0°, khép kín ở đỉnh. */
 export const buildShellGeometries = (
@@ -15,27 +18,48 @@ export const buildShellGeometries = (
   radialSegments: number,
 ): { shell: THREE.BufferGeometry; crest?: THREE.BufferGeometry } => {
   const tStart = 1 - item.coverage;
-  const open = item.faceOpeningDeg > 0;
-  const a0 = open ? item.faceOpeningDeg / 2 : 0;
-  const a1 = open ? 360 - item.faceOpeningDeg / 2 : 360;
   const apex: SlabSample = { p: new THREE.Vector3(0, layout.headTopY, 0), n: new THREE.Vector3(0, 1, 0) };
   const headPoint = (t: number, angleDeg: number): SlabSample => {
     const { position, normal } = surface.pointAt({ part: 'head', t, angleDeg });
     return { p: new THREE.Vector3(...position), n: new THREE.Vector3(...normal) };
   };
+  const cols = (span: number) => Math.max(8, Math.ceil((span / 360) * radialSegments * 2));
+  const offsets = { inner: () => item.gap, outer: () => item.gap + item.thickness };
+  /** Chóp kín từ t = from lên đỉnh, quấn đủ 360°. */
+  const cap = (from: number, rows: number) =>
+    buildSlab({
+      rows,
+      cols: cols(360),
+      wrapCols: true,
+      sample: (u, v) => (u >= 1 ? apex : headPoint(from + (1 - from) * u, 360 * v)),
+      ...offsets,
+    });
 
-  const shell = buildSlab({
-    rows: ROWS,
-    cols: Math.max(8, Math.ceil(((a1 - a0) / 360) * radialSegments * 2)),
-    wrapCols: !open,
-    sample: (u, v) => (u >= 1 ? apex : headPoint(tStart + (1 - tStart) * u, a0 + (a1 - a0) * v)),
-    inner: () => item.gap,
-    outer: () => item.gap + item.thickness,
-  });
+  // Ô hở mặt chỉ nằm ở dải dưới (từ mép mũ tới faceOpeningTop); trán và đỉnh mũ luôn kín.
+  const openTop = Math.min(1, item.faceOpeningTop ?? DEFAULT_FACE_OPENING_TOP);
+  const open = item.faceOpeningDeg > 0 && openTop > tStart;
+  let shell: THREE.BufferGeometry;
+  if (!open) {
+    shell = cap(tStart, ROWS);
+  } else {
+    const a0 = item.faceOpeningDeg / 2;
+    const a1 = 360 - item.faceOpeningDeg / 2;
+    const lowerRows = Math.max(2, Math.round((ROWS * (openTop - tStart)) / (1 - tStart)));
+    const band = buildSlab({
+      rows: lowerRows,
+      cols: cols(a1 - a0),
+      wrapCols: false,
+      sample: (u, v) => headPoint(tStart + (openTop - tStart) * u, a0 + (a1 - a0) * v),
+      ...offsets,
+    });
+    shell = mergeGeometries([band, cap(openTop, Math.max(2, ROWS - lowerRows))])!;
+    band.dispose();
+  }
+
   if (!item.crest) return { shell };
 
   // Gờ chạy dọc đường giữa: từ trán (0°) lên đỉnh rồi xuống gáy (180°).
-  const crestStart = Math.min(0.95, tStart + CREST_START_OFFSET);
+  const crestStart = Math.min(0.95, Math.max(tStart + CREST_START_OFFSET, open ? openTop : 0));
   const along = (u: number): SlabSample => {
     if (u <= 0.45) return headPoint(crestStart + (1 - crestStart) * (u / 0.45), 0);
     if (u >= 0.55) return headPoint(1 - (1 - crestStart) * ((u - 0.55) / 0.45), 180);
