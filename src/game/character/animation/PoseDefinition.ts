@@ -26,8 +26,17 @@ export const POSES: Record<PoseId, Pose> = {
     RightUpperLeg: [0, 0, -3],
   },
   armRaise: {
-    LeftShoulder: [0, 0, 18],
-    LeftUpperArm: [0, 0, 62],
+    // Xương đòn nhún lên và hơi đưa ra trước; cánh tay giơ cao, hơi ra trước, khuỷu cong nhẹ.
+    LeftShoulder: [0, -8, 25],
+    LeftUpperArm: [0, -18, 58],
+    LeftLowerArm: [0, -20, 0],
+    // Tay kia buông tự nhiên, thân hơi nghiêng ngược lại để giữ thăng bằng.
+    RightShoulder: [0, 0, 6],
+    RightUpperArm: [0, -8, 68],
+    RightLowerArm: [0, 18, 0],
+    RightHand: [-10, 0, 0],
+    Spine: [0, 0, -3],
+    Chest: [0, 0, -2],
   },
   elbowBend: {
     LeftLowerArm: [0, -100, 0],

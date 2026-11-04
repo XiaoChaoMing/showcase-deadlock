@@ -109,7 +109,10 @@ const buildRiggedFigure = (withEquipment: boolean): StageBuilder => (hero, param
   group.add(skeletonDebug.group);
   const overlaySkeleton = params.overlay.has('skeleton');
   skeletonDebug.setVisible({ lines: overlaySkeleton, joints: overlaySkeleton, labels: params.overlay.has('labels'), axes: false });
-  return { object: group, skeletonDebug, instance: inst, animator, height: hero.proportions.height, focus: buildProportionFigure(hero, params).focus };
+  // Chiều cao khung hình theo tư thế thật (tay giơ cao, chân đá...), để camera không cắt mất.
+  inst.root.updateMatrixWorld(true);
+  const top = new THREE.Box3().setFromObject(inst.body).max.y;
+  return { object: group, skeletonDebug, instance: inst, animator, height: Math.max(hero.proportions.height, top), focus: buildProportionFigure(hero, params).focus };
 };
 
 /** Các stage chưa làm sẽ được thêm ở milestone sau; tạm dùng stage gần nhất đã có. */
@@ -269,7 +272,7 @@ export class PreviewApp {
       return;
     }
     const target = new THREE.Vector3(0, height / 2, 0);
-    const distance = count > 1 ? this.lineupWidth * 1.2 : 3.9;
+    const distance = count > 1 ? this.lineupWidth * 1.2 : 3.9 * Math.max(1, height / 1.8);
     this.viewport.setView(this.params.view, target, distance);
   }
 

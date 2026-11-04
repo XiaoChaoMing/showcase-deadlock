@@ -356,5 +356,39 @@
       "name": "torsoTwist-hipL-front-wire",
       "query": "hero=kestrel&stage=skinned&view=front&pose=torsoTwist&zoom=hipL&overlay=wireframe"
     }
+  ],
+  "m5b": [
+    {
+      "name": "armRaise-front",
+      "query": "hero=kestrel&stage=full&view=front&pose=armRaise"
+    },
+    {
+      "name": "armRaise-threeQuarter",
+      "query": "hero=kestrel&stage=full&view=threeQuarter&pose=armRaise"
+    },
+    {
+      "name": "armRaise-side",
+      "query": "hero=kestrel&stage=full&view=side&pose=armRaise"
+    },
+    {
+      "name": "armRaise-body-front",
+      "query": "hero=kestrel&stage=skinned&view=front&pose=armRaise"
+    },
+    {
+      "name": "armRaise-shoulder-skin",
+      "query": "hero=kestrel&stage=skinned&view=front&pose=armRaise&zoom=shoulderL"
+    },
+    {
+      "name": "armRaise-shoulder-back",
+      "query": "hero=kestrel&stage=skinned&view=back&pose=armRaise&zoom=shoulderL"
+    },
+    {
+      "name": "legRaise-hip-side",
+      "query": "hero=kestrel&stage=skinned&view=side&pose=legRaise&zoom=hipL"
+    },
+    {
+      "name": "legRaise-hip-threeQuarter",
+      "query": "hero=kestrel&stage=skinned&view=threeQuarter&pose=legRaise&zoom=hipL"
+    }
   ]
 }

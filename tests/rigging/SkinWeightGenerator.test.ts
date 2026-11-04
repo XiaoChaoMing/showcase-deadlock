@@ -33,6 +33,38 @@ describe('boneSegment', () => {
   });
 });
 
+describe('hoà trộn ở gốc chi', () => {
+  const firstRingT = (r: BodyRegion) => Math.min(...verticesWhere((v) => region.getX(v) === r).map((v) => chainT.getX(v)));
+
+  it('vòng gốc cánh tay chia giữa xương đòn và bắp tay (mỗi bên ≥ 0.25)', () => {
+    const t0 = firstRingT(BodyRegion.ArmL);
+    const ring = verticesWhere((v) => region.getX(v) === BodyRegion.ArmL && Math.abs(chainT.getX(v) - t0) < 1e-6);
+    expect(ring.length).toBeGreaterThan(0);
+    for (const v of ring) {
+      expect(weightOf(v, 'LeftShoulder')).toBeGreaterThanOrEqual(0.25);
+      expect(weightOf(v, 'LeftUpperArm')).toBeGreaterThanOrEqual(0.25);
+    }
+  });
+
+  it('vòng đầu đùi chia giữa Hips và đùi (mỗi bên ≥ 0.25)', () => {
+    const t0 = firstRingT(BodyRegion.LegL);
+    const ring = verticesWhere((v) => region.getX(v) === BodyRegion.LegL && Math.abs(chainT.getX(v) - t0) < 1e-6);
+    for (const v of ring) {
+      expect(weightOf(v, 'Hips')).toBeGreaterThanOrEqual(0.25);
+      expect(weightOf(v, 'LeftUpperLeg')).toBeGreaterThanOrEqual(0.25);
+    }
+  });
+
+  it('weight đổi liên tục dọc cánh tay (không nhảy quá 0.35 giữa hai vòng liền kề)', () => {
+    const ts = [...new Set(verticesWhere((v) => region.getX(v) === BodyRegion.ArmL).map((v) => chainT.getX(v)))].sort((a, b) => a - b);
+    const ua = (t: number) => {
+      const v = verticesWhere((x) => region.getX(x) === BodyRegion.ArmL && chainT.getX(x) === t)[0]!;
+      return weightOf(v, 'LeftUpperArm');
+    };
+    for (let i = 1; i < ts.length; i++) expect(Math.abs(ua(ts[i]!) - ua(ts[i - 1]!))).toBeLessThanOrEqual(0.35);
+  });
+});
+
 describe('chi to, nhiều cơ không làm lệch weight', () => {
   it('giữa bắp tay vẫn ≥ 0.9 UpperArm khi cánh tay rất to', () => {
     const bulky = { ...kestrel, bodyShape: { ...kestrel.bodyShape, arm: { ...kestrel.bodyShape.arm, sections: kestrel.bodyShape.arm.sections.map((x) => ({ ...x, width: x.width * 1.6, depth: x.depth * 1.6 })) } } };
