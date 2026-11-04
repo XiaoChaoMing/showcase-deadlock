@@ -4,11 +4,7 @@ import { sampleProfile } from './geometry/profile';
 import type { SweepRing } from './geometry/RingSweep';
 
 /** Hằng số hình học chung cho mọi hero (mét). */
-const LIMB_ROOT_INSET = 0.04;
-const HAND_ROOT_INSET = 0.02;
-const NECK_OVERLAP = 0.02;
-const HEAD_OVERLAP = 0.02;
-const FOOT_HEEL_RATIO = 0.25;
+export const FOOT_HEEL_RATIO = 0.25;
 
 /** Hình dạng bàn tay/bàn chân dọc theo chiều dài, tính bằng tỷ lệ (width = theo B, depth = theo A). */
 const HAND_PROFILE: Section[] = [
@@ -28,8 +24,11 @@ export interface BodySurface {
   ringAt(part: BodyPart, side: Side | undefined, t: number): SweepRing;
   pointAt(m: SurfaceMount): { position: Vec3; normal: Vec3 };
   partLength(part: BodyPart): number;
-  /** Các giá trị t dùng để dựng sweep của bộ phận (có thể vượt [0, 1] ở phần lồng vào bộ phận cha). */
-  sweepTs(part: BodyPart, ringsPerMeter: number): number[];
+  /** Các giá trị t phân bố đều trong [from, to] theo mật độ ringsPerMeter, dày hơn quanh khuỷu/gối. */
+  uniformTs(part: BodyPart, ringsPerMeter: number, from: number, to: number): number[];
+  readonly proportions: CharacterProportions;
+  readonly shape: BodyShape;
+  readonly layout: CharacterLayout;
 }
 
 interface PartFrame {
@@ -38,8 +37,6 @@ interface PartFrame {
   axisA: Vec3;
   axisB: Vec3;
   n: number;
-  extendStart: number;
-  extendEnd: number;
   /** Bán kính theo A, theo B, và độ dịch tâm theo A tại t ∈ [0, 1]. */
   size(t: number): { ra: number; rb: number; forward: number };
   /** Các khớp gập bên trong bộ phận (t), cần đặt ring dày hơn. */
@@ -81,42 +78,40 @@ export const createBodySurface = (p: CharacterProportions, shape: BodyShape, lay
     start: [0, layout.torsoBottomY, 0],
     end: [0, layout.neckBaseY, 0],
     axisA: FRONT, axisB: [1, 0, 0], n: shape.torso.squareness,
-    extendStart: 0, extendEnd: 0, joints: [],
+    joints: [],
     size: sectionSize(shape.torso.sections),
   });
   frames.set('neck', {
-    start: [0, layout.neckBaseY - NECK_OVERLAP, 0],
-    end: [0, J.Head[1] + NECK_OVERLAP, 0],
+    start: [0, layout.neckBaseY, 0],
+    end: [0, J.Head[1], 0],
     axisA: FRONT, axisB: [1, 0, 0], n: 2,
-    extendStart: 0, extendEnd: 0, joints: [],
+    joints: [],
     size: (t) => {
       const r = p.neck.radius * (1 + (shape.neck.taper - 1) * t);
       return { ra: r, rb: r, forward: 0 };
     },
   });
   frames.set('head', {
-    start: [0, J.Head[1] - HEAD_OVERLAP, 0],
+    start: [0, J.Head[1], 0],
     end: [0, layout.headTopY, 0],
     axisA: FRONT, axisB: [1, 0, 0], n: shape.head.squareness,
-    extendStart: 0, extendEnd: 0, joints: [],
+    joints: [],
     size: sectionSize(shape.head.sections, p.head.width, p.head.depth),
   });
 
   for (const side of ['left', 'right'] as const) {
-    const armLength = p.arms.upperLength + p.arms.lowerLength;
-    const legLength = p.legs.upperLength + p.legs.lowerLength;
     frames.set(key('arm', side), {
       start: pick(side, J.LeftUpperArm, J.RightUpperArm),
       end: pick(side, J.LeftHand, J.RightHand),
       axisA: FRONT, axisB: UP, n: shape.arm.squareness,
-      extendStart: LIMB_ROOT_INSET / armLength, extendEnd: 0, joints: [layout.elbowT],
+      joints: [layout.elbowT],
       size: sectionSize(shape.arm.sections),
     });
     frames.set(key('hand', side), {
       start: pick(side, J.LeftHand, J.RightHand),
       end: layout.handTip[side],
       axisA: FRONT, axisB: UP, n: shape.hand.squareness,
-      extendStart: HAND_ROOT_INSET / p.arms.handLength, extendEnd: 0, joints: [],
+      joints: [],
       // Lòng bàn tay úp xuống khi T-Pose: bề ngang theo trước–sau (A), bề dày theo trên–dưới (B).
       size: sectionSize(HAND_PROFILE, shape.hand.thickness, shape.hand.width),
     });
@@ -124,7 +119,7 @@ export const createBodySurface = (p: CharacterProportions, shape: BodyShape, lay
       start: pick(side, J.LeftUpperLeg, J.RightUpperLeg),
       end: pick(side, J.LeftFoot, J.RightFoot),
       axisA: FRONT, axisB: outward(side), n: shape.leg.squareness,
-      extendStart: LIMB_ROOT_INSET / legLength, extendEnd: LIMB_ROOT_INSET / legLength, joints: [layout.kneeT],
+      joints: [layout.kneeT],
       size: sectionSize(shape.leg.sections),
     });
     const ankle = pick(side, J.LeftFoot, J.RightFoot);
@@ -132,7 +127,7 @@ export const createBodySurface = (p: CharacterProportions, shape: BodyShape, lay
       start: [ankle[0], p.foot.height / 2, -FOOT_HEEL_RATIO * p.foot.length],
       end: layout.toeTip[side],
       axisA: UP, axisB: outward(side), n: shape.foot.squareness,
-      extendStart: 0, extendEnd: 0, joints: [],
+      joints: [],
       size: groundedFoot(sectionSize(footProfile(shape.foot.toeTaper), p.foot.width, p.foot.height), p.foot.height / 2, layout.toeTip[side][1]),
     });
   }
@@ -181,17 +176,21 @@ export const createBodySurface = (p: CharacterProportions, shape: BodyShape, lay
     return dist(f.start, f.end);
   };
 
-  const sweepTs = (part: BodyPart, ringsPerMeter: number): number[] => {
+  const uniformTs = (part: BodyPart, ringsPerMeter: number, from: number, to: number): number[] => {
     const f = frameOf(part, 'left');
     const length = dist(f.start, f.end);
-    const count = Math.max(4, Math.ceil(length * ringsPerMeter) + 1);
-    const ts = Array.from({ length: count }, (_, i) => i / (count - 1));
-    for (const j of f.joints) for (const d of [-0.06, -0.03, 0, 0.03, 0.06]) ts.push(j + d / length);
-    if (f.extendStart > 0) ts.push(-f.extendStart);
-    if (f.extendEnd > 0) ts.push(1 + f.extendEnd);
+    const count = Math.max(2, Math.ceil((to - from) * length * ringsPerMeter) + 1);
+    const ts = Array.from({ length: count }, (_, i) => from + ((to - from) * i) / (count - 1));
+    for (const j of f.joints) {
+      for (const d of [-0.06, -0.03, 0, 0.03, 0.06]) {
+        const t = j + d / length;
+        if (t > from && t < to) ts.push(t);
+      }
+    }
     ts.sort((a, b) => a - b);
-    return ts.filter((t, i) => i === 0 || t - (ts[i - 1] ?? -Infinity) > 0.004);
+    const minGap = 0.008 / length;
+    return ts.filter((t, i) => i === 0 || t - (ts[i - 1] ?? -Infinity) > minGap);
   };
 
-  return { ringAt, pointAt, partLength, sweepTs };
+  return { ringAt, pointAt, partLength, uniformTs, proportions: p, shape, layout };
 };

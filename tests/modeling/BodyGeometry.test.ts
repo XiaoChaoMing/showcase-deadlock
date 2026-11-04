@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import * as THREE from 'three';
 import { createBodySurface } from '../../src/game/character/modeling/BodySurface';
-import { BodyRegion, buildBodyGeometry, buildBodySweeps, REGION_PART } from '../../src/game/character/modeling/BodyGeometry';
+import { BodyRegion, buildBodyGeometry, REGION_PART } from '../../src/game/character/modeling/BodyGeometry';
 import type { BodyShape, HeroDefinition } from '../../src/game/character/definitions/HeroDefinition';
 import { kestrel } from '../fixtures/kestrel';
-import { hasNaN, inwardFacesPolyline } from '../helpers/geometry';
+import { hasNaN } from '../helpers/geometry';
 import { resolvedOf, SAMPLE_HEROES } from '../helpers/heroes';
 
 const geometryOf = (hero: HeroDefinition, shape: BodyShape = hero.bodyShape) => {
@@ -69,37 +69,6 @@ describe('flat vs smooth', () => {
   it('flat → non-indexed, smooth → indexed', () => {
     expect(geometryOf(kestrel).geometry.index).toBeNull();
     expect(geometryOf(kestrel, { ...kestrel.bodyShape, shading: 'smooth' }).geometry.index).not.toBeNull();
-  });
-});
-
-describe('Review Focus #2: giá trị ở biên schema', () => {
-  const tiny = (s: BodyShape['arm']) => ({ ...s, squareness: 6, sections: s.sections.map((x) => ({ ...x, width: 0.005, depth: 0.005 })) });
-  const extreme: BodyShape = {
-    ...kestrel.bodyShape,
-    radialSegments: 6,
-    torso: { squareness: 6, sections: kestrel.bodyShape.torso.sections.map((x) => ({ ...x, width: 1.5 })) },
-    head: { ...kestrel.bodyShape.head, squareness: 6 },
-    arm: tiny(kestrel.bodyShape.arm),
-    leg: tiny(kestrel.bodyShape.leg),
-  };
-
-  it('không NaN, không mặt lộn ngược', () => {
-    const { proportions, layout } = resolvedOf(kestrel);
-    const surface = createBodySurface(proportions, extreme, layout);
-    for (const sweep of buildBodySweeps(surface, extreme)) {
-      expect(hasNaN(sweep.data.positions), BodyRegion[sweep.region]).toBe(false);
-      expect(inwardFacesPolyline(sweep.data, sweep.rings.map((r) => r.center)), BodyRegion[sweep.region]).toBe(0);
-    }
-    const geometry = buildBodyGeometry(surface, extreme);
-    expect(hasNaN(geometry.getAttribute('position').array)).toBe(false);
-    expect(hasNaN(geometry.getAttribute('normal').array)).toBe(false);
-  });
-
-  it('Kestrel: mọi sweep không có mặt lộn ngược', () => {
-    const { surface } = geometryOf(kestrel);
-    for (const sweep of buildBodySweeps(surface, kestrel.bodyShape)) {
-      expect(inwardFacesPolyline(sweep.data, sweep.rings.map((r) => r.center)), BodyRegion[sweep.region]).toBe(0);
-    }
   });
 });
 

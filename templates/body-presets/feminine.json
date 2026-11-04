@@ -32,7 +32,7 @@
     }
   },
   "bodyShape": {
-    "radialSegments": 12,
+    "radialSegments": 8,
     "ringsPerMeter": 40,
     "shading": "flat",
     "torso": {

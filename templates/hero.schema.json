@@ -523,9 +523,10 @@
       "properties": {
         "radialSegments": {
           "type": "integer",
-          "minimum": 6,
+          "minimum": 8,
           "maximum": 32,
-          "description": "Số cạnh quanh mỗi vòng tiết diện (càng nhiều càng tròn)"
+          "description": "Số cạnh quanh mỗi vòng tiết diện: 8, 16, 24 hoặc 32 (bội số của 8). Càng nhiều càng tròn, 8 là góc cạnh nhất",
+          "multipleOf": 8
         },
         "ringsPerMeter": {
           "type": "number",

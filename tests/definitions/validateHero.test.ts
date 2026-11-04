@@ -39,7 +39,7 @@ describe('validateHero', () => {
     const h = structuredClone(kestrelJson) as Mutable;
     h.bodyShape.radialSegments = 4;
     const r = validateHero(h);
-    expect(!r.ok && r.errors[0]?.message).toContain('6');
+    expect(!r.ok && r.errors[0]?.message).toContain('8');
     expect(!r.ok && r.errors[0]?.message).toContain('32');
     expect(!r.ok && r.errors[0]?.message).toContain('4');
   });
@@ -49,6 +49,13 @@ describe('validateHero', () => {
     h.palette.skin = 'red';
     const r = validateHero(h);
     expect(!r.ok && r.errors.filter((e) => e.path === '/palette/skin')).toHaveLength(1);
+  });
+
+  it('radialSegments phải là bội số của 8', () => {
+    const h = structuredClone(kestrelJson) as Mutable;
+    h.bodyShape.radialSegments = 12;
+    const r = validateHero(h);
+    expect(!r.ok && r.errors.some((e) => e.path === '/bodyShape/radialSegments' && e.message.includes('bội số của 8'))).toBe(true);
   });
 
   it('không phải object → lỗi tại gốc', () => {

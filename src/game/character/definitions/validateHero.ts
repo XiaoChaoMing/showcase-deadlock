@@ -63,6 +63,11 @@ const translate = (e: ErrorObject): HeroError => {
       return { path: e.instancePath, message: `phải là một trong: ${(params.allowedValues as unknown[]).join(', ')} (đang là ${formatValue(e.data)})` };
     case 'const':
       return { path: e.instancePath, message: `phải bằng ${formatValue(params.allowedValue)} (đang là ${formatValue(e.data)})` };
+    case 'multipleOf':
+      return {
+        path: e.instancePath,
+        message: `phải là bội số của ${String(params.multipleOf)}, trong khoảng ${String(parent.minimum)}–${String(parent.maximum)} (đang là ${formatValue(e.data)})`,
+      };
     case 'minItems':
     case 'maxItems':
       return {

@@ -130,5 +130,35 @@
       "name": "kestrel-full-tpose",
       "query": "hero=kestrel&stage=full&view=threeQuarter"
     }
+  ],
+  "m4b": [
+    {
+      "name": "body-threeQuarter",
+      "query": "hero=kestrel&stage=skinned&view=threeQuarter"
+    },
+    {
+      "name": "body-front-wire",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=wireframe"
+    },
+    {
+      "name": "body-shoulder-wire",
+      "query": "hero=kestrel&stage=skinned&view=threeQuarter&overlay=wireframe&zoom=shoulderL"
+    },
+    {
+      "name": "body-hip-wire",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=wireframe&zoom=hipL"
+    },
+    {
+      "name": "body-back",
+      "query": "hero=kestrel&stage=skinned&view=back"
+    },
+    {
+      "name": "full-threeQuarter",
+      "query": "hero=kestrel&stage=full&view=threeQuarter"
+    },
+    {
+      "name": "lineup-presets",
+      "query": "stage=skinned&lineup=presets&view=threeQuarter"
+    }
   ]
 }
