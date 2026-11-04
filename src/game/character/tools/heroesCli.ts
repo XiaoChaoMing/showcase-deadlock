@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { HeroDefinition } from '../definitions/HeroDefinition';
 import { validateHero } from '../definitions/validateHero';
+import { applyPreset, BODY_PRESETS, type BodyPresetName } from '../definitions/presets';
 import { benchMarkdown, runBench } from './bench';
 
 const readHeroes = (heroesDir: string): { id: string; raw: unknown }[] =>
@@ -20,6 +21,11 @@ export const runBenchCommand = (heroesDir: string, runs = 5): string => {
     const r = validateHero(raw);
     if (r.ok) heroes.push(r.hero);
     else skipped.push(id);
+  }
+  // Thêm 4 preset dáng cũ (trên trang bị của hero đầu tiên) làm mốc so sánh cho phần thân.
+  const base = heroes[0];
+  if (base) {
+    for (const name of Object.keys(BODY_PRESETS) as BodyPresetName[]) heroes.push({ ...applyPreset(base, BODY_PRESETS[name]), id: `${base.id}+${name}` });
   }
   const notes = skipped.length ? `\n\nBỏ qua (không hợp lệ): ${skipped.join(', ')}` : '';
   return benchMarkdown(runBench(heroes, runs)) + notes;

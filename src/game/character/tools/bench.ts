@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 import type { HeroDefinition } from '../definitions/HeroDefinition';
 import { buildCharacter } from '../runtime/CharacterFactory';
+import { computeLayout } from '../definitions/CharacterLayout';
+import { resolveProportions } from '../definitions/resolveProportions';
+import { createBodySurface } from '../modeling/BodySurface';
+import { buildBodyGeometry } from '../modeling/BodyGeometry';
+import { generateSkinWeights } from '../rigging/SkinWeightGenerator';
 
 export interface BenchRow {
   id: string;
@@ -9,6 +14,10 @@ export interface BenchRow {
   uniqueMaterials: number;
   firstBuildMs: number;
   medianRebuildMs: number;
+  bodyTriangles: number;
+  bodyVertices: number;
+  /** Riêng phần thân: lưới liền khối + skin weight (trung vị). */
+  bodyBuildMs: number;
 }
 
 /** Ngân sách khởi đầu của spec mục 10.2 (mục tiêu benchmark, không phải giới hạn cứng). */
@@ -49,16 +58,33 @@ const disposeTree = (root: THREE.Object3D): void => {
   });
 };
 
+const timeBody = (hero: HeroDefinition): number => {
+  const t0 = performance.now();
+  const r = resolveProportions(hero.proportions);
+  if (!r.ok) throw new Error(r.error);
+  const layout = computeLayout(r.value);
+  const geometry = buildBodyGeometry(createBodySurface(r.value, hero.bodyShape, layout), hero.bodyShape);
+  generateSkinWeights(geometry, layout);
+  const ms = performance.now() - t0;
+  geometry.dispose();
+  return ms;
+};
+
 /** Dựng mỗi hero `runs` lần; lần đầu tính là "first build", các lần sau là "rebuild". */
 export const runBench = (heroes: HeroDefinition[], runs = 5): BenchRow[] =>
   heroes.map((hero) => {
     const times: number[] = [];
     let stats: SceneStats = { triangles: 0, drawCalls: 0, uniqueMaterials: 0 };
+    let body = { triangles: 0, vertices: 0 };
     for (let i = 0; i < runs; i++) {
       const t0 = performance.now();
       const instance = buildCharacter(hero);
       times.push(performance.now() - t0);
-      if (i === 0) stats = sceneStats(instance.root);
+      if (i === 0) {
+        stats = sceneStats(instance.root);
+        const g = instance.body.geometry;
+        body = { triangles: Math.round((g.index ? g.index.count : g.getAttribute('position').count) / 3), vertices: g.getAttribute('position').count };
+      }
       disposeTree(instance.root);
     }
     return {
@@ -66,6 +92,9 @@ export const runBench = (heroes: HeroDefinition[], runs = 5): BenchRow[] =>
       ...stats,
       firstBuildMs: Math.round(times[0] ?? 0),
       medianRebuildMs: Math.round(median(times.slice(1))),
+      bodyTriangles: body.triangles,
+      bodyVertices: body.vertices,
+      bodyBuildMs: Math.round(median(Array.from({ length: runs }, () => timeBody(hero)))),
     };
   });
 
@@ -73,10 +102,10 @@ const flag = (value: number, limit: number): string => (value > limit ? `**${val
 
 export const benchMarkdown = (rows: BenchRow[]): string =>
   [
-    `| Hero | Tam giác (≤ ${BUDGET.triangles}) | Draw call (≤ ${BUDGET.drawCalls}) | Vật liệu (≤ ${BUDGET.uniqueMaterials}) | Dựng lần đầu ms (≤ ${BUDGET.buildMs}) | Dựng lại ms, trung vị |`,
-    '|---|---|---|---|---|---|',
+    `| Hero | Tam giác (≤ ${BUDGET.triangles}) | Draw call (≤ ${BUDGET.drawCalls}) | Vật liệu (≤ ${BUDGET.uniqueMaterials}) | Dựng lần đầu ms (≤ ${BUDGET.buildMs}) | Dựng lại ms, trung vị | Thân: tam giác | Thân: đỉnh | Thân: ms |`,
+    '|---|---|---|---|---|---|---|---|---|',
     ...rows.map(
       (r) =>
-        `| ${r.id} | ${flag(r.triangles, BUDGET.triangles)} | ${flag(r.drawCalls, BUDGET.drawCalls)} | ${flag(r.uniqueMaterials, BUDGET.uniqueMaterials)} | ${flag(r.firstBuildMs, BUDGET.buildMs)} | ${r.medianRebuildMs} |`,
+        `| ${r.id} | ${flag(r.triangles, BUDGET.triangles)} | ${flag(r.drawCalls, BUDGET.drawCalls)} | ${flag(r.uniqueMaterials, BUDGET.uniqueMaterials)} | ${flag(r.firstBuildMs, BUDGET.buildMs)} | ${r.medianRebuildMs} | ${r.bodyTriangles} | ${r.bodyVertices} | ${r.bodyBuildMs} |`,
     ),
   ].join('\n');

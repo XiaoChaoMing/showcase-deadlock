@@ -502,5 +502,103 @@
       "name": "lineup-presets",
       "query": "preview=1&lineup=presets&stage=full&view=front&lighting=legacy"
     }
+  ],
+  "body-baseline": [
+    {
+      "name": "kestrel-body-front",
+      "query": "preview=1&hero=kestrel&stage=body&view=front&lighting=legacy"
+    },
+    {
+      "name": "athletic-body-front",
+      "query": "preview=1&hero=kestrel&preset=athletic&stage=body&view=front&lighting=legacy"
+    },
+    {
+      "name": "heavy-body-front",
+      "query": "preview=1&hero=kestrel&preset=heavy&stage=body&view=front&lighting=legacy"
+    },
+    {
+      "name": "slim-body-front",
+      "query": "preview=1&hero=kestrel&preset=slim&stage=body&view=front&lighting=legacy"
+    },
+    {
+      "name": "feminine-body-front",
+      "query": "preview=1&hero=kestrel&preset=feminine&stage=body&view=front&lighting=legacy"
+    },
+    {
+      "name": "kestrel-body-side",
+      "query": "preview=1&hero=kestrel&stage=body&view=side&lighting=legacy"
+    },
+    {
+      "name": "athletic-body-side",
+      "query": "preview=1&hero=kestrel&preset=athletic&stage=body&view=side&lighting=legacy"
+    },
+    {
+      "name": "heavy-body-side",
+      "query": "preview=1&hero=kestrel&preset=heavy&stage=body&view=side&lighting=legacy"
+    },
+    {
+      "name": "slim-body-side",
+      "query": "preview=1&hero=kestrel&preset=slim&stage=body&view=side&lighting=legacy"
+    },
+    {
+      "name": "feminine-body-side",
+      "query": "preview=1&hero=kestrel&preset=feminine&stage=body&view=side&lighting=legacy"
+    },
+    {
+      "name": "kestrel-body-back",
+      "query": "preview=1&hero=kestrel&stage=body&view=back&lighting=legacy"
+    },
+    {
+      "name": "athletic-body-back",
+      "query": "preview=1&hero=kestrel&preset=athletic&stage=body&view=back&lighting=legacy"
+    },
+    {
+      "name": "heavy-body-back",
+      "query": "preview=1&hero=kestrel&preset=heavy&stage=body&view=back&lighting=legacy"
+    },
+    {
+      "name": "slim-body-back",
+      "query": "preview=1&hero=kestrel&preset=slim&stage=body&view=back&lighting=legacy"
+    },
+    {
+      "name": "feminine-body-back",
+      "query": "preview=1&hero=kestrel&preset=feminine&stage=body&view=back&lighting=legacy"
+    },
+    {
+      "name": "kestrel-body-threeQuarter",
+      "query": "preview=1&hero=kestrel&stage=body&view=threeQuarter&lighting=legacy"
+    },
+    {
+      "name": "athletic-body-threeQuarter",
+      "query": "preview=1&hero=kestrel&preset=athletic&stage=body&view=threeQuarter&lighting=legacy"
+    },
+    {
+      "name": "heavy-body-threeQuarter",
+      "query": "preview=1&hero=kestrel&preset=heavy&stage=body&view=threeQuarter&lighting=legacy"
+    },
+    {
+      "name": "slim-body-threeQuarter",
+      "query": "preview=1&hero=kestrel&preset=slim&stage=body&view=threeQuarter&lighting=legacy"
+    },
+    {
+      "name": "feminine-body-threeQuarter",
+      "query": "preview=1&hero=kestrel&preset=feminine&stage=body&view=threeQuarter&lighting=legacy"
+    },
+    {
+      "name": "kestrel-skinned-armRaise",
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&pose=armRaise&lighting=legacy"
+    },
+    {
+      "name": "kestrel-skinned-elbowBend",
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&pose=elbowBend&lighting=legacy"
+    },
+    {
+      "name": "kestrel-skinned-kneeBend",
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&pose=kneeBend&lighting=legacy"
+    },
+    {
+      "name": "kestrel-skinned-torsoTwist",
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&pose=torsoTwist&lighting=legacy"
+    }
   ]
 }
