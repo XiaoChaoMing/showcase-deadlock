@@ -41,7 +41,12 @@
 
 **Tương thích**
 - Hero không có `bodyDesign` giữ nguyên dấu vân tay (`tests/regression/v1Parity.test.ts`).
-- Không sửa `heroes/morrow/hero.json` khi chủ dự án chưa đồng ý.
+- **Cập nhật 2026-11-04 theo chủ dự án:**
+  - bỏ hai hero Granite và Morrow;
+  - mọi hero và template dùng hoàn toàn hệ thân mới;
+  - làm luôn dáng thân nữ (`bodyType: feminine`).
+
+  Đường thân cũ chỉ còn để đọc file kiểu cũ (nguyên tắc tương thích của spec V2), không hero nào trong repo dùng nó.
 
 **Code**
 - Không có số liệu riêng của hero nào trong `.ts`. Hằng giải phẫu chung (vị trí cơ theo tỷ lệ) được phép.
@@ -57,7 +62,8 @@
 - Smooth union và rãnh cơ; nối chỗ khó bằng SDF chọn lọc; mật độ lưới thích ứng.
 - Vật liệu body riêng; skin weight cho cơ lớn.
 - Tư thế A-Pose, Deep Squat, Running, Combat Attack; đo biến dạng.
-- Chuyển Kestrel rồi Granite sang hệ mới; cache, benchmark, kiểm tra rò tài nguyên.
+- Hai dáng thân `masculine` và `feminine` cho cả 5 archetype, tức 10 tổ hợp.
+- Chuyển Kestrel sang hệ mới; template và preview chỉ dùng hệ mới; cache, benchmark, kiểm tra rò tài nguyên.
 
 **Không làm:**
 - normal map hay texture: `normalScale` không đưa vào schema vì chưa có normal map nào để scale;
@@ -73,7 +79,13 @@
 4. **"Remeshing" được hiểu là:** mật độ ring thích ứng (dày ở khớp và ở nơi trường cơ đổi nhanh) cộng chiếu đỉnh ở dải nối lên mặt smooth union. Topology vẫn là ring liền khối, nên giáp vẫn bám theo tham số (`part, t, góc`) như cũ.
 5. **`anatomicalContrast`** là tô tối nhẹ các rãnh cơ bằng vertex color, tính từ độ lõm của lưới. Đây là "tương phản bằng geometry", không dùng texture. GLB phải giữ thuộc tính màu đỉnh này.
 6. **Vật liệu body tách khỏi vật liệu giáp** dù dùng cùng vai trò màu (spec 5.2). Tên vật liệu body: `<vai trò>~body`.
-7. **Hero đại diện đầu tiên: Kestrel → `fighter`.** Sau khi duyệt mới làm Granite → `tank`. Morrow → `bruiser` chỉ khi chủ dự án đồng ý. 4 preset dáng cũ (athletic/heavy/slim/feminine) giữ làm đường cũ, không xoá.
+7. **Hero đại diện: Kestrel → `fighter`, `masculine`.**
+   - Granite và Morrow bị loại bỏ (Task B0).
+   - 4 preset dáng cũ (athletic/heavy/slim/feminine) không còn hiện trên preview hay template. File JSON của chúng giữ lại làm dữ liệu test cho đường cũ.
+8. **Dáng thân nữ là trục riêng `bodyType: 'masculine' | 'feminine'`**, kết hợp được với mọi archetype. Đây là trường bắt buộc, không có mặc định ngầm.
+   - Thân nữ có bộ tỷ lệ heroic riêng (bảng ở Task B2), không phải bản thu nhỏ của thân nam, đúng yêu cầu ở spec herov2 mục 3.1.
+   - Ngực là khối thể tích mềm, cách điệu, đặt trên cơ ngực. Hông rộng hơn vai tương đối, eo cao và gọn, mông đầy hơn, cơ vẫn rõ nhưng mức nhô thấp hơn (hệ số 0.8).
+   - Phong cách anh hùng, thể thao, hợp với mặc giáp. Không phóng đại gợi dục.
 
 ## Review Focus
 
@@ -110,6 +122,22 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
 
 ## B-M0 — Audit body và baseline (spec Phase 0)
 
+### Task B0: Loại bỏ Granite và Morrow
+
+**Files:**
+- Delete: `heroes/granite/`, `heroes/morrow/`. Morrow chưa từng commit, nên trước khi xoá phải chép sang `.superpowers/backup/morrow/hero.json` (thư mục bị git bỏ qua, nằm ngoài workspace của plan) để chủ dự án lấy lại nếu cần.
+- Modify:
+  - `tests/modeling/armorPenetration.test.ts`: bỏ Granite; preset `heavy` vẫn phủ trường hợp thân to;
+  - `tests/templates/templates.test.ts`;
+  - `tests/fixtures/v1-baseline.json`: bỏ mục `hero:granite`, `hero:morrow`;
+  - `scripts/shots.config.json`: bỏ ảnh Granite/Morrow ở mọi bộ;
+  - `tests/visual/baseline/v2-baseline/`: xoá 8 ảnh Granite/Morrow;
+  - `templates/HERO_TEMPLATE.md`, `README.md`: bỏ nhắc tới hai hero.
+
+- [ ] **Step 1:** Sao lưu Morrow, xoá hai thư mục, sửa các file trên.
+- [ ] **Step 2:** Chạy `npm test && npm run typecheck`. Expected: PASS. `grep -ri "granite\|morrow" src tests scripts templates heroes README.md` không còn kết quả (trừ preset `heavy`, vốn không mang tên này).
+- [ ] **Step 3:** Commit `chore: remove Granite and Morrow heroes (owner request)`.
+
 ### Task B1: Báo cáo audit body, ảnh mốc thân trần, số đo body
 
 **Files:**
@@ -132,7 +160,7 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
   - **ràng buộc equipment/socket:** mọi điểm gắn đi qua `BodySurface.pointAt` + `BodyCollider`, nên thân mới tự kéo giáp theo;
   - **chiến lược chuyển đổi** như phần Architecture.
 - [ ] **Step 2: Thêm bộ ảnh `body-baseline`.** Gồm:
-  - 3 hero × front/side/back/threeQuarter ở `stage=body` (thân trần, chưa có giáp);
+  - Kestrel và 4 preset cũ × front/side/back/threeQuarter ở `stage=body` (thân trần, chưa có giáp);
   - Kestrel ở `stage=skinned` với `armRaise`, `elbowBend`, `kneeBend`, `torsoTwist`.
 
   Query có `lighting=legacy`. Chạy `npm run snapshot -- body-baseline`, rồi `node scripts/visual-compare.mjs body-baseline --accept`, chụp lại và so: Expected 0.00%.
@@ -159,7 +187,8 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
     version: 1; style: 'stylized-anatomical'; surface: 'smooth'; proportionPreset: 'heroic';
     muscleDefinition: 'low' | 'medium' | 'high';
     archetype: Archetype;
-    /** Mét; mặc định theo archetype. */
+    bodyType: 'masculine' | 'feminine';
+    /** Mét; mặc định theo archetype × bodyType. */
     height?: number;
     proportions?: Partial<Record<'shoulderWidth'|'chestWidth'|'waistWidth'|'hipWidth'|'armVolume'|'legVolume', number>>;
     muscles?: Partial<Record<MuscleGroup, number>>;
@@ -183,7 +212,19 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
     - cánh tay trên rộng 0.085, cẳng tay 0.068, cổ tay 0.035;
     - đùi 0.105, gối 0.064, bắp chân 0.072, cổ chân 0.042.
 
-  Tổng chiều cao 1.007, nằm trong dung sai 0.02 của `resolveProportions`.
+  Tổng chiều cao 1.007, nằm trong dung sai 0.02 của `resolveProportions`. Bảng trên là cho `masculine`.
+- **Tỷ lệ heroic của `feminine`** (cao = 1), bảng riêng, không suy ra bằng cách nhân bảng nam:
+  - vai 0.235, ngực 0.2, eo 0.135, hông 0.205;
+  - cánh tay trên 0.172, cẳng tay 0.152, đùi 0.258, cẳng chân 0.246;
+  - đầu: cao 0.128, rộng 0.097, sâu 0.112;
+  - cổ: dài 0.042, bán kính 0.031;
+  - torso: dài 0.305, eo đặt cao hơn (eo hẹp nhất ở t 0.5 thay vì 0.42), sâu ngực 0.125, sâu eo 0.095;
+  - bàn tay dài 0.084;
+  - bàn chân: dài 0.136, cao 0.037, rộng 0.052;
+  - chu vi chi: cánh tay trên 0.07, cẳng tay 0.056, cổ tay 0.03, đùi 0.11, gối 0.06, bắp chân 0.066, cổ chân 0.037;
+  - hệ số cơ chung 0.8; mông 1.15.
+
+  Chiều cao mặc định = cao của archetype × 0.95.
 - **Archetype**, mỗi archetype là hệ số nhân (vai, ngực, eo, hông, tay, chân), hệ số cơ chung, `muscleSeparation`, `height`:
 
   | Archetype | vai | ngực | eo | hông | tay | chân | cơ | tách cơ | cao (m) |
@@ -205,6 +246,7 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
   - Tỷ lệ vai/cao của fighter = 0.27 × 1.1 ± 0.005.
   - Thứ tự silhouette: bề vai bruiser > tank > fighter > assassin > mage. Eo tank > bruiser > fighter. Chu vi tay bruiser lớn nhất.
   - Override `proportions.shoulderWidth: 1.2` trên fighter → vai = 0.27 × 1.1 × 1.2 × height.
+  - **Thân nữ không phải bản thu nhỏ của thân nam:** với mỗi archetype, tỷ số hông/vai của feminine lớn hơn của masculine ≥ 0.15; eo/hông nhỏ hơn ≥ 0.05; vị trí eo cao hơn. Cả 10 tổ hợp đều resolve được, chiều cao đúng.
   - Hệ số ngoài giới hạn bị kẹp vào [min, max].
   - Không mutate dữ liệu archetype.
   - Kết quả tất định: hai lần gọi deep-equal.
@@ -313,6 +355,14 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
   - **chest:** pectoralis (mirror, góc ±28°, t 0.74–0.9). Thêm một khối nhỏ dưới ngực để mép ngực dưới rõ (spec "chest projection").
   - **abdomen:** rectus abdominis 3 hàng × 2 bên (t 0.36 / 0.48 / 0.6, góc ±9°, `separation` cao, tạo đường linea alba ở giữa); obliques (±62°, t 0.3–0.55); serratus (±75°, t 0.62–0.74, 3 khối nhỏ).
   - **back:** trapezius (180° ± 25°, t 0.85–1, lan lên cổ); latissimus (±130°, t 0.55–0.85, độ nở theo `back`); erector (180° ± 12°, t 0.2–0.5).
+- **`feminine`:** nhóm `chest` gồm cơ ngực mỏng hơn, cộng khối ngực:
+  - mirror ±22°, t 0.74–0.87;
+  - `bulge` 0.75 (tròn đầy), `taper` −0.2 (đầy phía dưới);
+  - depth 0.09 × r × hệ số `chest`;
+  - `separation` 0.3 ở đường giữa;
+  - mép dưới blend mềm vào thân.
+
+  Bụng giữ 3 hàng nhưng `depth` × 0.6, obliques mềm hơn. Trapezius thấp hơn.
 - Trục góc của torso: 0° = trước (+Z), 90° = +X (bên trái nhân vật).
 
 - [ ] **Step 1: Viết test.**
@@ -323,16 +373,17 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
     - lưng rộng hơn eo ≥ 15%, đo ở `back` = 1.
   - Hệ số biên (Review Focus #1): `chest 2, abdomen 2, muscleSeparation 1` → không mặt lật (pháp tuyến hướng ra ngoài so với trục ở ≥ 99.5% tam giác), độ sâu rãnh ≤ giới hạn kẹp.
   - Mage có cơ ngực thấp hơn tank ≥ 40%.
+  - Mọi kiểm tra trên chạy cho **cả 10 tổ hợp** archetype × bodyType. Với feminine: điểm trước nhất của ngực ở t 0.78–0.84, hai khối ngực tách nhau ở góc 0° (D giữa < D ở ±22°), và không có rãnh bụng sâu hơn của masculine.
 - [ ] **Step 2:** Chạy test. Expected: FAIL.
 - [ ] **Step 3:** Viết code. Lưới thân có anatomy chạy ở `surfaceResolution: 'high'` tạm thời bằng `radialSegments` 32 và `ringsPerMeter` 90; Task B6 thay bằng hệ thống phân giải.
 - [ ] **Step 4:** Chạy `npm test`. Chụp `b-m2`:
-  - 5 archetype × `zoom=torso` × front/side/back/threeQuarter, ánh sáng legacy;
+  - 5 archetype × 2 bodyType × `zoom=torso` × front/side/back/threeQuarter, ánh sáng legacy;
   - cùng góc của Kestrel thân cũ để so.
 
   **Tự xem từng ảnh**, ghi vào ledger cái gì đạt và chưa đạt theo spec 1.2 (primary/secondary forms). Sửa tham số `torso.ts` tới khi đạt, nhưng không nới các test.
 - [ ] **Step 5:** Commit `feat(body): stylized torso anatomy (chest, abdomen, obliques, serratus, traps, lats, erectors)`.
 
-**→ Dừng B-M2. Cổng chặn.** Gửi ảnh torso 5 archetype, cạnh thân cũ. Chỉ sang B-M3 khi chủ dự án duyệt hình torso.
+**→ Dừng B-M2. Cổng chặn.** Gửi ảnh torso 10 tổ hợp, cạnh thân cũ. Chỉ sang B-M3 khi chủ dự án duyệt hình torso.
 
 ---
 
@@ -430,8 +481,9 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
     - hamstrings;
     - phần chuyển tiếp gối bằng phẳng.
   - **calves:** gastrocnemius hai đầu (leg t 0.58–0.75, mặt sau), tibialis (mặt trước t 0.55–0.8).
+  - **`feminine`:** delta và biceps × 0.75; mông × 1.15 và tròn hơn (`bulge` +0.2); đùi trong đầy hơn ở t 0–0.25; bắp chân cao và thon hơn.
 
-- [ ] **Step 1: Viết test.** Với 5 archetype:
+- [ ] **Step 1: Viết test.** Với cả 10 tổ hợp archetype × bodyType:
   - **Biceps:** ở t 0.3 mặt trước, D > 0.
   - **Khuỷu và gối:** D ≈ 0 ở t = `elbowT` và `kneeT` ± 0.02, để khớp gập không có cục cơ.
   - **Bắp chân:** chu vi lớn nhất của cẳng chân nằm ở t 0.6–0.72.
@@ -441,10 +493,10 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
   - Hệ số biên (Review Focus #1): tay 1.6, chân 1.6, `arms`/`thighs` 2.0 → không tự cắt ở nách và háng. Kiểm tra: không đỉnh nào của tay nằm trong thân và ngược lại, bằng `createBodyCollider` trên từng phần.
 - [ ] **Step 2:** Chạy test. Expected: FAIL.
 - [ ] **Step 3:** Viết code. **Tự xem ảnh** và chỉnh.
-- [ ] **Step 4:** Chạy `npm test`. Chụp `b-m4`: 5 archetype thân trần × 4 góc; zoom tay, đùi, bắp chân của fighter và tank.
+- [ ] **Step 4:** Chạy `npm test`. Chụp `b-m4`: 10 tổ hợp thân trần × 4 góc; zoom tay, đùi, bắp chân của fighter và tank ở cả hai bodyType.
 - [ ] **Step 5:** Commit `feat(body): shoulder, arm, glute and leg anatomy with clean elbow/knee transitions`.
 
-**→ Dừng B-M4.** Gửi ảnh toàn thân 5 archetype × 4 góc và các zoom.
+**→ Dừng B-M4.** Gửi ảnh toàn thân 10 tổ hợp × 4 góc và các zoom.
 
 ---
 
@@ -465,7 +517,7 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
   - `flippedRatio` so pháp tuyến từng tam giác lúc tạo tư thế với pháp tuyến bind đã xoay theo bone chính của tam giác đó.
   - `AreaRatio` là diện tích tiết diện qua khớp lúc tạo tư thế chia lúc bind.
 
-- [ ] **Step 1: Viết test.** Với 5 archetype × (`armRaise`, `elbowBend`, `kneeBend`, `legRaise`, `torsoTwist`):
+- [ ] **Step 1: Viết test.** Với 10 tổ hợp × (`armRaise`, `elbowBend`, `kneeBend`, `legRaise`, `torsoTwist`):
   - `volumeRatio` trong 0.92–1.08;
   - `flippedRatio` ≤ 0.005;
   - `elbowAreaRatio` và `kneeAreaRatio` ≥ 0.55 ở tư thế gập.
@@ -502,13 +554,13 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
     - running: hai đùi ngược pha;
     - combatAttack: cẳng tay phải chỉ về +Z (dot ≥ 0.8).
   - **Bind:** về bind không trôi.
-  - **Biến dạng:** thêm 4 tư thế mới vào bảng biến dạng của Task B9, cùng ngưỡng, cho 5 archetype (Review Focus #2: tank và bruiser ở `deepSquat`).
+  - **Biến dạng:** thêm 4 tư thế mới vào bảng biến dạng của Task B9, cùng ngưỡng, cho 10 tổ hợp (Review Focus #2: tank và bruiser ở `deepSquat`; feminine ở `armRaise` vì khối ngực sát nách).
 - [ ] **Step 2:** Chạy test. Expected: FAIL.
 - [ ] **Step 3:** Viết code. Chỉnh góc hoặc weight tới khi đạt.
-- [ ] **Step 4:** Chạy `npm test`. Chụp `b-m5`: lưới ảnh 5 archetype × 8 tư thế (T, A, Arms Raised, Elbow Flexion, Torso Twist, Deep Squat, Running, Combat Attack) ở góc threeQuarter, thân trần, legacy. **Tự xem ảnh**.
+- [ ] **Step 4:** Chạy `npm test`. Chụp `b-m5`: lưới ảnh 10 tổ hợp × 8 tư thế (T, A, Arms Raised, Elbow Flexion, Torso Twist, Deep Squat, Running, Combat Attack) ở góc threeQuarter, thân trần, legacy. **Tự xem ảnh**.
 - [ ] **Step 5:** Commit `feat(body): A-pose, deep squat, running and combat attack test poses (grounded)`.
 
-**→ Dừng B-M5.** Gửi lưới ảnh 5 × 8 và bảng số đo biến dạng.
+**→ Dừng B-M5.** Gửi lưới ảnh 10 × 8 và bảng số đo biến dạng.
 
 ---
 
@@ -540,21 +592,23 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
 
 **→ Dừng giữa milestone.** Gửi ảnh so cũ/mới của Kestrel, chờ duyệt rồi mới làm Task B12 (spec 8.10: "After the representative hero passes validation…").
 
-### Task B12: Granite → tank (Morrow → bruiser nếu được phép); lineup archetype trên showcase
+### Task B12: Template và preview chỉ dùng hệ mới; ma trận trang bị × 10 dáng thân
 
 **Files:**
 - Modify:
-  - `heroes/granite/hero.json`;
-  - `heroes/morrow/hero.json` (chỉ khi được phép);
-  - `tests/fixtures/` (bản V1 của từng hero chuyển đổi);
-  - `src/preview/PreviewApp.ts` (lineup `archetypes` có giáp của hero mẫu);
-  - `tests/body/heroMigration.test.ts`.
+  - `templates/hero-template.json`: `bodyDesign`, bỏ `proportions` và `bodyShape`;
+  - `templates/HERO_TEMPLATE.md`: mục "Thiết kế thân (bodyDesign)" bằng tiếng Việt, gồm bảng archetype × bodyType, giới hạn hệ số, nhóm cơ, ví dụ thân nữ;
+  - `src/preview/PreviewApp.ts`: lineup mặc định `archetypes`, gồm 10 dáng có trang bị Kestrel; lineup `presets` cũ gỡ khỏi menu;
+  - `tests/body/heroMigration.test.ts`, `tests/templates/templates.test.ts`.
 
-- [ ] **Step 1:** Mở rộng test của Task B11 cho Granite (và Morrow nếu có). Thêm test ma trận: trang bị Kestrel trên 5 archetype → giáp chìm ≤ 5 mm, socket hợp lệ, rig 9/9. Đây là bằng chứng "body đổi không làm hỏng rig, socket, attachment".
-- [ ] **Step 2:** Chạy test. Expected: FAIL với Granite cũ.
-- [ ] **Step 3:** Chuyển hero, chỉnh giáp.
-- [ ] **Step 4:** Chạy `npm test`. Chụp `b-m6` (bổ sung): mọi hero đã chuyển × 4 góc; lineup 5 archetype mặc trang bị Kestrel.
-- [ ] **Step 5:** Commit `feat(body): Granite (tank) on the shared body system; archetype equipment matrix`.
+- [ ] **Step 1: Viết test.**
+  - **Ma trận trang bị:** trang bị Kestrel trên 10 dáng thân → giáp chìm ≤ 5 mm, socket hợp lệ, rig 9/9. Đây là bằng chứng "body đổi không làm hỏng rig, socket, attachment".
+  - **Template:** dùng `bodyDesign`, hợp lệ, rig 9/9, GLB khớp.
+  - **Không còn đường cũ trong repo:** không file nào trong `heroes/` hay `templates/hero-template.json` có `proportions` hoặc `bodyShape`.
+- [ ] **Step 2:** Chạy test. Expected: FAIL.
+- [ ] **Step 3:** Viết template và tài liệu. Chỉnh trang bị mẫu cho vừa cả thân nữ (giáp ngực ôm theo bề mặt nên tự khớp; kiểm tra lại bằng ảnh).
+- [ ] **Step 4:** Chạy `npm test`. Chụp `b-m6` (bổ sung): lineup 10 dáng mặc trang bị Kestrel, góc front và threeQuarter.
+- [ ] **Step 5:** Commit `feat(body): template and preview fully on bodyDesign; equipment matrix over 10 body designs`.
 
 **→ Dừng B-M6.**
 
@@ -584,8 +638,7 @@ animation/PoseDefinition.ts       aPose, deepSquat, running, combatAttack (+ POS
 - [ ] **Step 4:** Chạy `npm test && npm run typecheck && npm run build`. Chạy `npm run heroes:bench > docs/superpowers/reports/body-bench.md` và thêm cột so với baseline B-M0. Spec mục 7 yêu cầu "không regression": thời gian dựng có cache phải không chậm hơn baseline; số tam giác body tăng là có chủ đích, được ghi rõ.
 
   Cập nhật ảnh mốc:
-  - `node scripts/visual-compare.mjs v2-baseline --accept --only <ảnh của hero đã chuyển>` sau khi chủ dự án đã duyệt hình ở B-M6;
-  - các ảnh còn lại (hero chưa chuyển) phải lệch 0.00%.
+  - `node scripts/visual-compare.mjs v2-baseline --accept` sau khi chủ dự án đã duyệt hình ở B-M6, vì Kestrel và lineup đều đã đổi sang thân mới.
 - [ ] **Step 5:** Commit `perf(body): body geometry cache, benchmark vs baseline, leak-free rebuild; refresh baselines`.
 
 **→ Dừng B-M7.** Gửi:

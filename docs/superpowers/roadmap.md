@@ -21,13 +21,13 @@ Lý do làm body trước:
 
 | Milestone | Nội dung | Kết quả để duyệt |
 |---|---|---|
-| B-M0 | Audit body, ảnh mốc thân trần, số đo body | Báo cáo + ảnh |
-| B-M1 | `bodyDesign`, tỷ lệ heroic, 5 archetype, schema | Lineup 5 archetype (chưa có cơ) |
+| B-M0 | Bỏ Granite và Morrow; audit body, ảnh mốc thân trần, số đo body | Báo cáo + ảnh |
+| B-M1 | `bodyDesign`, tỷ lệ heroic, 5 archetype × 2 dáng thân (nam/nữ), schema | Lineup 10 dáng (chưa có cơ) |
 | B-M2 | Muscle field (smooth union, rãnh) + **torso prototype** | Ảnh torso 5 archetype. **Cổng chặn:** chưa duyệt torso thì không làm tay chân |
 | B-M3 | Mật độ lưới thích ứng, nối vai/cổ/háng bằng smooth union, vật liệu body, tô rãnh cơ | Ảnh trước/sau ở nách, cổ, háng; số đo độ liền mạch |
 | B-M4 | Cơ vai, tay, mông, chân | Toàn thân 5 archetype × 4 góc |
 | B-M5 | Skin weight cho cơ lớn; tư thế A-Pose, Deep Squat, Running, Combat Attack; đo biến dạng | Lưới ảnh 5 archetype × 8 tư thế + bảng số đo |
-| B-M6 | Kestrel → fighter (duyệt riêng), rồi Granite → tank | Ảnh so cũ/mới, giáp và socket đúng chỗ |
+| B-M6 | Kestrel → fighter (duyệt riêng); template và preview chỉ dùng hệ mới | Ảnh so cũ/mới, lineup 10 dáng mặc giáp |
 | B-M7 | Cache body, benchmark so baseline, không rò tài nguyên | Bảng benchmark + nghiệm thu 9 nhóm |
 
 ## Điều chỉnh plan V2 khi làm tiếp sau giai đoạn 2
@@ -49,8 +49,9 @@ Những điều chỉnh này sẽ được ghi thành ruling trong ledger của 
    - Hero đã chuyển sang `bodyDesign` lấy bản V1 từ `tests/fixtures/*.v1.json` cho test tương thích.
    - Ảnh mốc `v2-baseline` của các hero đó được chụp lại sau B-M6.
 
-## Câu hỏi đang chờ chủ dự án
+## Quyết định của chủ dự án (2026-11-04)
 
-1. Morrow có chuyển sang thân mới (archetype `bruiser`) ở Task B12 không? File Morrow là của chủ dự án.
-2. Có cần dáng thân nữ trong hệ anatomical đợt này không? Spec phong cách chỉ chia theo vai trò (Tank, Fighter, …), còn preset `feminine` cũ chỉ còn ở đường cũ.
-3. Granite và Morrow (búa, khiên) có cần mang súng cho game TPS không? Hiện tại các nút tư thế súng bị khoá với hai hero này.
+- Bỏ hai hero Granite và Morrow. Bản sao Morrow lưu tại `.superpowers/backup/morrow/hero.json`.
+- Mọi hero và template dùng hoàn toàn phong cách mới (`bodyDesign`).
+- Làm luôn dáng thân nữ: `bodyType: feminine` cho cả 5 archetype.
+- Câu hỏi về súng cho Granite và Morrow không còn áp dụng. Tư thế súng ở V2 chỉ cần Kestrel và các hero mới.
