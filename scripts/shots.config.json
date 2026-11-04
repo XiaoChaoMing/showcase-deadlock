@@ -512,5 +512,35 @@
         "height": 900
       }
     }
+  ],
+  "fit": [
+    {
+      "name": "granite-front",
+      "query": "preview=1&hero=granite&stage=full&view=front&pose=tpose"
+    },
+    {
+      "name": "granite-hip",
+      "query": "preview=1&hero=granite&stage=full&view=front&pose=tpose&zoom=hipL"
+    },
+    {
+      "name": "granite-shoulder-back",
+      "query": "preview=1&hero=granite&stage=full&view=back&pose=tpose&zoom=shoulderL"
+    },
+    {
+      "name": "kestrel-front",
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter&pose=idle"
+    },
+    {
+      "name": "kestrel-heavy",
+      "query": "preview=1&hero=kestrel&preset=heavy&stage=full&view=threeQuarter&pose=tpose"
+    },
+    {
+      "name": "morrow-front",
+      "query": "preview=1&hero=morrow&stage=full&view=front&pose=idle"
+    },
+    {
+      "name": "morrow-threeQuarter",
+      "query": "preview=1&hero=morrow&stage=full&view=threeQuarter&pose=idle"
+    }
   ]
 }

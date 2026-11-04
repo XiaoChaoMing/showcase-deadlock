@@ -3,6 +3,8 @@ import type { BoneName } from '../../definitions/BoneNames';
 import type { CharacterLayout } from '../../definitions/CharacterLayout';
 import type { Attach, BodyPart, EquipmentItem, Side, SocketDefinition, SurfaceMount } from '../../definitions/HeroDefinition';
 import type { BodySurface } from '../BodySurface';
+import type { BodyCollider } from '../BodyCollider';
+import { fittedPoint } from './PlateBuilder';
 import type { MaterialSet } from '../materials/MaterialBuilder';
 import { buildAssemblyGroup } from './AssemblyBuilder';
 import { buildBandGeometries } from './BandBuilder';
@@ -26,6 +28,8 @@ export interface EquipmentContext {
   materials: MaterialSet;
   sockets: SocketDefinition[];
   radialSegments: number;
+  /** Lưới thân thật: có thì giáp/hộp/điểm gắn được đẩy ra khỏi chỗ nối các bộ phận. */
+  collider?: BodyCollider;
 }
 
 const sideName = (side: Side | undefined): 'Left' | 'Right' => (side === 'right' ? 'Right' : 'Left');
@@ -54,8 +58,13 @@ export const resolveAttachBone = (part: BodyPart, side: Side | undefined, t: num
 };
 
 /** Hệ toạ độ tại một điểm bề mặt: +Z = pháp tuyến hướng ra, +Y = hướng lên (chiếu vuông góc). */
-export const mountFrame = (mount: SurfaceMount, surface: BodySurface, rotationDeg?: [number, number, number]): THREE.Matrix4 => {
-  const { position, normal } = surface.pointAt(mount);
+export const mountFrame = (
+  mount: SurfaceMount,
+  surface: BodySurface,
+  rotationDeg?: [number, number, number],
+  collider?: BodyCollider,
+): THREE.Matrix4 => {
+  const { position, normal } = fittedPoint(surface, collider)(mount);
   const z = new THREE.Vector3(...normal);
   const up = Math.abs(z.y) > 0.95 ? new THREE.Vector3(0, 0, 1) : new THREE.Vector3(0, 1, 0);
   const y = up.sub(z.clone().multiplyScalar(up.dot(z))).normalize();
@@ -68,11 +77,54 @@ export const mountFrame = (mount: SurfaceMount, surface: BodySurface, rotationDe
   return frame;
 };
 
+/** Hộp phẳng áp lên mặt cong/lõm: đo các điểm trên mặt sau, đẩy cả hộp ra theo +Z tới khi không chìm vào thân. */
+const liftBoxOutOfBody = (holder: THREE.Group, collider: BodyCollider): void => {
+  const mesh = holder.children[0] as THREE.Mesh;
+  mesh.geometry.computeBoundingBox();
+  const box = mesh.geometry.boundingBox!;
+  const samples: THREE.Vector3[] = [];
+  for (const x of [box.min.x, 0, box.max.x]) for (const y of [box.min.y, 0, box.max.y]) samples.push(new THREE.Vector3(x, y, box.min.z));
+  const normal = new THREE.Vector3(0, 0, 1).applyQuaternion(holder.quaternion);
+  for (let i = 0; i < 8; i++) {
+    holder.updateMatrixWorld(true);
+    const deepest = Math.max(
+      ...samples.map((s) => {
+        const w = s.clone().applyMatrix4(mesh.matrixWorld);
+        return collider.depthInside([w.x, w.y, w.z]);
+      }),
+    );
+    if (deepest <= 1e-4) return;
+    holder.position.addScaledVector(normal, deepest + 0.001);
+  }
+};
+
+/**
+ * Lượt cuối cho giáp ôm thân: đỉnh nào còn chìm trong lưới thân (thường do độ dày cộng theo pháp tuyến
+ * chĩa sang bộ phận bên cạnh, ví dụ góc bẹn) thì đưa ra mặt thân gần nhất. Geometry ở toạ độ world lúc bind.
+ */
+const pushVerticesOutside = (meshes: THREE.Mesh[], collider: BodyCollider): void => {
+  for (const mesh of meshes) {
+    const pos = mesh.geometry.getAttribute('position');
+    let moved = false;
+    for (let i = 0; i < pos.count; i++) {
+      const v: [number, number, number] = [pos.getX(i), pos.getY(i), pos.getZ(i)];
+      if (collider.depthInside(v) === 0) continue;
+      const { point } = collider.pushOutside(v, [0, 1, 0]);
+      pos.setXYZ(i, point[0], point[1], point[2]);
+      moved = true;
+    }
+    if (moved) {
+      pos.needsUpdate = true;
+      mesh.geometry.computeVertexNormals();
+    }
+  }
+};
+
 const resolveAttach = (attach: Attach, ctx: EquipmentContext): { frame: THREE.Matrix4; mount: SurfaceMount; socket?: string } => {
-  if ('mount' in attach) return { frame: mountFrame(attach.mount, ctx.surface), mount: attach.mount };
+  if ('mount' in attach) return { frame: mountFrame(attach.mount, ctx.surface, undefined, ctx.collider), mount: attach.mount };
   const socket = ctx.sockets.find((s) => s.name === attach.socket);
   if (!socket) throw new Error(`Socket "${attach.socket}" chưa được khai báo`);
-  return { frame: mountFrame(socket.mount, ctx.surface, socket.rotationDeg), mount: socket.mount, socket: socket.name };
+  return { frame: mountFrame(socket.mount, ctx.surface, socket.rotationDeg, ctx.collider), mount: socket.mount, socket: socket.name };
 };
 
 const meshesFrom = (geometries: PlateGeometries, color: THREE.Material, edge: THREE.Material | undefined): THREE.Mesh[] => [
@@ -90,17 +142,17 @@ export const buildEquipment = (item: EquipmentItem, ctx: EquipmentContext): Equi
 
   switch (item.kind) {
     case 'plate': {
-      group.add(...meshesFrom(buildPlateGeometries(item, ctx.surface, ctx.radialSegments, Boolean(edge)), color, edge));
+      group.add(...meshesFrom(buildPlateGeometries(item, ctx.surface, ctx.radialSegments, Boolean(edge), ctx.collider), color, edge));
       bone = resolveAttachBone(item.part, item.side, (item.tStart + item.tEnd) / 2, ctx.layout);
       break;
     }
     case 'band': {
-      group.add(...meshesFrom(buildBandGeometries(item, ctx.surface, ctx.radialSegments), color, undefined));
+      group.add(...meshesFrom(buildBandGeometries(item, ctx.surface, ctx.radialSegments, ctx.collider), color, undefined));
       bone = resolveAttachBone(item.part, item.side, item.t, ctx.layout);
       break;
     }
     case 'shell': {
-      const { shell, crest } = buildShellGeometries(item, ctx.surface, ctx.layout, ctx.radialSegments);
+      const { shell, crest } = buildShellGeometries(item, ctx.surface, ctx.layout, ctx.radialSegments, ctx.collider);
       group.add(new THREE.Mesh(shell, color));
       if (crest) group.add(new THREE.Mesh(crest, edge ?? color));
       bone = 'Head';
@@ -112,11 +164,16 @@ export const buildEquipment = (item: EquipmentItem, ctx: EquipmentContext): Equi
       const holder = new THREE.Group();
       resolved.frame.decompose(holder.position, holder.quaternion, holder.scale);
       holder.add(item.kind === 'box' ? buildBoxMesh(item, color) : buildAssemblyGroup(item, ctx.materials));
+      if (item.kind === 'box' && ctx.collider) liftBoxOutOfBody(holder, ctx.collider);
       group.add(holder);
       bone = resolveAttachBone(resolved.mount.part, resolved.mount.side, resolved.mount.t, ctx.layout);
       socket = resolved.socket;
       break;
     }
+  }
+
+  if (ctx.collider && (item.kind === 'plate' || item.kind === 'band' || item.kind === 'shell')) {
+    pushVerticesOutside(group.children.filter((c): c is THREE.Mesh => c instanceof THREE.Mesh), ctx.collider);
   }
 
   group.traverse((o) => {

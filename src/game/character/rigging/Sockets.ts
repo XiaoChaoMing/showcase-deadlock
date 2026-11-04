@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import type { CharacterLayout } from '../definitions/CharacterLayout';
 import type { SocketDefinition } from '../definitions/HeroDefinition';
 import type { BodySurface } from '../modeling/BodySurface';
+import type { BodyCollider } from '../modeling/BodyCollider';
 import { mountFrame, resolveAttachBone } from '../modeling/equipment/EquipmentBuilder';
 import type { RigSkeleton } from './SkeletonBuilder';
 
@@ -11,6 +12,7 @@ export const createSockets = (
   surface: BodySurface,
   layout: CharacterLayout,
   rig: RigSkeleton,
+  collider?: BodyCollider,
 ): Map<string, THREE.Object3D> => {
   rig.root.updateMatrixWorld(true);
   const sockets = new Map<string, THREE.Object3D>();
@@ -18,7 +20,7 @@ export const createSockets = (
     const bone = rig.byName.get(resolveAttachBone(def.mount.part, def.mount.side, def.mount.t, layout))!;
     const socket = new THREE.Object3D();
     socket.name = `socket_${def.name}`;
-    const local = bone.matrixWorld.clone().invert().multiply(mountFrame(def.mount, surface, def.rotationDeg));
+    const local = bone.matrixWorld.clone().invert().multiply(mountFrame(def.mount, surface, def.rotationDeg, collider));
     local.decompose(socket.position, socket.quaternion, socket.scale);
     bone.add(socket);
     sockets.set(def.name, socket);

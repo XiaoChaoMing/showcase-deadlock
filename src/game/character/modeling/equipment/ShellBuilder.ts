@@ -4,6 +4,8 @@ import type { CharacterLayout } from '../../definitions/CharacterLayout';
 import type { BodySurface } from '../BodySurface';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { buildSlab, type SlabSample } from '../geometry/Slab';
+import type { BodyCollider } from '../BodyCollider';
+import { fittedPoint } from './PlateBuilder';
 
 const ROWS = 14;
 const CREST_START_OFFSET = 0.1;
@@ -16,11 +18,13 @@ export const buildShellGeometries = (
   surface: BodySurface,
   layout: CharacterLayout,
   radialSegments: number,
+  collider?: BodyCollider,
 ): { shell: THREE.BufferGeometry; crest?: THREE.BufferGeometry } => {
+  const fit = fittedPoint(surface, collider);
   const tStart = 1 - item.coverage;
   const apex: SlabSample = { p: new THREE.Vector3(0, layout.headTopY, 0), n: new THREE.Vector3(0, 1, 0) };
   const headPoint = (t: number, angleDeg: number): SlabSample => {
-    const { position, normal } = surface.pointAt({ part: 'head', t, angleDeg });
+    const { position, normal } = fit({ part: 'head', t, angleDeg });
     return { p: new THREE.Vector3(...position), n: new THREE.Vector3(...normal) };
   };
   const cols = (span: number) => Math.max(8, Math.ceil((span / 360) * radialSegments * 2));

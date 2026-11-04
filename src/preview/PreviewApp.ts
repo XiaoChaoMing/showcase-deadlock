@@ -88,7 +88,7 @@ const buildSkeletonFigure: StageBuilder = (hero, params) => {
   });
   group.add(new THREE.Mesh(model.bodyGeometry, ghost));
   const rig = buildSkeleton(model.layout);
-  const sockets = createSockets(hero.sockets, model.surface, model.layout, rig);
+  const sockets = createSockets(hero.sockets, model.surface, model.layout, rig, model.collider);
   for (const socket of sockets.values()) socket.add(new THREE.AxesHelper(0.08));
   group.add(rig.root);
   const skeletonDebug = createSkeletonDebug(rig);

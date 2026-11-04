@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import type { BodyPart, PlateItem, Side } from '../../definitions/HeroDefinition';
 import type { BodySurface } from '../BodySurface';
+import type { BodyCollider } from '../BodyCollider';
 import { buildSlab, type SlabSample } from '../geometry/Slab';
 
 const ROWS_PER_METER = 60;
@@ -22,10 +23,14 @@ type PlateInput = Pick<PlateItem, 'thickness' | 'gap' | 'layers' | 'layerOverlap
 const tent = (v: number): number => 1 - Math.abs(2 * v - 1);
 
 /** Lấy mẫu bề mặt; mép đầu/cuối theo t có thể thay đổi theo v (mép vuốt nhọn). */
+/** Điểm bám trên bề mặt; có collider thì được đẩy ra khỏi chỗ nối các bộ phận. */
+export const fittedPoint = (surface: BodySurface, collider: BodyCollider | undefined) =>
+  collider ? (m: Parameters<BodySurface['pointAt']>[0]) => surface.outerPointAt(m, collider.pushOutside) : surface.pointAt;
+
 const surfaceSampler =
-  (surface: BodySurface, r: PlateRegion, tFrom: (v: number) => number, tTo: (v: number) => number) =>
+  (surface: BodySurface, r: PlateRegion, tFrom: (v: number) => number, tTo: (v: number) => number, collider?: BodyCollider) =>
   (u: number, v: number): SlabSample => {
-    const { position, normal } = surface.pointAt({
+    const { position, normal } = fittedPoint(surface, collider)({
       part: r.part,
       side: r.side,
       t: tFrom(v) + (tTo(v) - tFrom(v)) * u,
@@ -56,6 +61,7 @@ export const buildPlateGeometries = (
   surface: BodySurface,
   radialSegments: number,
   withEdge: boolean,
+  collider?: BodyCollider,
 ): PlateGeometries => {
   const layers = item.layers ?? 1;
   const overlap = item.layerOverlap ?? 0;
@@ -77,7 +83,7 @@ export const buildPlateGeometries = (
     out.body.push(
       buildSlab({
         ...grid,
-        sample: surfaceSampler(surface, region, () => region.tStart, tEndAt),
+        sample: surfaceSampler(surface, region, () => region.tStart, tEndAt, collider),
         inner: (u, v) => lift + swell(u, v),
         outer: (u, v) => lift + item.thickness + swell(u, v) + ridge * tent(v),
       }),
@@ -88,7 +94,7 @@ export const buildPlateGeometries = (
       buildSlab({
         ...grid,
         rows: 1,
-        sample: surfaceSampler(surface, region, (v) => tEndAt(v) - edgeSpan, tEndAt),
+        sample: surfaceSampler(surface, region, (v) => tEndAt(v) - edgeSpan, tEndAt, collider),
         inner: (u, v) => lift + item.thickness * 0.5 + swell(1, v),
         outer: (u, v) => lift + item.thickness + EDGE_RAISE + swell(1, v) + ridge * tent(v),
       }),

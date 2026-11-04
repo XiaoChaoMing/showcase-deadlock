@@ -4,6 +4,7 @@ import type { CharacterProportions, HeroDefinition } from '../definitions/HeroDe
 import { resolveProportions } from '../definitions/resolveProportions';
 import { BODY_REGIONS, buildBodyGeometry, REGION_PART } from './BodyGeometry';
 import { createBodySurface, type BodySurface } from './BodySurface';
+import { createBodyCollider, type BodyCollider } from './BodyCollider';
 import { buildEquipment, type EquipmentPart } from './equipment/EquipmentBuilder';
 import { createMaterials, type MaterialSet } from './materials/MaterialBuilder';
 
@@ -17,6 +18,8 @@ export interface CharacterModel {
   /** Theo thứ tự BodyRegion (khớp với geometry.groups). */
   bodyMaterials: THREE.Material[];
   equipment: EquipmentPart[];
+  /** Va chạm với lưới thân ở bind pose (dùng để giáp và điểm gắn không chìm vào thân). */
+  collider: BodyCollider;
 }
 
 /** Dựng hình nhân vật (thân + trang bị) ở bind pose, chưa có rig. Hero phải đã qua validateHero. */
@@ -29,7 +32,8 @@ export const buildCharacterModel = (hero: HeroDefinition): CharacterModel => {
   const materials = createMaterials(hero.palette, { flatShading: hero.bodyShape.shading === 'flat' });
   const bodyGeometry = buildBodyGeometry(surface, hero.bodyShape);
   const bodyMaterials = BODY_REGIONS.map((r) => materials.get(hero.bodyPaint[REGION_PART[r].part]));
-  const ctx = { surface, layout, materials, sockets: hero.sockets, radialSegments: hero.bodyShape.radialSegments };
+  const collider = createBodyCollider(bodyGeometry);
+  const ctx = { surface, layout, materials, sockets: hero.sockets, radialSegments: hero.bodyShape.radialSegments, collider };
   const equipment = hero.equipment.map((item) => buildEquipment(item, ctx));
-  return { hero, proportions, layout, surface, materials, bodyGeometry, bodyMaterials, equipment };
+  return { hero, proportions, layout, surface, materials, bodyGeometry, bodyMaterials, equipment, collider };
 };

@@ -188,7 +188,8 @@ Mọi món trang bị có `id` (không trùng), `kind`, `color`, tuỳ chọn `e
 
 - `coverage`: phần đầu được che, tính từ đỉnh xuống (1 = che hết).
 - `faceOpeningDeg`: ô hở mặt (0 = mũ kín).
-- `crest`: gờ chạy dọc đỉnh mũ.
+- `faceOpeningTop`: mép trên ô hở mặt theo `t` của đầu (mặc định 0.72, ngang lông mày). Phía trên mép này mũ luôn kín.
+- `crest`: gờ chạy dọc đỉnh mũ. Khi mũ hở mặt, gờ bắt đầu từ trán.
 
 ### `box`: hộp áp vào thân (ba lô, túi)
 
@@ -234,6 +235,8 @@ Mẹo:
 | `/equipment/1/id: mã trang bị "x" bị trùng` | Đổi `id` |
 | `/proportions/extra: trường "extra" không được phép ở đây (có thể gõ sai tên?)` | Kiểm tra chính tả tên trường |
 
-Khi thấy giáp xuyên vào thân:
-- Tăng `gap`.
-- Hoặc với trang bị nằm chồng lên trang bị khác (ví dụ kính đặt trên mũ), đặt `gap` lớn hơn tổng `gap + thickness` của món nằm dưới.
+**Giáp tự tránh thân:** `plate`, `band`, `shell` và `box` được kiểm tra với lưới thân thật lúc dựng. Phần nào chìm vào thân, nhất là ở chỗ nối giữa các bộ phận (bẹn, nách, dốc cổ–vai), sẽ tự được đẩy ra ngoài. `assembly` (gai, vũ khí...) thì không được đẩy, vì đôi khi bạn muốn nó cắm vào giáp; hãy chỉnh bằng `standoff` hoặc `offset`.
+
+Nếu giáp nằm chồng lên trang bị khác (ví dụ kính đặt trên mũ) mà bị lẫn vào nhau, đặt `gap` của món nằm trên lớn hơn tổng `gap + thickness` của món nằm dưới. Việc tự đẩy ra chỉ tính với thân, không tính với trang bị khác.
+
+Mép giáp đặt sát đường giữa hai chân (ví dụ góc trong của giáp hông, `angleStartDeg` < −40 ở `leg` `t` < 0.2) sẽ bị ép gấp nếp. Nên giữ góc trong khoảng từ −40 trở lên.

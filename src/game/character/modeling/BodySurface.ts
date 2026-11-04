@@ -26,6 +26,11 @@ export interface BodySurface {
   partLength(part: BodyPart): number;
   /** Các giá trị t phân bố đều trong [from, to] theo mật độ ringsPerMeter, dày hơn quanh khuỷu/gối. */
   uniformTs(part: BodyPart, ringsPerMeter: number, from: number, to: number): number[];
+  /**
+   * Như pointAt, nhưng điểm bám được đưa ra ngoài thân (thường bằng BodyCollider.pushOutside trên lưới thân thật).
+   * Dùng để giáp không xuyên vào chỗ nối các bộ phận.
+   */
+  outerPointAt(m: SurfaceMount, pushOutside: (p: Vec3, preferred: Vec3) => { point: Vec3; normal: Vec3 }): { position: Vec3; normal: Vec3 };
   readonly proportions: CharacterProportions;
   readonly shape: BodyShape;
   readonly layout: CharacterLayout;
@@ -196,5 +201,15 @@ export const createBodySurface = (p: CharacterProportions, shape: BodyShape, lay
     return ts.filter((t, i) => i === 0 || t - (ts[i - 1] ?? -Infinity) > minGap);
   };
 
-  return { ringAt, pointAt, partLength, uniformTs, proportions: p, shape, layout };
+  const outerPointAt = (
+    m: SurfaceMount,
+    pushOutside: (q: Vec3, preferred: Vec3) => { point: Vec3; normal: Vec3 },
+  ): { position: Vec3; normal: Vec3 } => {
+    const base = pointAt({ ...m, standoff: 0 });
+    const { point, normal } = pushOutside(base.position, base.normal);
+    const standoff = m.standoff ?? 0;
+    return { position: [0, 1, 2].map((c) => point[c]! + normal[c]! * standoff) as Vec3, normal };
+  };
+
+  return { ringAt, pointAt, partLength, uniformTs, outerPointAt, proportions: p, shape, layout };
 };

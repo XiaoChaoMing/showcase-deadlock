@@ -19,7 +19,7 @@ export interface CharacterInstance extends CharacterModel {
 export const buildCharacter = (hero: HeroDefinition): CharacterInstance => {
   const model = buildCharacterModel(hero);
   const rig = buildSkeleton(model.layout);
-  const sockets = createSockets(hero.sockets, model.surface, model.layout, rig);
+  const sockets = createSockets(hero.sockets, model.surface, model.layout, rig, model.collider);
   const weights = generateSkinWeights(model.bodyGeometry, model.layout);
   const body = createSkinnedBody(model.bodyGeometry, weights, rig, model.bodyMaterials);
   attachEquipment(model.equipment, rig, sockets);
