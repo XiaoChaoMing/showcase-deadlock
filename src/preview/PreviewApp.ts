@@ -145,7 +145,7 @@ export class PreviewApp {
       return;
     }
     const target = new THREE.Vector3(0, height / 2, 0);
-    const distance = count > 1 ? this.lineupWidth * 1.0 : 3.9;
+    const distance = count > 1 ? this.lineupWidth * 1.2 : 3.9;
     this.viewport.setView(this.params.view, target, distance);
   }
 
