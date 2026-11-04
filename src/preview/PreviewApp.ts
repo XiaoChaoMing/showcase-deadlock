@@ -10,6 +10,8 @@ import { buildCharacterModel } from '../game/character/modeling/CharacterModelBu
 import { buildSkeleton } from '../game/character/rigging/SkeletonBuilder';
 import { createSockets } from '../game/character/rigging/Sockets';
 import { createSkeletonDebug, type SkeletonDebug } from '../game/character/debug/SkeletonDebug';
+import { setWeightView } from '../game/character/debug/WeightVisualizer';
+import { buildCharacter } from '../game/character/runtime/CharacterFactory';
 import { loadHeroRegistry, type RegistryEntry } from '../game/character/runtime/HeroRegistry';
 import { parsePreviewParams, type PreviewParams, type PreviewStage, type PreviewZoom } from './PreviewParams';
 import { Viewport } from './Viewport';
@@ -84,13 +86,29 @@ const buildSkeletonFigure: StageBuilder = (hero, params) => {
   return { object: group, skeletonDebug, height: hero.proportions.height, focus: buildProportionFigure(hero, params).focus };
 };
 
+/** Nhân vật đã skin (M4): thân biến dạng theo xương, trang bị gắn bone. */
+const buildRiggedFigure = (withEquipment: boolean): StageBuilder => (hero, params) => {
+  const inst = buildCharacter(hero);
+  const showWeights = params.overlay.has('weights');
+  for (const e of inst.equipment) e.object.visible = withEquipment && !showWeights;
+  if (showWeights) setWeightView(inst, params.bone ?? 'Chest');
+  let skeletonDebug: SkeletonDebug | undefined;
+  const group = new THREE.Group();
+  group.add(inst.root);
+  if (params.overlay.has('skeleton')) {
+    skeletonDebug = createSkeletonDebug(inst.rig);
+    group.add(skeletonDebug.group);
+  }
+  return { object: group, skeletonDebug, height: hero.proportions.height, focus: buildProportionFigure(hero, params).focus };
+};
+
 /** Các stage chưa làm sẽ được thêm ở milestone sau; tạm dùng stage gần nhất đã có. */
 const STAGE_BUILDERS: Record<PreviewStage, StageBuilder> = {
   proportions: buildProportionFigure,
   body: buildModelFigure(false),
   skeleton: buildSkeletonFigure,
-  skinned: buildModelFigure(true),
-  full: buildModelFigure(true),
+  skinned: buildRiggedFigure(false),
+  full: buildRiggedFigure(true),
 };
 
 const makeLabel = (text: string): CSS2DObject => {

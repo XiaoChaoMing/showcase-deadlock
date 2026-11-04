@@ -84,5 +84,51 @@
       "name": "skeleton-hipL",
       "query": "hero=kestrel&stage=skeleton&view=front&overlay=labels&zoom=hipL"
     }
+  ],
+  "m4": [
+    {
+      "name": "weights-LeftUpperArm",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftUpperArm"
+    },
+    {
+      "name": "weights-LeftLowerArm",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftLowerArm"
+    },
+    {
+      "name": "weights-Chest",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Chest"
+    },
+    {
+      "name": "weights-Spine",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Spine"
+    },
+    {
+      "name": "weights-LeftUpperLeg",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftUpperLeg"
+    },
+    {
+      "name": "weights-LeftLowerLeg",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftLowerLeg"
+    },
+    {
+      "name": "weights-Head",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Head"
+    },
+    {
+      "name": "weights-Hips",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Hips"
+    },
+    {
+      "name": "weights-LeftShoulder",
+      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftShoulder"
+    },
+    {
+      "name": "weights-LeftUpperLeg-side",
+      "query": "hero=kestrel&stage=skinned&view=side&overlay=weights&bone=LeftUpperLeg"
+    },
+    {
+      "name": "kestrel-full-tpose",
+      "query": "hero=kestrel&stage=full&view=threeQuarter"
+    }
   ]
 }
