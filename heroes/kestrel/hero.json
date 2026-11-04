@@ -11,23 +11,23 @@
   "proportions": {
     "height": 1.8,
     "head": {
-      "width": 0.2,
-      "height": 0.23,
-      "depth": 0.23
+      "width": 0.18,
+      "height": 0.225,
+      "depth": 0.21
     },
     "neck": {
-      "length": 0.08,
-      "radius": 0.06
+      "length": 0.07,
+      "radius": 0.07
     },
     "torso": {
-      "length": 0.55,
+      "length": 0.565,
       "shoulderWidth": 0.48,
-      "hipWidth": 0.33,
-      "pelvisDepth": 0.09
+      "hipWidth": 0.35,
+      "pelvisDepth": 0.05
     },
     "arms": {
       "upperLength": 0.29,
-      "lowerLength": 0.27,
+      "lowerLength": 0.25,
       "handLength": 0.16
     },
     "legs": {
@@ -35,70 +35,70 @@
       "lowerLength": 0.43
     },
     "foot": {
-      "length": 0.27,
+      "length": 0.26,
       "height": 0.07,
       "width": 0.105
     }
   },
   "bodyShape": {
-    "radialSegments": 8,
-    "ringsPerMeter": 45,
+    "radialSegments": 16,
+    "ringsPerMeter": 50,
     "shading": "flat",
     "torso": {
-      "squareness": 3.2,
+      "squareness": 3.0,
       "sections": [
         {
           "t": 0,
-          "width": 0.26,
-          "depth": 0.17,
+          "width": 0.36,
+          "depth": 0.2,
           "forward": 0
         },
         {
-          "t": 0.12,
-          "width": 0.34,
+          "t": 0.1,
+          "width": 0.375,
           "depth": 0.21,
           "forward": 0
         },
         {
-          "t": 0.33,
-          "width": 0.29,
+          "t": 0.38,
+          "width": 0.3,
           "depth": 0.19,
           "forward": 0.01
         },
         {
-          "t": 0.5,
-          "width": 0.31,
+          "t": 0.55,
+          "width": 0.33,
           "depth": 0.2,
           "forward": 0.015
         },
         {
-          "t": 0.7,
-          "width": 0.37,
-          "depth": 0.235,
+          "t": 0.76,
+          "width": 0.4,
+          "depth": 0.24,
           "forward": 0.025
         },
         {
-          "t": 0.86,
-          "width": 0.43,
+          "t": 0.88,
+          "width": 0.45,
           "depth": 0.2,
           "forward": 0.005
         },
         {
           "t": 0.95,
-          "width": 0.3,
-          "depth": 0.16,
+          "width": 0.34,
+          "depth": 0.17,
           "forward": 0
         },
         {
           "t": 1,
-          "width": 0.15,
-          "depth": 0.13,
+          "width": 0.19,
+          "depth": 0.16,
           "forward": 0
         }
       ]
     },
     "neck": {
-      "taper": 0.9
+      "taper": 0.85
     },
     "head": {
       "squareness": 3.2,
@@ -142,67 +142,82 @@
       ]
     },
     "arm": {
-      "squareness": 2.8,
+      "squareness": 2.6,
       "sections": [
         {
           "t": 0,
-          "width": 0.125,
-          "depth": 0.12
+          "width": 0.15,
+          "depth": 0.14
         },
         {
-          "t": 0.18,
-          "width": 0.115,
-          "depth": 0.105
+          "t": 0.2,
+          "width": 0.14,
+          "depth": 0.13
         },
         {
-          "t": 0.42,
+          "t": 0.45,
+          "width": 0.1,
+          "depth": 0.095
+        },
+        {
+          "t": 0.54,
           "width": 0.09,
-          "depth": 0.085
+          "depth": 0.09
         },
         {
-          "t": 0.52,
-          "width": 0.08,
-          "depth": 0.08
+          "t": 0.64,
+          "width": 0.105,
+          "depth": 0.095
         },
         {
-          "t": 0.65,
-          "width": 0.09,
-          "depth": 0.085
+          "t": 0.85,
+          "width": 0.078,
+          "depth": 0.068
         },
         {
           "t": 1,
-          "width": 0.06,
-          "depth": 0.05
+          "width": 0.064,
+          "depth": 0.054
         }
       ]
     },
     "leg": {
-      "squareness": 2.8,
+      "squareness": 2.6,
       "sections": [
         {
           "t": 0,
-          "width": 0.19,
-          "depth": 0.19
+          "width": 0.18,
+          "depth": 0.2
         },
         {
-          "t": 0.2,
-          "width": 0.175,
-          "depth": 0.17
+          "t": 0.18,
+          "width": 0.18,
+          "depth": 0.18
         },
         {
-          "t": 0.48,
-          "width": 0.11,
-          "depth": 0.11
-        },
-        {
-          "t": 0.6,
-          "width": 0.12,
+          "t": 0.42,
+          "width": 0.13,
           "depth": 0.125
         },
         {
-          "t": 0.85,
-          "width": 0.085,
-          "depth": 0.085
+          "t": 0.5,
+          "width": 0.115,
+          "depth": 0.115
+        },
+        {
+          "t": 0.6,
+          "width": 0.125,
+          "depth": 0.13
+        },
+        {
+          "t": 0.68,
+          "width": 0.115,
+          "depth": 0.12
+        },
+        {
+          "t": 0.88,
+          "width": 0.08,
+          "depth": 0.08
         },
         {
           "t": 1,
@@ -219,12 +234,126 @@
     "foot": {
       "squareness": 3.5,
       "toeTaper": 0.75
-    }
+    },
+    "muscles": [
+      {
+        "part": "torso",
+        "t": 0.77,
+        "length": 0.09,
+        "angleDeg": 28,
+        "spreadDeg": 32,
+        "amount": 0.026
+      },
+      {
+        "part": "torso",
+        "t": 0.45,
+        "length": 0.14,
+        "angleDeg": 0,
+        "spreadDeg": 30,
+        "amount": 0.011
+      },
+      {
+        "part": "torso",
+        "t": 0.6,
+        "length": 0.35,
+        "angleDeg": 180,
+        "spreadDeg": 25,
+        "amount": -0.008
+      },
+      {
+        "part": "torso",
+        "t": 0.68,
+        "length": 0.14,
+        "angleDeg": 110,
+        "spreadDeg": 35,
+        "amount": 0.03
+      },
+      {
+        "part": "torso",
+        "t": 0.95,
+        "length": 0.07,
+        "angleDeg": 150,
+        "spreadDeg": 45,
+        "amount": 0.026
+      },
+      {
+        "part": "torso",
+        "t": 0.12,
+        "length": 0.1,
+        "angleDeg": 150,
+        "spreadDeg": 35,
+        "amount": 0.024
+      },
+      {
+        "part": "arm",
+        "t": 0.06,
+        "length": 0.12,
+        "angleDeg": 90,
+        "spreadDeg": 85,
+        "amount": 0.02
+      },
+      {
+        "part": "arm",
+        "t": 0.28,
+        "length": 0.16,
+        "angleDeg": 0,
+        "spreadDeg": 55,
+        "amount": 0.016
+      },
+      {
+        "part": "arm",
+        "t": 0.3,
+        "length": 0.17,
+        "angleDeg": 180,
+        "spreadDeg": 55,
+        "amount": 0.014
+      },
+      {
+        "part": "arm",
+        "t": 0.66,
+        "length": 0.14,
+        "angleDeg": 60,
+        "spreadDeg": 70,
+        "amount": 0.012
+      },
+      {
+        "part": "leg",
+        "t": 0.24,
+        "length": 0.2,
+        "angleDeg": 15,
+        "spreadDeg": 60,
+        "amount": 0.018
+      },
+      {
+        "part": "leg",
+        "t": 0.26,
+        "length": 0.2,
+        "angleDeg": 190,
+        "spreadDeg": 50,
+        "amount": 0.012
+      },
+      {
+        "part": "leg",
+        "t": 0.65,
+        "length": 0.11,
+        "angleDeg": 190,
+        "spreadDeg": 60,
+        "amount": 0.02
+      },
+      {
+        "part": "neck",
+        "t": 0.3,
+        "length": 0.4,
+        "angleDeg": 40,
+        "spreadDeg": 35,
+        "amount": 0.008
+      }
+    ]
   },
   "palette": {
     "skin": "#C8956D",
-    "suit": "#39414D",
-    "suitDark": "#262B33",
+    "suit": "#4A5564",
+    "suitDark": "#303742",
     "armor": {
       "color": "#7A8696",
       "metalness": 0.35,

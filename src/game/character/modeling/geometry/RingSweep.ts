@@ -11,6 +11,8 @@ export interface SweepRing {
   /** Số mũ superellipse: 2 = elip, lớn hơn = vuông hơn. */
   n: number;
   t: number;
+  /** Độ nhô ra theo pháp tuyến tại góc theta (radian) — khối cơ. */
+  bulge?: (theta: number) => number;
 }
 
 export interface SweepData {
@@ -29,6 +31,22 @@ export const superellipsePoint = (theta: number, ra: number, rb: number, n: numb
   const s = Math.sin(theta);
   const e = 2 / n;
   return [ra * Math.sign(c) * Math.abs(c) ** e, rb * Math.sign(s) * Math.abs(s) ** e];
+};
+
+/** Điểm và pháp tuyến trên vòng tại góc theta, đã cộng khối cơ (nếu có) theo pháp tuyến. */
+export const ringPoint = (ring: SweepRing, theta: number): { position: Vec3; normal: Vec3 } => {
+  const [a, b] = superellipsePoint(theta, ring.ra, ring.rb, ring.n);
+  // Pháp tuyến của superellipse |a/ra|^n + |b/rb|^n = 1.
+  const na = (Math.sign(a) * Math.abs(a / ring.ra) ** (ring.n - 1)) / ring.ra;
+  const nb = (Math.sign(b) * Math.abs(b / ring.rb) ** (ring.n - 1)) / ring.rb;
+  const raw: Vec3 = [0, 1, 2].map((i) => ring.axisA[i]! * na + ring.axisB[i]! * nb) as Vec3;
+  const len = Math.hypot(...raw) || 1;
+  const normal: Vec3 = [raw[0] / len, raw[1] / len, raw[2] / len];
+  const lift = ring.bulge?.(theta) ?? 0;
+  const position = [0, 1, 2].map(
+    (i) => ring.center[i]! + ring.axisA[i]! * a + ring.axisB[i]! * b + normal[i]! * lift,
+  ) as Vec3;
+  return { position, normal };
 };
 
 const sub = (a: Vec3, b: Vec3): Vec3 => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
@@ -51,9 +69,8 @@ export const buildSweep = (rings: SweepRing[], segments: number, caps: { start: 
   rings.forEach((ring, r) => {
     for (let k = 0; k < segments; k++) {
       const theta = (k / segments) * Math.PI * 2;
-      const [a, b] = superellipsePoint(theta, ring.ra, ring.rb, ring.n);
       const v = r * segments + k;
-      for (let c = 0; c < 3; c++) positions[v * 3 + c] = ring.center[c]! + ring.axisA[c]! * a + ring.axisB[c]! * b;
+      positions.set(ringPoint(ring, theta).position, v * 3);
       tAttr[v] = ring.t;
       angle[v] = theta;
     }

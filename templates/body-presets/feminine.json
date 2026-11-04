@@ -32,8 +32,8 @@
     }
   },
   "bodyShape": {
-    "radialSegments": 8,
-    "ringsPerMeter": 40,
+    "radialSegments": 16,
+    "ringsPerMeter": 50,
     "shading": "flat",
     "torso": {
       "squareness": 2.2,
@@ -194,6 +194,128 @@
     "foot": {
       "squareness": 2.4,
       "toeTaper": 0.6
-    }
+    },
+    "muscles": [
+      {
+        "part": "torso",
+        "t": 0.77,
+        "length": 0.09,
+        "angleDeg": 28,
+        "spreadDeg": 32,
+        "amount": 0.0
+      },
+      {
+        "part": "torso",
+        "t": 0.45,
+        "length": 0.14,
+        "angleDeg": 0,
+        "spreadDeg": 30,
+        "amount": 0.0038
+      },
+      {
+        "part": "torso",
+        "t": 0.6,
+        "length": 0.35,
+        "angleDeg": 180,
+        "spreadDeg": 25,
+        "amount": -0.0028
+      },
+      {
+        "part": "torso",
+        "t": 0.68,
+        "length": 0.14,
+        "angleDeg": 110,
+        "spreadDeg": 35,
+        "amount": 0.006
+      },
+      {
+        "part": "torso",
+        "t": 0.95,
+        "length": 0.07,
+        "angleDeg": 150,
+        "spreadDeg": 45,
+        "amount": 0.0091
+      },
+      {
+        "part": "torso",
+        "t": 0.12,
+        "length": 0.1,
+        "angleDeg": 150,
+        "spreadDeg": 35,
+        "amount": 0.0312
+      },
+      {
+        "part": "arm",
+        "t": 0.06,
+        "length": 0.12,
+        "angleDeg": 90,
+        "spreadDeg": 85,
+        "amount": 0.007
+      },
+      {
+        "part": "arm",
+        "t": 0.28,
+        "length": 0.16,
+        "angleDeg": 0,
+        "spreadDeg": 55,
+        "amount": 0.0056
+      },
+      {
+        "part": "arm",
+        "t": 0.3,
+        "length": 0.17,
+        "angleDeg": 180,
+        "spreadDeg": 55,
+        "amount": 0.0049
+      },
+      {
+        "part": "arm",
+        "t": 0.66,
+        "length": 0.14,
+        "angleDeg": 60,
+        "spreadDeg": 70,
+        "amount": 0.0042
+      },
+      {
+        "part": "leg",
+        "t": 0.24,
+        "length": 0.2,
+        "angleDeg": 15,
+        "spreadDeg": 60,
+        "amount": 0.0063
+      },
+      {
+        "part": "leg",
+        "t": 0.26,
+        "length": 0.2,
+        "angleDeg": 190,
+        "spreadDeg": 50,
+        "amount": 0.0042
+      },
+      {
+        "part": "leg",
+        "t": 0.65,
+        "length": 0.11,
+        "angleDeg": 190,
+        "spreadDeg": 60,
+        "amount": 0.007
+      },
+      {
+        "part": "neck",
+        "t": 0.3,
+        "length": 0.4,
+        "angleDeg": 40,
+        "spreadDeg": 35,
+        "amount": 0.0028
+      },
+      {
+        "part": "torso",
+        "t": 0.76,
+        "length": 0.08,
+        "angleDeg": 30,
+        "spreadDeg": 35,
+        "amount": 0.03
+      }
+    ]
   }
 }

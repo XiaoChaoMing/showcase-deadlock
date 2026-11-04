@@ -160,5 +160,35 @@
       "name": "lineup-presets",
       "query": "stage=skinned&lineup=presets&view=threeQuarter"
     }
+  ],
+  "m4c": [
+    {
+      "name": "body-front",
+      "query": "hero=kestrel&stage=skinned&view=front"
+    },
+    {
+      "name": "body-threeQuarter",
+      "query": "hero=kestrel&stage=skinned&view=threeQuarter"
+    },
+    {
+      "name": "body-side",
+      "query": "hero=kestrel&stage=skinned&view=side"
+    },
+    {
+      "name": "body-back",
+      "query": "hero=kestrel&stage=skinned&view=back"
+    },
+    {
+      "name": "full-threeQuarter",
+      "query": "hero=kestrel&stage=full&view=threeQuarter"
+    },
+    {
+      "name": "full-front",
+      "query": "hero=kestrel&stage=full&view=front"
+    },
+    {
+      "name": "lineup-presets",
+      "query": "stage=skinned&lineup=presets&view=threeQuarter"
+    }
   ]
 }

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import type { BodyPart, BodyShape, Side, Vec3 } from '../definitions/HeroDefinition';
 import { BodyRegion } from './BodyRegions';
 import { FOOT_HEEL_RATIO, type BodySurface } from './BodySurface';
-import { superellipsePoint, type SweepRing } from './geometry/RingSweep';
+import { ringPoint, type SweepRing } from './geometry/RingSweep';
 
 /*
  * Thân là MỘT lưới kín, liền khối:
@@ -62,11 +62,7 @@ class MeshBuilder {
   }
 
   ring(r: SweepRing, n: number, region: BodyRegion): number[] {
-    return Array.from({ length: n }, (_, k) => {
-      const [a, b] = superellipsePoint((k / n) * Math.PI * 2, r.ra, r.rb, r.n);
-      const p: Vec3 = [0, 1, 2].map((i) => r.center[i]! + r.axisA[i]! * a + r.axisB[i]! * b) as Vec3;
-      return this.vertex(p, region, r.t);
-    });
+    return Array.from({ length: n }, (_, k) => this.vertex(ringPoint(r, (k / n) * Math.PI * 2).position, region, r.t));
   }
 
   /** Nối một vòng viền (cổng) với một vòng chi, tự chọn điểm bắt đầu và chiều đi khớp hướng nhất. */

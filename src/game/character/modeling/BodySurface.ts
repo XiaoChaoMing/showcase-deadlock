@@ -1,7 +1,7 @@
 import type { CharacterLayout } from '../definitions/CharacterLayout';
-import type { BodyPart, BodyShape, CharacterProportions, Section, Side, SurfaceMount, Vec3 } from '../definitions/HeroDefinition';
+import type { BodyPart, BodyShape, CharacterProportions, Muscle, Section, Side, SurfaceMount, Vec3 } from '../definitions/HeroDefinition';
 import { sampleProfile } from './geometry/profile';
-import type { SweepRing } from './geometry/RingSweep';
+import { ringPoint, type SweepRing } from './geometry/RingSweep';
 
 /** Hằng số hình học chung cho mọi hero (mét). */
 export const FOOT_HEEL_RATIO = 0.25;
@@ -45,10 +45,6 @@ interface PartFrame {
 
 const lerp3 = (a: Vec3, b: Vec3, t: number): Vec3 => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
 const dist = (a: Vec3, b: Vec3): number => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
-const normalize = (v: Vec3): Vec3 => {
-  const l = Math.hypot(...v) || 1;
-  return [v[0] / l, v[1] / l, v[2] / l];
-};
 
 const sectionSize = (sections: Section[], scaleB = 1, scaleA = 1) => (t: number) => {
   const s = sampleProfile(sections, t);
@@ -62,6 +58,28 @@ const groundedFoot =
     const s = size(t);
     return { ...s, forward: s.ra - (startY + (endY - startY) * t) };
   };
+
+const MIRRORED_PARTS: readonly BodyPart[] = ['torso', 'neck', 'head'];
+
+/** Hàm nhô ra cos² theo khoảng cách chuẩn hoá (0 tại tâm → 1, ≥ 1 → 0). */
+const bell = (x: number): number => (x >= 1 ? 0 : Math.cos((Math.PI / 2) * x) ** 2);
+const angleGap = (a: number, b: number): number => Math.abs(((((a - b) % 360) + 540) % 360) - 180);
+
+/** Tổng khối cơ của một bộ phận tại t, theo góc (radian). Trên thân/cổ/đầu tự lấy đối xứng −angleDeg. */
+const musclesAt = (muscles: Muscle[], part: BodyPart, t: number): ((theta: number) => number) | undefined => {
+  const active = muscles.filter((m) => m.part === part && Math.abs(t - m.t) < m.length);
+  if (active.length === 0) return undefined;
+  return (theta) => {
+    const deg = (theta * 180) / Math.PI;
+    let lift = 0;
+    for (const m of active) {
+      const along = bell(Math.abs(t - m.t) / m.length);
+      const centers = MIRRORED_PARTS.includes(part) && angleGap(m.angleDeg, -m.angleDeg) > 1e-9 ? [m.angleDeg, -m.angleDeg] : [m.angleDeg];
+      for (const c of centers) lift += m.amount * along * bell(angleGap(deg, c) / m.spreadDeg);
+    }
+    return lift;
+  };
+};
 
 const FRONT: Vec3 = [0, 0, 1];
 const UP: Vec3 = [0, 1, 0];
@@ -138,6 +156,8 @@ export const createBodySurface = (p: CharacterProportions, shape: BodyShape, lay
     return frame;
   };
 
+  const muscles = shape.muscles ?? [];
+
   const ringAt = (part: BodyPart, side: Side | undefined, t: number): SweepRing => {
     const f = frameOf(part, side);
     const { ra, rb, forward } = f.size(Math.min(1, Math.max(0, t)));
@@ -145,30 +165,14 @@ export const createBodySurface = (p: CharacterProportions, shape: BodyShape, lay
     return {
       center: [base[0] + f.axisA[0] * forward, base[1] + f.axisA[1] * forward, base[2] + f.axisA[2] * forward],
       axisA: f.axisA, axisB: f.axisB, ra, rb, n: f.n, t,
+      bulge: musclesAt(muscles, part, t),
     };
   };
 
   const pointAt = (m: SurfaceMount): { position: Vec3; normal: Vec3 } => {
-    const ring = ringAt(m.part, m.side, m.t);
-    const theta = (m.angleDeg * Math.PI) / 180;
-    const c = Math.cos(theta);
-    const s = Math.sin(theta);
-    const e = 2 / ring.n;
-    const a = ring.ra * Math.sign(c) * Math.abs(c) ** e;
-    const b = ring.rb * Math.sign(s) * Math.abs(s) ** e;
-    // Pháp tuyến của superellipse |a/ra|^n + |b/rb|^n = 1.
-    const na = (Math.sign(a) * Math.abs(a / ring.ra) ** (ring.n - 1)) / ring.ra;
-    const nb = (Math.sign(b) * Math.abs(b / ring.rb) ** (ring.n - 1)) / ring.rb;
-    const normal = normalize([
-      ring.axisA[0] * na + ring.axisB[0] * nb,
-      ring.axisA[1] * na + ring.axisB[1] * nb,
-      ring.axisA[2] * na + ring.axisB[2] * nb,
-    ]);
+    const { position, normal } = ringPoint(ringAt(m.part, m.side, m.t), (m.angleDeg * Math.PI) / 180);
     const standoff = m.standoff ?? 0;
-    const position: Vec3 = [0, 1, 2].map(
-      (i) => ring.center[i]! + ring.axisA[i]! * a + ring.axisB[i]! * b + normal[i]! * standoff,
-    ) as Vec3;
-    return { position, normal };
+    return { position: [0, 1, 2].map((i) => position[i]! + normal[i]! * standoff) as Vec3, normal };
   };
 
   const partLength = (part: BodyPart): number => {

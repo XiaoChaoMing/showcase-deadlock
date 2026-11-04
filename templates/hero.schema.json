@@ -690,6 +690,69 @@
               "description": "Độ thu nhỏ ở mũi chân (1 = không thu)"
             }
           }
+        },
+        "muscles": {
+          "type": "array",
+          "maxItems": 40,
+          "description": "Khối cơ: chỗ phồng (amount dương) hoặc rãnh (amount âm) trên bề mặt. Trên thân/cổ/đầu tự đối xứng trái–phải; trên tay/chân áp dụng cho cả hai bên.",
+          "items": {
+            "type": "object",
+            "description": "Một khối cơ.",
+            "additionalProperties": false,
+            "required": [
+              "part",
+              "t",
+              "length",
+              "angleDeg",
+              "spreadDeg",
+              "amount"
+            ],
+            "properties": {
+              "part": {
+                "type": "string",
+                "enum": [
+                  "torso",
+                  "neck",
+                  "head",
+                  "arm",
+                  "hand",
+                  "leg",
+                  "foot"
+                ],
+                "description": "Bộ phận cơ thể: torso (thân), neck (cổ), head (đầu), arm (cả cánh tay), hand (bàn tay), leg (cả chân), foot (bàn chân)."
+              },
+              "t": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Tâm khối cơ dọc bộ phận"
+              },
+              "length": {
+                "type": "number",
+                "minimum": 0.01,
+                "maximum": 1,
+                "description": "Nửa chiều dài vùng ảnh hưởng dọc bộ phận (theo t)"
+              },
+              "angleDeg": {
+                "type": "number",
+                "minimum": -360,
+                "maximum": 360,
+                "description": "Hướng tâm khối cơ quanh bộ phận (cùng quy ước góc với trang bị) (độ)"
+              },
+              "spreadDeg": {
+                "type": "number",
+                "minimum": 5,
+                "maximum": 180,
+                "description": "Nửa độ rộng vùng ảnh hưởng quanh bộ phận (độ)"
+              },
+              "amount": {
+                "type": "number",
+                "minimum": -0.05,
+                "maximum": 0.08,
+                "description": "Độ nhô ra (dương) hoặc lõm vào (âm) tại tâm (mét)"
+              }
+            }
+          }
         }
       }
     },

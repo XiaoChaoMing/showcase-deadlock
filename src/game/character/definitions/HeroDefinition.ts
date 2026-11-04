@@ -40,6 +40,24 @@ export interface BodyShape {
   leg: { squareness: number; sections: Section[] };
   hand: { width: number; thickness: number; squareness: number };
   foot: { squareness: number; toeTaper: number };
+  /** Khối cơ / rãnh trên bề mặt (tuỳ chọn). */
+  muscles?: Muscle[];
+}
+
+/**
+ * Chỗ phồng (amount > 0) hoặc rãnh (amount < 0) trên bề mặt, giảm dần mượt (cos²) ra rìa.
+ * Trên torso/neck/head tự đối xứng qua góc −angleDeg; trên tay/chân áp dụng cho cả hai bên.
+ */
+export interface Muscle {
+  part: BodyPart;
+  t: number;
+  /** Nửa chiều dài vùng ảnh hưởng theo t. */
+  length: number;
+  angleDeg: number;
+  /** Nửa độ rộng vùng ảnh hưởng quanh bộ phận (độ). */
+  spreadDeg: number;
+  /** Mét; âm = lõm vào. */
+  amount: number;
 }
 
 export type ColorSpec =
