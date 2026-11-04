@@ -62,5 +62,27 @@
       "name": "kestrel-head",
       "query": "hero=kestrel&stage=full&view=threeQuarter&zoom=head"
     }
+  ],
+  "m3": [
+    {
+      "name": "skeleton-front",
+      "query": "hero=kestrel&stage=skeleton&view=front&overlay=labels"
+    },
+    {
+      "name": "skeleton-side",
+      "query": "hero=kestrel&stage=skeleton&view=side&overlay=labels"
+    },
+    {
+      "name": "skeleton-threeQuarter",
+      "query": "hero=kestrel&stage=skeleton&view=threeQuarter"
+    },
+    {
+      "name": "skeleton-shoulderL",
+      "query": "hero=kestrel&stage=skeleton&view=front&overlay=labels&zoom=shoulderL"
+    },
+    {
+      "name": "skeleton-hipL",
+      "query": "hero=kestrel&stage=skeleton&view=front&overlay=labels&zoom=hipL"
+    }
   ]
 }

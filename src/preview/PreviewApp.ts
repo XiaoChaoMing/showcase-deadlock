@@ -7,6 +7,9 @@ import { applyPreset, BODY_PRESETS, isBodyPresetName } from '../game/character/d
 import type { HeroDefinition } from '../game/character/definitions/HeroDefinition';
 import { buildProportionPreview } from '../game/character/debug/ProportionPreview';
 import { buildCharacterModel } from '../game/character/modeling/CharacterModelBuilder';
+import { buildSkeleton } from '../game/character/rigging/SkeletonBuilder';
+import { createSockets } from '../game/character/rigging/Sockets';
+import { createSkeletonDebug, type SkeletonDebug } from '../game/character/debug/SkeletonDebug';
 import { loadHeroRegistry, type RegistryEntry } from '../game/character/runtime/HeroRegistry';
 import { parsePreviewParams, type PreviewParams, type PreviewStage, type PreviewZoom } from './PreviewParams';
 import { Viewport } from './Viewport';
@@ -21,6 +24,7 @@ const heroModules = import.meta.glob('/heroes/*/hero.json', { eager: true, impor
 
 interface Figure {
   object: THREE.Object3D;
+  skeletonDebug?: SkeletonDebug;
   height: number;
   focus: Partial<Record<PreviewZoom, THREE.Vector3>>;
 }
@@ -58,11 +62,33 @@ const buildModelFigure = (withEquipment: boolean): StageBuilder => (hero, params
   return { object: group, height: hero.proportions.height, focus: proportionFigure.focus };
 };
 
+/** Thân trong suốt + bộ xương 20 bone và socket (M3). */
+const buildSkeletonFigure: StageBuilder = (hero, params) => {
+  const model = buildCharacterModel(hero);
+  const group = new THREE.Group();
+  const ghost = model.bodyMaterials.map((m) => {
+    const clone = (m as THREE.MeshStandardMaterial).clone();
+    clone.transparent = true;
+    clone.opacity = 0.35;
+    clone.depthWrite = false;
+    return clone;
+  });
+  group.add(new THREE.Mesh(model.bodyGeometry, ghost));
+  const rig = buildSkeleton(model.layout);
+  const sockets = createSockets(hero.sockets, model.surface, model.layout, rig);
+  for (const socket of sockets.values()) socket.add(new THREE.AxesHelper(0.08));
+  group.add(rig.root);
+  const skeletonDebug = createSkeletonDebug(rig);
+  skeletonDebug.setVisible({ lines: true, joints: true, labels: params.overlay.has('labels'), axes: false });
+  group.add(skeletonDebug.group);
+  return { object: group, skeletonDebug, height: hero.proportions.height, focus: buildProportionFigure(hero, params).focus };
+};
+
 /** Các stage chưa làm sẽ được thêm ở milestone sau; tạm dùng stage gần nhất đã có. */
 const STAGE_BUILDERS: Record<PreviewStage, StageBuilder> = {
   proportions: buildProportionFigure,
   body: buildModelFigure(false),
-  skeleton: buildModelFigure(true),
+  skeleton: buildSkeletonFigure,
   skinned: buildModelFigure(true),
   full: buildModelFigure(true),
 };
@@ -92,6 +118,8 @@ export class PreviewApp {
   private readonly params: PreviewParams;
   private readonly content = new THREE.Group();
   private lineupWidth = 0;
+  private skeletonDebugs: SkeletonDebug[] = [];
+  private readonly debugVisibility = { lines: true, joints: true, labels: false, axes: false };
 
   constructor(container: HTMLElement) {
     this.viewport = new Viewport(container);
@@ -125,7 +153,10 @@ export class PreviewApp {
 
   private rebuild(): void {
     window.__heroReady = false;
+    for (const d of this.skeletonDebugs) d.dispose();
+    this.skeletonDebugs = [];
     this.content.clear();
+    this.debugVisibility.labels = this.params.overlay.has('labels');
     const builder = STAGE_BUILDERS[this.params.stage];
     const items = this.lineupHeroes();
     let maxHeight = 1.8;
@@ -136,6 +167,10 @@ export class PreviewApp {
       setWireframe(figure.object, this.params.overlay.has('wireframe'));
       maxHeight = Math.max(maxHeight, figure.height);
       focusFigure ??= figure;
+      if (figure.skeletonDebug) {
+        figure.skeletonDebug.setVisible(this.debugVisibility);
+        this.skeletonDebugs.push(figure.skeletonDebug);
+      }
       return figure;
     });
     const widths = figures.map((f) => new THREE.Box3().setFromObject(f.object).getSize(new THREE.Vector3()).x + 0.15);
@@ -203,5 +238,13 @@ export class PreviewApp {
     gui.add(state, 'view', ['front', 'side', 'back', 'threeQuarter']).name('Góc nhìn').onChange(changed);
     gui.add(state, 'lineup', ['none', 'presets', 'heroes']).name('Xếp hàng').onChange(changed);
     gui.add(state, 'wireframe').name('Wireframe').onChange(changed);
+    const bones = gui.addFolder('Bộ xương (stage skeleton)');
+    const apply = (): void => {
+      for (const d of this.skeletonDebugs) d.setVisible(this.debugVisibility);
+    };
+    bones.add(this.debugVisibility, 'lines').name('Đường nối').onChange(apply);
+    bones.add(this.debugVisibility, 'joints').name('Khớp').onChange(apply);
+    bones.add(this.debugVisibility, 'labels').name('Tên bone').onChange(apply).listen();
+    bones.add(this.debugVisibility, 'axes').name('Trục local').onChange(apply);
   }
 }
