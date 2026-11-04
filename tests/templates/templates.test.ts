@@ -48,31 +48,6 @@ describe('hero-template.json', () => {
   });
 });
 
-describe('Granite (hero thử dựng từ template)', () => {
-  const raw = readJson('heroes/granite/hero.json');
-
-  it('hợp lệ trong registry (id trùng tên thư mục)', () => {
-    const [entry] = loadHeroRegistry({ '/heroes/granite/hero.json': raw });
-    expect(entry?.ok, JSON.stringify(entry)).toBe(true);
-  });
-
-  it('mọi rig check pass', () => expect(rigFailures(validated(raw))).toEqual([]));
-
-  it('khác hẳn Kestrel: dáng heavy, cao hơn, bảng màu khác', () => {
-    const g = validated(raw);
-    const k = validated(readJson('heroes/kestrel/hero.json'));
-    expect(g.proportions.height).toBeGreaterThan(k.proportions.height);
-    expect(g.proportions.torso.shoulderWidth).toBeGreaterThan(k.proportions.torso.shoulderWidth);
-    expect(JSON.stringify(g.palette)).not.toBe(JSON.stringify(k.palette));
-    expect(g.equipment.some((e) => e.kind === 'shell' && e.faceOpeningDeg > 0)).toBe(true);
-  });
-
-  it('xuất GLB rồi nạp lại khớp hoàn toàn', async () => {
-    const { buffer, summary } = await exportCharacterGlb(validated(raw));
-    expect(compareSummaries(summary, summarizeCharacter(await importCharacterGlb(buffer)))).toEqual([]);
-  });
-});
-
 describe('hero.schema.json', () => {
   it('mọi thuộc tính đều có description không rỗng', () => {
     const missing: string[] = [];

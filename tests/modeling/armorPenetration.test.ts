@@ -1,5 +1,3 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import * as THREE from 'three';
 import { buildCharacterModel } from '../../src/game/character/modeling/CharacterModelBuilder';
@@ -8,8 +6,7 @@ import { SAMPLE_HEROES } from '../helpers/heroes';
 import { createInsideTester } from '../helpers/meshInside';
 
 const TOLERANCE = 0.005;
-const granite = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../heroes/granite/hero.json'), 'utf8')) as HeroDefinition;
-const HEROES: Array<[string, HeroDefinition]> = [...SAMPLE_HEROES, ['granite', granite]];
+const HEROES: Array<[string, HeroDefinition]> = SAMPLE_HEROES;
 const CONFORMING = new Set(['plate', 'band', 'shell', 'box']);
 
 /** Review Focus #5 (đo trên lưới thân thật): giáp ôm thân không được chìm vào thân quá 5 mm lúc bind. */

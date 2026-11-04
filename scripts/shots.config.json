@@ -445,62 +445,8 @@
   ],
   "m8": [
     {
-      "name": "granite-showcase",
-      "query": "hero=granite",
-      "viewport": {
-        "width": 1440,
-        "height": 900
-      }
-    },
-    {
-      "name": "granite-front",
-      "query": "preview=1&hero=granite&stage=full&view=front&pose=idle"
-    },
-    {
-      "name": "granite-threeQuarter",
-      "query": "preview=1&hero=granite&stage=full&view=threeQuarter&pose=idle"
-    },
-    {
-      "name": "granite-back",
-      "query": "preview=1&hero=granite&stage=full&view=back&pose=idle"
-    },
-    {
-      "name": "granite-armRaise",
-      "query": "preview=1&hero=granite&stage=full&view=threeQuarter&pose=armRaise"
-    },
-    {
-      "name": "granite-kneeBend",
-      "query": "preview=1&hero=granite&stage=full&view=side&pose=kneeBend"
-    },
-    {
       "name": "heroes-lineup",
       "query": "preview=1&lineup=heroes&stage=full&view=threeQuarter&pose=idle"
-    }
-  ],
-  "morrow": [
-    {
-      "name": "morrow-showcase",
-      "query": "hero=morrow",
-      "viewport": {
-        "width": 1440,
-        "height": 900
-      }
-    },
-    {
-      "name": "morrow-front",
-      "query": "preview=1&hero=morrow&stage=full&view=front&pose=idle"
-    },
-    {
-      "name": "morrow-back",
-      "query": "preview=1&hero=morrow&stage=full&view=back&pose=idle"
-    },
-    {
-      "name": "morrow-side",
-      "query": "preview=1&hero=morrow&stage=full&view=side&pose=idle"
-    },
-    {
-      "name": "morrow-armRaise",
-      "query": "preview=1&hero=morrow&stage=full&view=threeQuarter&pose=armRaise"
     }
   ],
   "typo": [
@@ -515,32 +461,12 @@
   ],
   "fit": [
     {
-      "name": "granite-front",
-      "query": "preview=1&hero=granite&stage=full&view=front&pose=tpose"
-    },
-    {
-      "name": "granite-hip",
-      "query": "preview=1&hero=granite&stage=full&view=front&pose=tpose&zoom=hipL"
-    },
-    {
-      "name": "granite-shoulder-back",
-      "query": "preview=1&hero=granite&stage=full&view=back&pose=tpose&zoom=shoulderL"
-    },
-    {
       "name": "kestrel-front",
       "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter&pose=idle"
     },
     {
       "name": "kestrel-heavy",
       "query": "preview=1&hero=kestrel&preset=heavy&stage=full&view=threeQuarter&pose=tpose"
-    },
-    {
-      "name": "morrow-front",
-      "query": "preview=1&hero=morrow&stage=full&view=front&pose=idle"
-    },
-    {
-      "name": "morrow-threeQuarter",
-      "query": "preview=1&hero=morrow&stage=full&view=threeQuarter&pose=idle"
     }
   ],
   "v2-baseline": [
@@ -559,38 +485,6 @@
     {
       "name": "kestrel-back",
       "query": "preview=1&hero=kestrel&stage=full&view=back&lighting=legacy"
-    },
-    {
-      "name": "granite-front",
-      "query": "preview=1&hero=granite&stage=full&view=front&lighting=legacy"
-    },
-    {
-      "name": "granite-threeQuarter",
-      "query": "preview=1&hero=granite&stage=full&view=threeQuarter&lighting=legacy"
-    },
-    {
-      "name": "granite-side",
-      "query": "preview=1&hero=granite&stage=full&view=side&lighting=legacy"
-    },
-    {
-      "name": "granite-back",
-      "query": "preview=1&hero=granite&stage=full&view=back&lighting=legacy"
-    },
-    {
-      "name": "morrow-front",
-      "query": "preview=1&hero=morrow&stage=full&view=front&lighting=legacy"
-    },
-    {
-      "name": "morrow-threeQuarter",
-      "query": "preview=1&hero=morrow&stage=full&view=threeQuarter&lighting=legacy"
-    },
-    {
-      "name": "morrow-side",
-      "query": "preview=1&hero=morrow&stage=full&view=side&lighting=legacy"
-    },
-    {
-      "name": "morrow-back",
-      "query": "preview=1&hero=morrow&stage=full&view=back&lighting=legacy"
     },
     {
       "name": "kestrel-armRaise",

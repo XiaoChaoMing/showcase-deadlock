@@ -2,9 +2,7 @@
 
 Mỗi hero là **một file JSON**, không cần sửa code. Trang showcase tự nhận mọi file `heroes/<id>/hero.json`.
 
-Ví dụ tham khảo:
-- `heroes/kestrel/hero.json`: trinh sát, dáng athletic, 46 trang bị.
-- `heroes/granite/hero.json`: tiên phong, dáng heavy, được dựng hoàn toàn từ template này.
+Ví dụ tham khảo: `heroes/kestrel/hero.json` (trinh sát, dáng athletic, 46 trang bị).
 
 ## 1. Các bước
 

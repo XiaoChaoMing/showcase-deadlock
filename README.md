@@ -27,7 +27,7 @@ Xem [`templates/HERO_TEMPLATE.md`](templates/HERO_TEMPLATE.md). Tóm tắt:
 ## Cấu trúc
 
 ```
-heroes/<id>/hero.json         định nghĩa từng hero (kestrel, granite)
+heroes/<id>/hero.json         định nghĩa từng hero (hiện có: kestrel)
 templates/                    hero.schema.json, hero-template.json, HERO_TEMPLATE.md, body-presets/
 src/game/character/
   definitions/                kiểu dữ liệu, kiểm tra JSON, proportions, layout khớp, preset
