@@ -21,9 +21,11 @@ export const BODY_PRESETS: Record<BodyPresetName, BodyPreset> = {
 export const isBodyPresetName = (value: unknown): value is BodyPresetName =>
   typeof value === 'string' && value in BODY_PRESETS;
 
-/** Trả bản hero mới với tỷ lệ và hình dáng của preset; hero gốc không đổi. */
+const withoutBodyDesign = ({ bodyDesign: _ignored, ...rest }: HeroDefinition): HeroDefinition => rest;
+
+/** Trả bản hero mới với tỷ lệ và hình dáng của preset (thân kiểu cũ); hero gốc không đổi. */
 export const applyPreset = (hero: HeroDefinition, preset: BodyPreset): HeroDefinition => ({
-  ...structuredClone(hero),
+  ...withoutBodyDesign(structuredClone(hero)),
   proportions: structuredClone(preset.proportions),
   bodyShape: structuredClone(preset.bodyShape),
 });

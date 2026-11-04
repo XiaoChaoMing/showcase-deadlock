@@ -1,6 +1,8 @@
 import Ajv, { type ErrorObject } from 'ajv';
 import schema from '../../../../templates/hero.schema.json';
 import { resolveProportions } from './resolveProportions';
+import { resolveBodyDesign } from '../body/config/resolveBodyDesign';
+import type { BodyDesignConfig } from '../body/config/BodyDesign';
 import { SIDED_PARTS, type HeroDefinition, type Section, type SurfaceMount } from './HeroDefinition';
 
 export interface HeroError {
@@ -180,12 +182,44 @@ const semanticErrors = (hero: HeroDefinition): HeroError[] => {
   return errors;
 };
 
-export const validateHero = (raw: unknown): HeroValidationResult => {
-  if (!validateSchema(raw)) {
-    const errors = collapseOneOf(validateSchema.errors ?? []).map(translate);
-    return { ok: false, errors: dedupe(errors) };
+const BODY_SOURCE_KEYS = new Set(['proportions', 'bodyShape', 'bodyDesign']);
+
+/** Thân phải đến từ đúng một nguồn: bodyDesign, hoặc cặp proportions + bodyShape. Trả một lỗi gọn thay cho lỗi oneOf của schema. */
+const bodySourceErrors = (raw: unknown): HeroError[] => {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return [];
+  const has = (k: string): boolean => Object.hasOwn(raw, k);
+  if (has('bodyDesign') && (has('proportions') || has('bodyShape'))) {
+    return [{ path: '/bodyDesign', message: 'không dùng cùng lúc bodyDesign với proportions/bodyShape — chọn một (khuyên dùng bodyDesign)' }];
   }
-  const hero = raw as unknown as HeroDefinition;
+  if (!has('bodyDesign') && !has('proportions') && !has('bodyShape')) {
+    return [{ path: '/', message: 'thiếu bodyDesign (hoặc proportions + bodyShape theo kiểu cũ)' }];
+  }
+  for (const k of ['proportions', 'bodyShape']) {
+    if (!has('bodyDesign') && !has(k)) return [{ path: `/${k}`, message: `thiếu trường bắt buộc "${k}" (thân kiểu cũ cần cả proportions và bodyShape)` }];
+  }
+  return [];
+};
+
+/** Lỗi gốc của nhánh oneOf "nguồn thân" đã được bodySourceErrors thay thế. */
+const isBodySourceNoise = (e: ErrorObject): boolean =>
+  e.instancePath === '' &&
+  (e.keyword === 'oneOf' || e.keyword === 'not' || e.keyword === 'anyOf' ||
+    (e.keyword === 'required' && BODY_SOURCE_KEYS.has(String((e.params as { missingProperty?: unknown }).missingProperty))));
+
+const bodyFrom = (design: BodyDesignConfig): Pick<HeroDefinition, 'proportions' | 'bodyShape'> => {
+  const { proportions, bodyShape } = resolveBodyDesign(design);
+  return { proportions, bodyShape };
+};
+
+export const validateHero = (raw: unknown): HeroValidationResult => {
+  const sourceErrors = bodySourceErrors(raw);
+  if (!validateSchema(raw)) {
+    const errors = collapseOneOf((validateSchema.errors ?? []).filter((e) => !isBodySourceNoise(e))).map(translate);
+    return { ok: false, errors: dedupe([...sourceErrors, ...errors]) };
+  }
+  if (sourceErrors.length > 0) return { ok: false, errors: sourceErrors };
+  const source = raw as unknown as HeroDefinition & { bodyDesign?: BodyDesignConfig };
+  const hero: HeroDefinition = source.bodyDesign ? { ...source, ...bodyFrom(source.bodyDesign) } : source;
   const errors = semanticErrors(hero);
   return errors.length > 0 ? { ok: false, errors } : { ok: true, hero };
 };

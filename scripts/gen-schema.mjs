@@ -118,13 +118,45 @@ const equipment = {
   },
 };
 
+// bodyDesign: phải khớp src/game/character/body/config/BodyDesign.ts (test tests/body/bodyDesignSchema.test.ts kiểm tra).
+const ARCHETYPES = ['tank', 'fighter', 'assassin', 'mage', 'bruiser'];
+const MUSCLE_GROUPS = ['chest', 'shoulders', 'arms', 'abdomen', 'back', 'glutes', 'thighs', 'calves'];
+const MUSCLE_GROUP_NAMES = { chest: 'ngực', shoulders: 'vai (cơ delta)', arms: 'tay (biceps, triceps, cẳng tay)', abdomen: 'bụng', back: 'lưng (cơ thang, cơ lưng rộng)', glutes: 'mông', thighs: 'đùi', calves: 'bắp chân' };
+const PROPORTION_KEYS = { shoulderWidth: 'bề ngang vai', chestWidth: 'bề ngang ngực', waistWidth: 'bề ngang eo', hipWidth: 'bề ngang hông', armVolume: 'độ to của tay', legVolume: 'độ to của chân' };
+const bodyDesign = obj('Thiết kế thân theo phong cách Anatomical Body System (Heroic Smooth). Dùng thay cho cặp proportions + bodyShape; không dùng cùng lúc.', {
+  version: { const: 1, description: 'Phiên bản cấu hình thân. Hiện là 1.' },
+  style: { const: 'stylized-anatomical', description: 'Phong cách đã khoá: stylized-anatomical.' },
+  surface: { const: 'smooth', description: 'Bề mặt đã khoá: smooth.' },
+  proportionPreset: { const: 'heroic', description: 'Bộ tỷ lệ đã khoá: heroic.' },
+  muscleDefinition: { type: 'string', enum: ['low', 'medium', 'high'], description: 'Độ rõ của khối cơ: low, medium, high (mặc định của phong cách là high).' },
+  archetype: { type: 'string', enum: ARCHETYPES, description: 'Dáng nền: tank (rất to), fighter (cân đối, khoẻ), assassin (gọn, săn chắc), mage (thon, cơ nhẹ), bruiser (vai và tay rất to).' },
+  bodyType: { type: 'string', enum: ['masculine', 'feminine'], description: 'Dáng thân nam (masculine) hoặc nữ (feminine); mỗi dáng có bộ tỷ lệ riêng.' },
+  height: num(1.4, 2.4, 'Chiều cao thân (mét). Bỏ trống = mặc định của archetype (thân nữ × 0.95)'),
+  proportions: obj('Hệ số nhân thêm lên archetype, 1 = giữ nguyên.', Object.fromEntries(Object.entries(PROPORTION_KEYS).map(([k, d]) => [k, num(0.6, 1.6, `Hệ số ${d}`)])), []),
+  muscles: obj('Hệ số độ nhô từng nhóm cơ, 1 = mặc định, 0 = không có cơ.', Object.fromEntries(MUSCLE_GROUPS.map((g) => [g, num(0, 2, `Nhóm cơ ${MUSCLE_GROUP_NAMES[g]}`)])), []),
+  surfaceSettings: obj('Cách thể hiện bề mặt.', {
+    smoothness: unit('Độ mềm khi các khối cơ hoà vào nhau (mặc định 0.85)'),
+    muscleSeparation: unit('Độ sâu rãnh giữa các khối cơ (mặc định theo archetype)'),
+    surfaceResolution: { type: 'string', enum: ['low', 'medium', 'high'], description: 'Mật độ lưới thân: low (16 cạnh mỗi vòng), medium (24), high (32, mặc định).' },
+  }, []),
+  material: obj('Vật liệu riêng của thân (không dùng chung với giáp). Màu lấy từ bodyPaint.', {
+    roughness: unit('Độ nhám (mặc định 0.62)'),
+    metalness: unit('Độ kim loại (mặc định 0)'),
+    anatomicalContrast: num(0, 0.5, 'Độ tối thêm ở rãnh cơ, 0 = không tô (mặc định 0.18)'),
+  }, []),
+}, ['version', 'style', 'surface', 'proportionPreset', 'muscleDefinition', 'archetype', 'bodyType']);
+
 const schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   $id: 'hero.schema.json',
   title: 'Hero definition',
   description: 'Định nghĩa một hero: tỷ lệ, hình dáng, màu, trang bị. Đơn vị độ dài là mét (1 đơn vị Three.js).',
   type: 'object', additionalProperties: false,
-  required: ['id', 'version', 'profile', 'proportions', 'bodyShape', 'palette', 'bodyPaint', 'sockets', 'equipment', 'showcase'],
+  required: ['id', 'version', 'profile', 'palette', 'bodyPaint', 'sockets', 'equipment', 'showcase'],
+  oneOf: [
+    { description: 'Thân kiểu cũ: proportions + bodyShape.', required: ['proportions', 'bodyShape'], not: { required: ['bodyDesign'] } },
+    { description: 'Thân theo bodyDesign.', required: ['bodyDesign'], not: { anyOf: [{ required: ['proportions'] }, { required: ['bodyShape'] }] } },
+  ],
   definitions: defs,
   properties: {
     $schema: { type: 'string', description: 'Đường dẫn tới hero.schema.json để VS Code gợi ý.' },
@@ -133,7 +165,8 @@ const schema = {
     profile: obj('Thông tin hiển thị trên trang showcase.', {
       name: str('Tên hero', 60), role: str('Vai trò', 60), tagline: str('Câu giới thiệu ngắn', 160), description: str('Đoạn mô tả 2–3 câu', 1200),
     }),
-    proportions: obj('Tỷ lệ cơ thể. Tổng (foot.height + legs + torso.length + neck.length + head.height) phải gần bằng height (lệch tối đa 0.02).', {
+    bodyDesign,
+    proportions: obj('Tỷ lệ cơ thể (kiểu cũ, không dùng cùng bodyDesign). Tổng (foot.height + legs + torso.length + neck.length + head.height) phải gần bằng height (lệch tối đa 0.02).', {
       height: num(0.8, 3, 'Chiều cao thân từ đáy bàn chân tới đỉnh đầu, không tính trang bị (mét)'),
       head: obj('Kích thước đầu.', { width: len('Bề ngang đầu'), height: len('Chiều cao đầu từ cằm tới đỉnh'), depth: len('Bề dày đầu trước–sau') }),
       neck: obj('Cổ.', { length: len('Chiều dài cổ'), radius: len('Bán kính gốc cổ') }),

@@ -187,3 +187,23 @@ export const resolveBodyDesign = (config: BodyDesignConfig): ResolvedBody => {
 
   return { proportions, bodyShape, anatomy };
 };
+
+/** Bản hero mới có thân theo bodyDesign (tỷ lệ và tiết diện đã resolve); hero gốc không đổi. */
+export const applyBodyDesign = <H extends { bodyDesign?: BodyDesignConfig; proportions: CharacterProportions; bodyShape: BodyShape }>(
+  hero: H,
+  design: BodyDesignConfig,
+): H => {
+  const { proportions, bodyShape } = resolveBodyDesign(design);
+  return { ...structuredClone(hero), bodyDesign: structuredClone(design), proportions, bodyShape };
+};
+
+/** Cấu hình mặc định của phong cách cho một archetype × bodyType. */
+export const defaultBodyDesign = (archetype: BodyDesignConfig['archetype'], bodyType: BodyDesignConfig['bodyType']): BodyDesignConfig => ({
+  version: 1,
+  style: 'stylized-anatomical',
+  surface: 'smooth',
+  proportionPreset: 'heroic',
+  muscleDefinition: 'high',
+  archetype,
+  bodyType,
+});

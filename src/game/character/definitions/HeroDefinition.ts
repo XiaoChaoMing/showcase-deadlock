@@ -1,4 +1,5 @@
 import type { BoneName } from './BoneNames';
+import type { BodyDesignConfig } from '../body/config/BodyDesign';
 
 export type Vec3 = [number, number, number];
 export type Side = 'left' | 'right';
@@ -178,6 +179,11 @@ export interface HeroDefinition {
   id: string;
   version: 1;
   profile: HeroProfile;
+  /**
+   * Thân theo Anatomical Body System. Trong file chỉ có MỘT trong hai: bodyDesign hoặc (proportions + bodyShape).
+   * Sau validateHero, proportions và bodyShape luôn có (đã resolve từ bodyDesign nếu cần).
+   */
+  bodyDesign?: BodyDesignConfig;
   proportions: CharacterProportions;
   bodyShape: BodyShape;
   palette: Record<string, ColorSpec>;

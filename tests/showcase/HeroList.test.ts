@@ -18,7 +18,7 @@ describe('renderHeroList', () => {
     expect(cards).toHaveLength(2);
     const error = el.querySelector('.hero-card.error')!;
     expect(error.textContent).toContain('Lỗi dữ liệu');
-    expect(error.textContent).toContain('/proportions');
+    expect(error.textContent).toContain('thiếu bodyDesign');
     const ok = el.querySelector('.hero-card[data-id="kestrel"]')!;
     expect(ok.textContent).toContain('Kestrel');
     expect(ok.classList.contains('selected')).toBe(true);

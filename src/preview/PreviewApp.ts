@@ -4,6 +4,10 @@ import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 import { computeLayout } from '../game/character/definitions/CharacterLayout';
 import { resolveProportions } from '../game/character/definitions/resolveProportions';
 import { applyPreset, BODY_PRESETS, isBodyPresetName } from '../game/character/definitions/presets';
+import { ARCHETYPE_IDS, BODY_TYPES } from '../game/character/body/config/BodyDesign';
+import { applyBodyDesign, defaultBodyDesign } from '../game/character/body/config/resolveBodyDesign';
+
+const BODY_TYPE_LABEL = { masculine: 'nam', feminine: 'nữ' } as const;
 import { POSE_IDS, type HeroDefinition } from '../game/character/definitions/HeroDefinition';
 import { buildProportionPreview } from '../game/character/debug/ProportionPreview';
 import { buildCharacterModel } from '../game/character/modeling/CharacterModelBuilder';
@@ -184,6 +188,7 @@ export class PreviewApp {
     const all = this.heroes();
     const hero = all.find((h) => h.id === this.params.hero) ?? all[0];
     if (!hero) return undefined;
+    if (this.params.archetype) return applyBodyDesign(hero, defaultBodyDesign(this.params.archetype, this.params.bodyType ?? 'masculine'));
     return isBodyPresetName(this.params.preset) ? applyPreset(hero, BODY_PRESETS[this.params.preset]) : hero;
   }
 
@@ -192,6 +197,14 @@ export class PreviewApp {
     if (this.params.lineup === 'heroes') return this.heroes().map((h) => ({ label: h.profile.name, hero: h }));
     if (this.params.lineup === 'presets' && base) {
       return Object.entries(BODY_PRESETS).map(([name, preset]) => ({ label: name, hero: applyPreset(base, preset) }));
+    }
+    if (this.params.lineup === 'archetypes' && base) {
+      // Thân trần: bỏ trang bị và socket để chỉ so dáng thân.
+      const bare = { ...base, equipment: [], sockets: [] };
+      const types = this.params.bodyType ? [this.params.bodyType] : BODY_TYPES;
+      return types.flatMap((bodyType) =>
+        ARCHETYPE_IDS.map((a) => ({ label: `${a} · ${BODY_TYPE_LABEL[bodyType]}`, hero: applyBodyDesign(bare, defaultBodyDesign(a, bodyType)) })),
+      );
     }
     return base ? [{ label: base.profile.name, hero: base }] : [];
   }
@@ -297,7 +310,11 @@ export class PreviewApp {
     }
     const target = new THREE.Vector3(0, height / 2, 0);
     const fitHeight = 3.9 * Math.max(1, height / 1.8);
-    const distance = count > 1 ? Math.max(this.lineupWidth * 1.2, fitHeight) : fitHeight;
+    // Hàng nhiều dáng: lùi vừa đủ để cả hàng lọt khung ngang (theo fov và tỷ lệ khung hình).
+    const camera = this.viewport.camera;
+    const halfHorizontal = Math.atan(Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect);
+    const fitWidth = (this.lineupWidth * 1.08) / (2 * Math.tan(halfHorizontal));
+    const distance = count > 1 ? Math.max(fitWidth, fitHeight) : fitHeight;
     this.viewport.setView(this.params.view, target, distance);
   }
 
@@ -310,6 +327,8 @@ export class PreviewApp {
     q.set('view', p.view);
     if (p.overlay.size) q.set('overlay', [...p.overlay].join(','));
     if (p.lineup !== 'none') q.set('lineup', p.lineup);
+    if (p.archetype) q.set('archetype', p.archetype);
+    if (p.bodyType) q.set('bodyType', p.bodyType);
     q.set('pose', p.pose);
     window.history.replaceState(null, '', `?${q.toString()}`);
   }
@@ -343,7 +362,7 @@ export class PreviewApp {
     gui.add(state, 'preset', ['none', ...Object.keys(BODY_PRESETS)]).name('Preset dáng').onChange(changed);
     gui.add(state, 'stage', ['proportions', 'body', 'skeleton', 'skinned', 'full']).name('Giai đoạn').onChange(changed);
     gui.add(state, 'view', ['front', 'side', 'back', 'threeQuarter']).name('Góc nhìn').onChange(changed);
-    gui.add(state, 'lineup', ['none', 'presets', 'heroes']).name('Xếp hàng').onChange(changed);
+    gui.add(state, 'lineup', ['none', 'presets', 'heroes', 'archetypes']).name('Xếp hàng').onChange(changed);
     gui.add(state, 'pose', [...POSE_IDS]).name('Tư thế ban đầu').onChange(changed);
     gui.add(state, 'wireframe').name('Wireframe').onChange(changed);
     const bones = gui.addFolder('Bộ xương (stage skeleton)');
