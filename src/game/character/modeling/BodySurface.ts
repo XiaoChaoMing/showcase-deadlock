@@ -25,6 +25,8 @@ export interface BodySurface {
   ringAt(part: BodyPart, side: Side | undefined, t: number): SweepRing;
   pointAt(m: SurfaceMount): { position: Vec3; normal: Vec3 };
   partLength(part: BodyPart): number;
+  /** Trục của bộ phận (bind): điểm đầu t = 0 và điểm cuối t = 1. */
+  axis(part: BodyPart, side?: Side): { start: Vec3; end: Vec3 };
   /** Các giá trị t phân bố đều trong [from, to] theo mật độ ringsPerMeter, dày hơn quanh khuỷu/gối. */
   uniformTs(part: BodyPart, ringsPerMeter: number, from: number, to: number): number[];
   /**
@@ -232,5 +234,10 @@ export const createBodySurface = (
     return { position: [0, 1, 2].map((c) => point[c]! + normal[c]! * standoff) as Vec3, normal };
   };
 
-  return { ringAt, pointAt, partLength, uniformTs, outerPointAt, proportions: p, shape, layout };
+  const axis = (part: BodyPart, side?: Side): { start: Vec3; end: Vec3 } => {
+    const f = frameOf(part, side ?? 'left');
+    return { start: f.start, end: f.end };
+  };
+
+  return { ringAt, pointAt, partLength, uniformTs, outerPointAt, axis, proportions: p, shape, layout };
 };

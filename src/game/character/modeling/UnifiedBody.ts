@@ -21,6 +21,52 @@ const CROTCH_TO_LEG = 0.03;
 const ANKLE_ABOVE_FOOT = 0.025;
 /** Phần khoảng trống giữa khớp vai và gốc cổ mà cổng vai được phép chiếm. */
 const SHOULDER_PORT_HEADROOM = 0.85;
+/** Độ dài tiếp tuyến (theo khoảng cách cổng → vòng chi) ở đầu/cuối vùng chuyển tiếp Hermite. */
+const TRANSITION_START_TANGENT = 1.0;
+const TRANSITION_END_TANGENT = 1.0;
+/** Tỷ phần tiếp tuyến (so với pháp tuyến) của hướng rời bộ phận gốc. */
+const TRANSITION_TANGENTIAL = 0.5;
+const TRANSITION_ROUNDING = 0.5;
+const TRANSITION_ROUNDING_PASSES = 3;
+/** Khoảng (m) lùi vòng tay đầu tiên ra xa hơn khi có vùng chuyển tiếp, để vai có chỗ bo tròn. */
+const TRANSITION_ARM_EXTRA = 0.03;
+
+export interface BodyMeshOptions {
+  /** Vai: chèn vùng chuyển tiếp Hermite nhiều vòng thay cho một dải nối phẳng (chỉ dùng cho bodyDesign). */
+  transitions?: boolean;
+  /** Thêm vòng ở nơi khối cơ đổi độ cao nhanh (chỉ dùng cho bodyDesign). */
+  adaptive?: boolean;
+}
+
+/** Độ dốc khối cơ dọc bộ phận (m/m) trên đó khoảng giữa hai vòng được chia đôi. */
+const ADAPTIVE_SLOPE = 0.15;
+/** Số vòng thêm tối đa, tính theo tỷ lệ số vòng sẵn có. */
+const ADAPTIVE_MAX_EXTRA = 0.4;
+const ADAPTIVE_ANGLES = 24;
+
+/** Chèn t ở giữa các khoảng mà khối cơ đổi độ cao nhanh nhất (dốc > ADAPTIVE_SLOPE), tối đa +40% số vòng. */
+const refineTs = (surface: BodySurface, part: BodyPart, side: Side | undefined, ts: number[]): number[] => {
+  const len = surface.partLength(part);
+  const liftAt = (t: number): number[] => {
+    const ring = surface.ringAt(part, side, t);
+    return Array.from({ length: ADAPTIVE_ANGLES }, (_, k) => ring.bulge?.((k / ADAPTIVE_ANGLES) * Math.PI * 2) ?? 0);
+  };
+  const lifts = ts.map(liftAt);
+  const candidates: Array<{ t: number; slope: number }> = [];
+  for (let i = 0; i < ts.length - 1; i++) {
+    const dt = (ts[i + 1]! - ts[i]!) * len;
+    if (dt <= 0) continue;
+    const a = lifts[i]!;
+    const b = lifts[i + 1]!;
+    const slope = Math.max(...a.map((v, k) => Math.abs(b[k]! - v))) / dt;
+    if (slope > ADAPTIVE_SLOPE) candidates.push({ t: (ts[i]! + ts[i + 1]!) / 2, slope });
+  }
+  const extra = candidates
+    .sort((x, y) => y.slope - x.slope)
+    .slice(0, Math.floor(ts.length * ADAPTIVE_MAX_EXTRA))
+    .map((c) => c.t);
+  return [...ts, ...extra].sort((x, y) => x - y);
+};
 
 class MeshBuilder {
   readonly positions: number[] = [];
@@ -67,6 +113,58 @@ class MeshBuilder {
 
   /** Nối một vòng viền (cổng) với một vòng chi, tự chọn điểm bắt đầu và chiều đi khớp hướng nhất. */
   bridge(loop: number[], ring: number[], region: BodyRegion): void {
+    this.band(this.align(loop, ring), ring, region);
+  }
+
+  /**
+   * Như bridge, nhưng chèn các vòng trung gian theo đường cong Hermite: rời bộ phận gốc theo pháp tuyến của nó
+   * (startDir) rồi đi vào chi theo trục chi (endDir). Tạo vùng chuyển tiếp tròn (vai, háng) thay cho một dải phẳng.
+   */
+  transition(
+    loop: number[],
+    ring: number[],
+    region: BodyRegion,
+    opts: { normalAt: (p: Vec3) => Vec3; endDir: Vec3; steps: number; chainT: (s: number) => number },
+  ): void {
+    const aligned = this.align(loop, ring);
+    const center = new THREE.Vector3();
+    for (const i of loop) center.add(new THREE.Vector3(...this.point(i)));
+    center.divideScalar(loop.length);
+    // Tiếp tuyến đầu: nằm trong mặt phẳng tiếp xúc của bộ phận gốc, hướng vào tâm cổng (nối trơn G1 với mặt thân),
+    // cộng một phần pháp tuyến để vùng chuyển tiếp phồng ra thay vì lõm vào.
+    const startDir = (P: Vec3): Vec3 => {
+      const n = new THREE.Vector3(...opts.normalAt(P));
+      const toCenter = center.clone().sub(new THREE.Vector3(...P));
+      const tangent = toCenter.sub(n.clone().multiplyScalar(toCenter.dot(n))).normalize();
+      return tangent.multiplyScalar(TRANSITION_TANGENTIAL).add(n.multiplyScalar(1 - TRANSITION_TANGENTIAL)).normalize().toArray() as Vec3;
+    };
+    let prev = aligned;
+    for (let k = 1; k < opts.steps; k++) {
+      const s = k / opts.steps;
+      const h00 = 2 * s ** 3 - 3 * s ** 2 + 1;
+      const h10 = s ** 3 - 2 * s ** 2 + s;
+      const h01 = -2 * s ** 3 + 3 * s ** 2;
+      const h11 = s ** 3 - s ** 2;
+      const next = aligned.map((pi, i) => {
+        const P = this.point(pi);
+        const A = this.point(ring[i]!);
+        const L = Math.hypot(A[0] - P[0], A[1] - P[1], A[2] - P[2]);
+        const T0 = startDir(P);
+        const p: Vec3 = [0, 1, 2].map(
+          (c) => h00 * P[c]! + h10 * T0[c]! * L * TRANSITION_START_TANGENT + h01 * A[c]! + h11 * opts.endDir[c]! * L * TRANSITION_END_TANGENT,
+        ) as Vec3;
+        return p;
+      });
+      // Làm tròn dần vòng trung gian dọc chu vi (cổng là ô vuông, vòng chi là elip): bớt dồn đỉnh ở bốn góc cổng.
+      const rounded = smoothLoop(next, TRANSITION_ROUNDING * Math.sin(Math.PI * Math.min(1, s * 1.5)));
+      const ids = rounded.map((p) => this.vertex(p, region, opts.chainT(s)));
+      this.band(prev, ids, region);
+      prev = ids;
+    }
+    this.band(prev, ring, region);
+  }
+
+  private align(loop: number[], ring: number[]): number[] {
     const n = ring.length;
     const mean = (ids: number[]): Vec3 => {
       const s: Vec3 = [0, 0, 0];
@@ -92,10 +190,22 @@ class MeshBuilder {
         if (score > best.score) best = { score, shift, step };
       }
     }
-    const aligned = ring.map((_, i) => loop[(((best.shift + best.step * i) % n) + n) % n]!);
-    this.band(aligned, ring, region);
+    return ring.map((_, i) => loop[(((best.shift + best.step * i) % n) + n) % n]!);
   }
 }
+
+/** Làm mượt một vòng điểm khép kín (Laplacian dọc vòng), strength 0–1, vài lượt. */
+const smoothLoop = (points: Vec3[], strength: number): Vec3[] => {
+  let cur = points;
+  for (let pass = 0; pass < TRANSITION_ROUNDING_PASSES; pass++) {
+    cur = cur.map((p, i) => {
+      const a = cur[(i - 1 + cur.length) % cur.length]!;
+      const b = cur[(i + 1) % cur.length]!;
+      return [0, 1, 2].map((c) => p[c]! + strength * ((a[c]! + b[c]!) / 2 - p[c]!)) as Vec3;
+    });
+  }
+  return cur;
+};
 
 /** Ô lưới trên một chuỗi vòng (hàng = vòng, cột = đỉnh trong vòng). */
 interface Grid {
@@ -226,7 +336,7 @@ const toGeometry = (mb: MeshBuilder): THREE.BufferGeometry => {
 };
 
 /** Lưới thân kín, liền khối, có index (chưa tính normal). radialSegments phải là bội số của 8. */
-export const buildIndexedBody = (surface: BodySurface, shape: BodyShape): THREE.BufferGeometry => {
+export const buildIndexedBody = (surface: BodySurface, shape: BodyShape, opts: BodyMeshOptions = {}): THREE.BufferGeometry => {
   const n = shape.radialSegments;
   if (n % 8 !== 0) throw new Error(`radialSegments phải là bội số của 8 (đang là ${n})`);
   const m = n / 4;
@@ -244,7 +354,8 @@ export const buildIndexedBody = (surface: BodySurface, shape: BodyShape): THREE.
   const portHalf = Math.min(armRoot.rb, SHOULDER_PORT_HEADROOM * (L.neckBaseY - shoulderY));
   const rowStep = (2 * portHalf) / m;
   const portTs = Array.from({ length: m + 1 }, (_, j) => torsoT(shoulderY + (j - m / 2) * rowStep));
-  const torsoTs = mergeTs(surface.uniformTs('torso', rpm, torsoT(splitY), 1), portTs, (rowStep / torsoLen) * 0.6);
+  const refine = (part: BodyPart, side: Side | undefined, ts: number[]): number[] => (opts.adaptive ? refineTs(surface, part, side, ts) : ts);
+  const torsoTs = mergeTs(refine('torso', undefined, surface.uniformTs('torso', rpm, torsoT(splitY), 1)), portTs, (rowStep / torsoLen) * 0.6);
   const torso = ringsOf(mb, surface, 'torso', undefined, torsoTs, n, BodyRegion.Torso);
   const r0 = torsoTs.indexOf(portTs[0]!);
   const ports = {
@@ -292,10 +403,28 @@ export const buildIndexedBody = (surface: BodySurface, shape: BodyShape): THREE.
     const shoulderLoop = portLoop({ rings: torso }, port.r0, port.c0, port.m);
     const portOuterX = Math.max(...shoulderLoop.map((i) => Math.abs(mb.point(i)[0])));
     const armLen = P.arms.upperLength + P.arms.lowerLength;
-    const armStart = Math.max(0, (portOuterX + PORT_CLEARANCE - Math.abs(L.joints.LeftUpperArm[0])) / armLen);
-    const arm = ringsOf(mb, surface, 'arm', side, surface.uniformTs('arm', rpm, armStart, 1), n, R.arm);
+    const extra = opts.transitions ? TRANSITION_ARM_EXTRA : 0;
+    const armStart = Math.max(0, (portOuterX + PORT_CLEARANCE + extra - Math.abs(L.joints.LeftUpperArm[0])) / armLen);
+    const arm = ringsOf(mb, surface, 'arm', side, refine('arm', side, surface.uniformTs('arm', rpm, armStart, 1)), n, R.arm);
     const hand = ringsOf(mb, surface, 'hand', side, surface.uniformTs('hand', rpm, 0, 1).slice(1), n, R.hand);
-    mb.bridge(shoulderLoop, arm[0]!, R.arm);
+    if (opts.transitions) {
+      const outX = S ? 1 : -1;
+      const ringStart = mb.point(arm[0]![0]!);
+      const gap = Math.abs(ringStart[0]) - portOuterX;
+      const steps = Math.max(2, Math.round((gap + 0.04) * rpm));
+      mb.transition(shoulderLoop, arm[0]!, R.arm, {
+        // Pháp tuyến thân xấp xỉ theo phương ngang (từ trục thân ra).
+        normalAt: (p) => {
+          const len = Math.hypot(p[0], p[2]) || 1;
+          return [p[0] / len, 0, p[2] / len];
+        },
+        endDir: [outX, 0, 0],
+        steps,
+        chainT: (s) => armStart - (1 - s) * (gap / armLen),
+      });
+    } else {
+      mb.bridge(shoulderLoop, arm[0]!, R.arm);
+    }
     chainBands(mb, arm, R.arm);
     mb.band(arm[arm.length - 1]!, hand[0]!, R.hand);
     chainBands(mb, hand, R.hand);
@@ -305,7 +434,7 @@ export const buildIndexedBody = (surface: BodySurface, shape: BodyShape): THREE.
     const outer = Array.from({ length: n / 2 + 1 }, (_, i) => split[S ? i : (n - i) % n]!);
     const hipLoop = [...outer, ...crotch];
     const legEnd = legT(P.foot.height + ANKLE_ABOVE_FOOT);
-    const leg = ringsOf(mb, surface, 'leg', side, surface.uniformTs('leg', rpm, legT(crotchY - CROTCH_TO_LEG), legEnd), n, R.leg);
+    const leg = ringsOf(mb, surface, 'leg', side, refine('leg', side, surface.uniformTs('leg', rpm, legT(crotchY - CROTCH_TO_LEG), legEnd)), n, R.leg);
     mb.bridge(hipLoop, leg[0]!, R.leg);
     chainBands(mb, leg, R.leg);
 

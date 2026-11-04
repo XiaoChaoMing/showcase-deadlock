@@ -9,6 +9,10 @@ import { buildEquipment, type EquipmentPart } from './equipment/EquipmentBuilder
 import { createMaterials, type MaterialSet } from './materials/MaterialBuilder';
 import { resolveBodyDesign, type AnatomyConfig } from '../body/config/resolveBodyDesign';
 import { createAnatomyField } from '../body/anatomy/anatomyField';
+import { blendRadiusFor, overallSmoothingFor } from '../body/surface/JunctionBlend';
+
+/** Thân anatomical dày tới 32 cạnh mỗi vòng; giáp không cần dày như vậy (đo: 32 → 16 giảm ~45% thời gian dựng giáp). */
+const ANATOMY_EQUIPMENT_SEGMENTS = 16;
 
 export interface CharacterModel {
   hero: HeroDefinition;
@@ -27,7 +31,12 @@ export interface CharacterModel {
 }
 
 /** Dựng hình nhân vật (thân + trang bị) ở bind pose, chưa có rig. Hero phải đã qua validateHero. */
-export const buildCharacterModel = (hero: HeroDefinition): CharacterModel => {
+export interface CharacterModelOptions {
+  /** Thân anatomical: vùng chuyển tiếp vai, lưới thích ứng, nối mềm (mặc định bật; tắt chỉ để so sánh ở preview). */
+  refinedSurface?: boolean;
+}
+
+export const buildCharacterModel = (hero: HeroDefinition, opts: CharacterModelOptions = {}): CharacterModel => {
   const resolved = resolveProportions(hero.proportions);
   if (!resolved.ok) throw new Error(resolved.error);
   const proportions = resolved.value;
@@ -35,10 +44,10 @@ export const buildCharacterModel = (hero: HeroDefinition): CharacterModel => {
   const anatomy = hero.bodyDesign ? resolveBodyDesign(hero.bodyDesign).anatomy : undefined;
   const surface = createBodySurface(proportions, hero.bodyShape, layout, anatomy ? createAnatomyField(anatomy) : undefined);
   const materials = createMaterials(hero.palette, { flatShading: hero.bodyShape.shading === 'flat' });
-  const bodyGeometry = buildBodyGeometry(surface, hero.bodyShape);
+  const bodyGeometry = buildBodyGeometry(surface, hero.bodyShape, anatomy && opts.refinedSurface !== false ? { transitions: true, adaptive: true, junctionBlend: { k: blendRadiusFor(anatomy.smoothness), overall: overallSmoothingFor(anatomy.smoothness) } } : {});
   const bodyMaterials = BODY_REGIONS.map((r) => materials.get(hero.bodyPaint[REGION_PART[r].part]));
   const collider = createBodyCollider(bodyGeometry);
-  const ctx = { surface, layout, materials, sockets: hero.sockets, radialSegments: hero.bodyShape.radialSegments, collider };
+  const ctx = { surface, layout, materials, sockets: hero.sockets, radialSegments: anatomy ? Math.min(hero.bodyShape.radialSegments, ANATOMY_EQUIPMENT_SEGMENTS) : hero.bodyShape.radialSegments, collider };
   const equipment = hero.equipment.map((item) => buildEquipment(item, ctx));
   return { hero, proportions, layout, surface, materials, bodyGeometry, bodyMaterials, equipment, collider, ...(anatomy ? { anatomy } : {}) };
 };

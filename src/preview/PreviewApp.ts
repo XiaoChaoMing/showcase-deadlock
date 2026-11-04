@@ -68,7 +68,7 @@ const buildProportionFigure: StageBuilder = (hero) => {
 };
 
 const buildModelFigure = (withEquipment: boolean): StageBuilder => (hero, params) => {
-  const model = buildCharacterModel(hero);
+  const model = buildCharacterModel(hero, { refinedSurface: !params.rawBody });
   const group = new THREE.Group();
   const body = new THREE.Mesh(model.bodyGeometry, model.bodyMaterials);
   body.name = 'Body';
@@ -82,7 +82,7 @@ const buildModelFigure = (withEquipment: boolean): StageBuilder => (hero, params
 
 /** Thân trong suốt + bộ xương 20 bone và socket (M3). */
 const buildSkeletonFigure: StageBuilder = (hero, params) => {
-  const model = buildCharacterModel(hero);
+  const model = buildCharacterModel(hero, { refinedSurface: !params.rawBody });
   const group = new THREE.Group();
   const ghost = model.bodyMaterials.map((m) => {
     const clone = (m as THREE.MeshStandardMaterial).clone();
@@ -104,7 +104,7 @@ const buildSkeletonFigure: StageBuilder = (hero, params) => {
 
 /** Nhân vật đã skin (M4): thân biến dạng theo xương, trang bị gắn bone. */
 const buildRiggedFigure = (withEquipment: boolean): StageBuilder => (hero, params) => {
-  const inst = buildCharacter(hero);
+  const inst = buildCharacter(hero, { refinedSurface: !params.rawBody });
   const showWeights = params.overlay.has('weights');
   for (const e of inst.equipment) e.object.visible = withEquipment && !showWeights;
   if (showWeights) setWeightView(inst, params.bone ?? 'Chest');
@@ -333,6 +333,7 @@ export class PreviewApp {
     if (p.archetype) q.set('archetype', p.archetype);
     if (p.bodyType) q.set('bodyType', p.bodyType);
     if (p.softShadows) q.set('shadows', 'soft');
+    if (p.rawBody) q.set('blend', 'off');
     q.set('pose', p.pose);
     window.history.replaceState(null, '', `?${q.toString()}`);
   }

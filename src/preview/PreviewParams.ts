@@ -23,6 +23,8 @@ export interface PreviewParams {
   bodyType?: BodyType;
   /** Bóng mềm (chống răng cưa khi bề mặt tự đổ bóng). */
   softShadows: boolean;
+  /** blend=off: tắt vùng chuyển tiếp/nối mềm của thân anatomical (để so trước/sau). */
+  rawBody: boolean;
 }
 
 const STAGES: readonly PreviewStage[] = ['proportions', 'body', 'skeleton', 'skinned', 'full'];
@@ -53,5 +55,6 @@ export const parsePreviewParams = (search: string): PreviewParams => {
     archetype: pick(ARCHETYPE_IDS, q.get('archetype')),
     bodyType: pick(BODY_TYPES, q.get('bodyType')),
     softShadows: q.get('shadows') === 'soft',
+    rawBody: q.get('blend') === 'off',
   };
 };
