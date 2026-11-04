@@ -44,7 +44,7 @@ describe('Kestrel equipment', () => {
   it('đủ trang bị theo JSON, đúng thứ tự, tên object', () => {
     expect(model.equipment.map((e) => e.id)).toEqual(kestrel.equipment.map((e) => e.id));
     expect(model.equipment.length).toBeGreaterThanOrEqual(8);
-    for (const e of model.equipment) expect(e.object.name).toBe(`equip:${e.id}`);
+    for (const e of model.equipment) expect(e.object.name).toBe(`equip_${e.id}`);
   });
 
   it('bone gắn đúng', () => {

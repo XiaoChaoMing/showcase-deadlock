@@ -15,6 +15,9 @@ import { buildCharacter, type CharacterInstance } from '../game/character/runtim
 import { PoseAnimator } from '../game/character/animation/ProceduralAnimator';
 import { createRigDebugPanel } from '../game/character/debug/RigDebugPanel';
 import { validateRig } from '../game/character/rigging/RigValidator';
+import { downloadGlb, exportCharacterGlb } from '../game/character/export/CharacterExporter';
+import { importCharacterGlb } from '../game/character/export/CharacterImporter';
+import { compareSummaries, summarizeCharacter } from '../game/character/export/CharacterSummary';
 import { resetToBindPose } from '../game/character/rigging/SkeletonBuilder';
 import type { BoneName } from '../game/character/definitions/BoneNames';
 import { loadHeroRegistry, type RegistryEntry } from '../game/character/runtime/HeroRegistry';
@@ -24,6 +27,7 @@ import { Viewport } from './Viewport';
 declare global {
   interface Window {
     __heroReady?: boolean;
+    __exportResult?: { bytes: number; diffs: string[] };
   }
 }
 
@@ -249,6 +253,26 @@ export class PreviewApp {
     };
     showChecks();
     this.rigGui = this.gui.addFolder('Kiểm tra rig');
+    const exportState = { status: 'chưa xuất' };
+    const exportFolder = this.rigGui.addFolder('Xuất GLB');
+    exportFolder
+      .add(
+        {
+          run: async () => {
+            exportState.status = 'đang xuất…';
+            const { buffer, summary } = await exportCharacterGlb(inst.hero);
+            downloadGlb(inst.hero.id, buffer);
+            const diffs = compareSummaries(summary, summarizeCharacter(await importCharacterGlb(buffer)));
+            const kb = (buffer.byteLength / 1024).toFixed(0);
+            exportState.status = diffs.length === 0 ? `✓ khớp hoàn toàn (${kb} KB)` : `✗ ${diffs.length} khác biệt`;
+            console.info(`[export] ${inst.hero.id}.glb ${kb} KB`, diffs.length ? diffs : 'khớp hoàn toàn', summary);
+            window.__exportResult = { bytes: buffer.byteLength, diffs };
+          },
+        },
+        'run',
+      )
+      .name('Xuất GLB + kiểm tra');
+    exportFolder.add(exportState, 'status').name('Kết quả').disable().listen();
     const overlay = this.params.overlay;
     createRigDebugPanel(
       this.rigGui,

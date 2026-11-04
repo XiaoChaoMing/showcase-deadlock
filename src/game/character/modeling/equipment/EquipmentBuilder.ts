@@ -82,7 +82,7 @@ const meshesFrom = (geometries: PlateGeometries, color: THREE.Material, edge: TH
 
 export const buildEquipment = (item: EquipmentItem, ctx: EquipmentContext): EquipmentPart => {
   const group = new THREE.Group();
-  group.name = `equip:${item.id}`;
+  group.name = `equip_${item.id}`;
   const color = ctx.materials.get(item.color);
   const edge = item.edgeColor ? ctx.materials.get(item.edgeColor) : undefined;
   let bone: BoneName;

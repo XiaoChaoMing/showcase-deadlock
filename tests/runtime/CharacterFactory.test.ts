@@ -56,8 +56,8 @@ describe('buildCharacter', () => {
     const byId = new Map(fresh.equipment.map((e) => [e.id, e]));
     const pauldron = byId.get('left-pauldron')!.object;
     expect(pauldron.parent?.name).toBe('LeftUpperArm');
-    expect(byId.get('rifle')!.object.parent?.name).toBe('socket:back_weapon');
-    expect(byId.get('holster')!.object.parent?.name).toBe('socket:hip_holster');
+    expect(byId.get('rifle')!.object.parent?.name).toBe('socket_back_weapon');
+    expect(byId.get('holster')!.object.parent?.name).toBe('socket_hip_holster');
 
     const model = buildCharacterModel(kestrel);
     const unattached = new THREE.Box3().setFromObject(

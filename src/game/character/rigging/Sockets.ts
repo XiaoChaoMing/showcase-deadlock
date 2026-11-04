@@ -17,7 +17,7 @@ export const createSockets = (
   for (const def of defs) {
     const bone = rig.byName.get(resolveAttachBone(def.mount.part, def.mount.side, def.mount.t, layout))!;
     const socket = new THREE.Object3D();
-    socket.name = `socket:${def.name}`;
+    socket.name = `socket_${def.name}`;
     const local = bone.matrixWorld.clone().invert().multiply(mountFrame(def.mount, surface, def.rotationDeg));
     local.decompose(socket.position, socket.quaternion, socket.scale);
     bone.add(socket);

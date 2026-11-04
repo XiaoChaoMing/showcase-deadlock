@@ -70,7 +70,7 @@ describe('createSockets', () => {
 
   it('socket back_weapon là con của Chest, đúng vị trí bề mặt + standoff', () => {
     const socket = sockets.get('back_weapon')!;
-    expect(socket.name).toBe('socket:back_weapon');
+    expect(socket.name).toBe('socket_back_weapon');
     expect(socket.parent?.name).toBe('Chest');
     const def = kestrel.sockets.find((s) => s.name === 'back_weapon')!;
     const expected = new THREE.Vector3(...surface.pointAt(def.mount).position);
