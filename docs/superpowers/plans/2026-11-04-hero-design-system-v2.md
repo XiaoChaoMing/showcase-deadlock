@@ -2,12 +2,13 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Nâng pipeline hero lên V2 theo phạm vi MVP ở mục 12.1 của spec, gồm:
+**Goal:** Nâng pipeline hero lên V2 theo phạm vi MVP ở mục 12.1 của spec, cộng bộ tư thế cầm súng cho game TPS shooter (yêu cầu bổ sung của chủ dự án). Gồm:
 - định nghĩa V2 và bản chuẩn hoá (normalized);
 - chuyển V1 sang V2;
 - preset dáng người, bevel, giáp nhiều lớp;
 - thư viện vật liệu PBR, ánh sáng studio;
-- tư thế kiểm tra va chạm, xuất GLB giữ vật liệu.
+- tư thế kiểm tra va chạm, xuất GLB giữ vật liệu;
+- tư thế cầm súng: súng trường và súng ngắn, ngắm, ngắm lên/xuống, bắn từ hông, ngồi ngắm.
 
 Mọi hero V1 hiện có phải render giống hệt như trước.
 
@@ -29,7 +30,7 @@ Mọi hero V1 hiện có phải render giống hệt như trước.
 
 **Repo và quy trình**
 - Thư mục dự án: `/Users/minhduc/Desktop/Duan/Deadlock`. Làm trên nhánh `feat/hero-v2`, tách từ `feat/hero-showcase`, vì nhánh v1 chưa merge.
-- Sau **mỗi milestone (V2-M0 … V2-M6)** phải dừng, gửi ảnh chụp và tóm tắt tiếng Việt cho chủ dự án, chỉ làm tiếp khi được đồng ý. Spec mục 14 cũng yêu cầu: "Wait for approval before beginning the next major phase".
+- Sau **mỗi milestone (V2-M0 … V2-M7)** phải dừng, gửi ảnh chụp và tóm tắt tiếng Việt cho chủ dự án, chỉ làm tiếp khi được đồng ý. Spec mục 14 cũng yêu cầu: "Wait for approval before beginning the next major phase".
 - Commit message kết thúc bằng `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
 
 **Tương thích V1**
@@ -63,14 +64,16 @@ Mọi hero V1 hiện có phải render giống hệt như trước.
 - kiểm tra rò tài nguyên;
 - ngân sách hiệu năng;
 - CLI validate/migrate;
-- chuyển Kestrel sang V2.
+- chuyển Kestrel sang V2;
+- **tư thế cầm súng TPS** (yêu cầu bổ sung): khai báo vũ khí cầm tay, IK hai tay, 7 tư thế súng (V2-M6).
 
 **Không làm đợt này:** những mục spec ghi "có thể triển khai sau":
 - cable, piston, khớp cơ khí;
 - engraving, decal, bolt, ornament, surface detail;
 - LOD;
 - equipment registry;
-- bloom.
+- bloom;
+- tư thế cận chiến (búa, khiên), bone ngón tay, animation clip (ngắm, nạp đạn, chạy): tay vẫn là khối bàn tay không ngón như v1.
 
 ## Quyết định thiết kế đã chốt trong plan (chủ dự án duyệt cùng plan)
 
@@ -89,11 +92,19 @@ Mọi hero V1 hiện có phải render giống hệt như trước.
    Nhờ vậy hero V1 không đổi một đỉnh nào.
 5. **Khoảng cách camera** = max(`showcase.camera.distance` nếu có, khoảng cách vừa khít bounding box), để vũ khí dài không bị cắt khung.
 6. **Vai trò màu V2 không khai báo trong `materials`** dùng preset `matte-fabric`.
+7. **Tư thế súng tính theo kích thước của từng hero, không dùng góc khớp cố định.**
+   - Mỗi tư thế đặt vị trí súng theo khung bone Chest và các mốc của layout (vai phải, mắt, hông).
+   - Hai cánh tay giải bằng IK hai đoạn để tay phải cầm báng, tay trái đỡ ốp lót tay.
+   - Như vậy hero vạm vỡ, mảnh khảnh hay tay ngắn đều cầm súng khớp, không cần chỉnh tay cho từng hero.
+8. **Súng được khai báo trên chính món trang bị** (trường `weapon` của assembly/box, chỉ có ở V2).
+   - Trong tư thế súng, món đó rời socket cất (lưng, hông) để lên tay; bỏ tư thế súng thì trả về chỗ cũ.
+   - Hero không có súng (Granite, Morrow, mọi hero V1): các nút tư thế súng bị khoá, kèm lời nhắc.
+   - Quy ước toạ độ súng: nòng theo +Z cục bộ, mặt trên +Y, khớp với quy ước primitive v1 ("mũi nhọn về +Z").
 
 ## Review Focus
 
 1. **Hero V1 chỉ đổi `"version": 2`** → chỉ vài lỗi tiếng Việt dễ hiểu, đứng đầu là "thiếu trường bắt buộc design". Không được ra hàng chục lỗi. Test ở Task 4.
-2. **Gõ sai tên preset vật liệu** (`"preset": "gunmetall"`) → lỗi ghi đường dẫn và liệt kê các preset hợp lệ. Test ở Task 4.
+2. **Hero tay ngắn hoặc dáng người khác (slim, feminine, heavy) cầm súng** → hai tay vẫn chạm đúng báng và ốp lót tay, không có tay "với không tới" hay khuỷu bẻ ngược. Test ở Task 14 và 15.
 3. **`bodyPreset: "custom"` mà thiếu một phần `proportions`** → lỗi chỉ đúng trường thiếu, không crash khi dựng. Test ở Task 4.
 4. **Đổi qua lại giữa các hero nhiều lần trên showcase** (kể cả khi đang bật xem weight) → mọi geometry và vật liệu đã tạo đều được giải phóng. Test ở Task 11.
 5. **Hero mang vũ khí dài vượt quá chiều cao thân** → mọi góc camera đều thấy trọn vũ khí. Test ở Task 10.
@@ -120,6 +131,9 @@ src/game/character/
   modeling/equipment/LayeredArmor.ts
   renderer/LightingSetup.ts, CameraSetup.ts, CharacterRenderer.ts, HeroBuildCache.ts
   debug/PoseClipping.ts
+  animation/TwoBoneIK.ts               IK giải tích hai đoạn (cánh tay trên + cẳng tay) có pole
+  animation/WeaponRig.ts               lấy súng lên tay / cất lại, khung báng và ốp lót tay
+  animation/GunPoses.ts                7 tư thế súng: vị trí súng trong khung Chest + xoay thân/đầu
   tools/heroesCli.ts, tools/bench.ts   chỉ chạy trong node
 tests/helpers/fingerprint.ts, tests/fixtures/v1-baseline.json, tests/visual/baseline/
 ```
@@ -697,9 +711,138 @@ tests/helpers/fingerprint.ts, tests/fixtures/v1-baseline.json, tests/visual/base
 
 ---
 
-## V2-M6 — Đưa vào dùng (spec Phase 6)
+## V2-M6 — Tư thế cầm súng cho TPS shooter (yêu cầu bổ sung của chủ dự án)
 
-### Task 14: Template V2, tài liệu, chuyển Kestrel sang V2, nghiệm thu
+### Task 14: Khai báo vũ khí cầm tay, IK hai đoạn, lấy súng lên tay
+
+**Files:**
+- Create:
+  - `animation/TwoBoneIK.ts`, `animation/WeaponRig.ts`;
+  - `tests/animation/twoBoneIK.test.ts`, `tests/animation/weaponRig.test.ts`;
+  - `tests/fixtures/v2-gunner.json`: trang bị Kestrel, dạng V2, súng trường trên lưng có `weapon`, thêm một súng ngắn trong bao ở hông phải.
+- Modify:
+  - `NormalizedHero.ts`: `WeaponSpec`, `weapon?` trên `BoxItem`/`AssemblyItem`;
+  - `gen-schema.mjs` (chỉ V2);
+  - `semanticChecks.ts`;
+  - `runtime/CharacterFactory.ts`: `CharacterInstance.weapons`.
+
+**Interfaces:**
+- Produces trường `weapon` của assembly/box trong file V2. Toạ độ tính trong khung cục bộ của món đồ, tức cùng khung với `parts[].position`; nòng hướng +Z, mặt trên +Y:
+  ```ts
+  export interface WeaponSpec {
+    type: 'rifle' | 'pistol';
+    /** Điểm tay phải nắm báng. */
+    grip: Vec3;
+    /** Điểm tay trái đỡ. Bắt buộc với rifle; pistol không có thì tay trái ôm lấy tay phải. */
+    support?: Vec3;
+    /** Đầu nòng. */
+    muzzle: Vec3;
+    /** Điểm báng tì vai (rifle). Mặc định = grip + (0, 0.02, −0.16). */
+    stock?: Vec3;
+  }
+  ```
+- Luật ngữ nghĩa, thông báo tiếng Việt kèm đường dẫn:
+  - `muzzle.z > grip.z`;
+  - rifle phải có `support`;
+  - mỗi hero có tối đa một vũ khí cho mỗi `type`;
+  - `weapon` chỉ đặt trên món gắn bằng `attach.socket`.
+- Produces: `solveTwoBoneIK(root: THREE.Bone, mid: THREE.Bone, end: THREE.Bone, target: THREE.Vector3, pole: THREE.Vector3): { reached: boolean; error: number }`.
+  - Giải tích theo định lý cos, xoay `root` rồi `mid` trong không gian cha.
+  - Đích ngoài tầm với thì duỗi thẳng tay về phía đích.
+  - Không bao giờ sinh NaN.
+  - Pole cho tay: khuỷu hướng xuống dưới và ra ngoài.
+- Produces: `CharacterInstance.weapons: Map<'rifle'|'pistol', { item: EquipmentPart; spec: WeaponSpec; holster: THREE.Object3D }>`.
+- Produces: `holdWeapon(instance, type, weaponWorld: THREE.Matrix4): { rightError: number; leftError: number }`.
+  1. Gắn món súng vào một `Object3D` tên `weapon_anchor`, con của bone `Chest`, sao cho khung súng trùng `weaponWorld`.
+  2. Giải IK tay phải tới `grip`, tay trái tới `support`. Pistol không có `support` thì tay trái tới `grip + (0.035, −0.02, 0)`.
+  3. Xoay bone `Hand`. Tay phải: trục ngón (−X cục bộ của RightHand ở bind) gần +X của súng, lệch ≤ 35°. Tay trái: lòng bàn tay úp lên +Y của súng.
+- Produces: `holsterWeapon(instance, type): void`: trả súng về socket cũ, đúng ma trận bind.
+- Nếu tay phải còn cách `grip` quá 0.01 m thì lùi `weaponWorld` về phía vai phải dọc trục nòng, mỗi lần 0.02 m, tối đa 10 lần. Lần cuối vẫn trả `rightError` thật để test đọc được.
+
+- [ ] **Step 1: Viết test.**
+  - **twoBoneIK:**
+    - đích trong tầm với → `error ≤ 1e-4`, chiều dài hai đoạn giữ nguyên;
+    - đích xa gấp đôi tầm với → `reached: false`, tay thẳng, không có NaN;
+    - khuỷu nằm phía pole so với đường vai–cổ tay.
+  - **weaponRig** (Kestrel và 4 preset, súng từ `v2-gunner.json`):
+    - `holdWeapon` ở một khung súng trước ngực → `rightError ≤ 0.01`, `leftError ≤ 0.015`;
+    - món súng có parent là `weapon_anchor`;
+    - `holsterWeapon` → parent lại là socket cũ, ma trận world bằng bind (1e-6).
+  - **Ngữ nghĩa:** thiếu `support` ở rifle → lỗi `/equipment/<i>/weapon/support`; `muzzle.z ≤ grip.z` → lỗi; hai rifle → lỗi.
+  - **GLB:** export sau khi đã `holdWeapon` vẫn cho cây như bind, vì export dựng bản mới.
+- [ ] **Step 2:** Chạy `npx vitest run tests/animation`. Expected: FAIL.
+- [ ] **Step 3:** Viết code, chạy `npm run schema`.
+- [ ] **Step 4:** Chạy `npm test`. Expected: PASS, `v1Parity` xanh (V1 không có `weapon`).
+- [ ] **Step 5:** Commit `feat(v2): hand-held weapon declaration, two-bone arm IK, draw/holster weapon`.
+
+### Task 15: Bảy tư thế súng, nút trên showcase, kiểm tra hướng ngắm và va chạm
+
+**Files:**
+- Create: `animation/GunPoses.ts`, `tests/animation/gunPoses.test.ts`.
+- Modify:
+  - `definitions/HeroDefinition.ts` (`POSE_IDS`);
+  - `animation/PoseBuilder.ts`, `animation/ProceduralAnimator.ts`: tư thế súng gọi `holdWeapon` sau khi xoay bone; rời tư thế súng thì `holsterWeapon`;
+  - `debug/RigDebugPanel.ts`, `src/showcase/ControlsPanel.ts`: nhóm nút "Cầm súng", khoá khi hero không có loại súng tương ứng, tooltip "Hero chưa khai báo súng trường/súng ngắn (trường weapon)";
+  - `semanticChecks.ts`: `showcase.pose` là tư thế súng thì hero phải có loại súng đó;
+  - `gen-schema.mjs`;
+  - `scripts/shots.config.json`: bộ `v2-m6`.
+
+**Interfaces:**
+- `POSE_IDS` thêm 7 tư thế. Nhãn tiếng Việt lần lượt:
+
+  | Id | Nhãn | Loại súng |
+  |---|---|---|
+  | `rifleIdle` | Cầm súng trường (thủ thế thấp) | rifle |
+  | `rifleAim` | Ngắm súng trường | rifle |
+  | `rifleAimUp` | Ngắm lên | rifle |
+  | `rifleAimDown` | Ngắm xuống | rifle |
+  | `rifleHip` | Bắn từ hông | rifle |
+  | `pistolAim` | Ngắm súng ngắn (hai tay) | pistol |
+  | `crouchAim` | Ngồi ngắm | rifle |
+
+  `GUN_POSES: Record<GunPoseId, GunPose>`, với `GunPose = { weapon: 'rifle'|'pistol'; body: Pose; grounded?: boolean; place(layout: CharacterLayout, spec: WeaponSpec): { stockOrGrip: Vec3; pitchDeg: number; yawDeg: number } }`.
+  - Vị trí trả về tính trong **khung bone Chest ở bind**. Nhờ vậy xoay thân hay cúi người thì súng đi theo.
+  - `body` là góc xoay thân, đầu và chân (tay do IK lo).
+  - Mốc mắt: `eyeY = layout.headTopY − 0.45 × proportions.head.height`, nằm trên mặt phẳng giữa, phía trước tâm đầu `0.4 × head.depth`. Thêm `eye: Vec3` vào `CharacterLayout` trong `computeLayout`, có test trong `CharacterLayout.test.ts`.
+- Giá trị khởi đầu. Tinh chỉnh bằng ảnh, nhưng không được phá các test bên dưới.
+  - **Thế đứng chung (người thuận tay phải):**
+    - `Spine [0,12,0]`, `Chest [0,10,0]`: vai phải lùi;
+    - `Neck [0,-10,0]`, `Head [0,-12,0]`: đầu bù lại để mặt nhìn thẳng +Z.
+  - **rifleAim:**
+    - báng ở hõm vai phải = khớp `RightUpperArm` lệch vào trong 0.05, ra trước 0.07;
+    - nòng ngang tầm mắt − 0.04;
+    - `pitchDeg` 0, `yawDeg` 0;
+    - đầu nghiêng áp má: `Head [8,-12,-6]`.
+  - **rifleAimUp / rifleAimDown:** như rifleAim, nhưng góc ngắm +35° / −30° chia đều cho Spine và Chest (trục X). Súng nằm trong khung Chest nên nghiêng theo thân.
+  - **rifleIdle:** báng ở hõm vai, nòng chúc xuống 35°, lệch trái 15°.
+  - **rifleHip:** báng ngang eo phải, trước 0.12, nòng ngang +Z; Chest hơi ngả sau 5°.
+  - **pistolAim:** báng súng ngắn ở giữa ngực, cao ngang vai, xa 0.75 × (upperArm + lowerArm) về phía trước; nòng +Z.
+  - **crouchAim:** chân như `crouch` (`grounded: true`), thân như rifleAim. Spine bù góc cúi của crouch để ngực thẳng.
+
+- [ ] **Step 1: Viết `gunPoses.test.ts`.** Chạy trên `v2-gunner` × 4 preset, với từng tư thế súng hợp lệ:
+  - **Cầm đúng:** `rightError ≤ 0.01`, `leftError ≤ 0.015`.
+  - **Khuỷu không gập ngược:** góc khuỷu nằm trong 10°–170°, và khuỷu nằm dưới đường vai–cổ tay.
+  - **Hướng nòng:** vector grip → muzzle chuẩn hoá. Với `rifleAim`, `pistolAim`, `crouchAim`: dot với +Z ≥ 0.98. Với `rifleAimUp`/`rifleAimDown`: góc so với mặt phẳng ngang là +35° ± 5° / −30° ± 5°.
+  - **Tầm ngắm:** trong `rifleAim`, đầu nòng cao bằng mắt (mốc mắt từ layout) ± 0.1 m.
+  - **Mặt nhìn thẳng:** hướng +Z cục bộ của bone Head, dot với +Z thế giới ≥ 0.95, trong mọi tư thế ngắm.
+  - **Không xuyên thân:** `measurePoseClipping` (Task 12) mở rộng đo cả súng. Trang bị chìm ≤ 0.015 m. Súng chìm ≤ 0.015 m, trừ các đỉnh cách điểm `stock` dưới 0.05 m, vì báng tì vai là chạm có chủ ý.
+  - **Trả về đúng chỗ:** chuyển `rifleAim` → `tpose` thì súng về socket lưng và mọi bone về bind (1e-6). Chuyển `rifleAim` → `pistolAim` thì súng trường về lưng và súng ngắn lên tay.
+  - **Hero không có súng:** Granite, Morrow. Gọi tư thế súng thì không đổi gì và không throw; `ControlsPanel` render nút ở trạng thái `disabled`, có tooltip.
+  - **Ngữ nghĩa:** `showcase.pose: "pistolAim"` trên hero không có pistol → lỗi `/showcase/pose`.
+- [ ] **Step 2:** Chạy test. Expected: FAIL.
+- [ ] **Step 3:** Viết code. Chạy lại test, rồi ghi bảng `rightError`, `leftError` và độ chìm lớn nhất của từng tư thế × preset vào ledger. Chỗ nào vượt ngưỡng thì chỉnh `place()` hoặc góc thân trong `GunPoses.ts`, không nới ngưỡng.
+- [ ] **Step 4:** Chạy `npm test && npm run typecheck`. Chụp `v2-m6`: `v2-gunner` × 7 tư thế súng × góc threeQuarter và side, `rifleAim` thêm góc front và một ảnh qua vai phải kiểu camera TPS (azimuth 160°, cao 15°, nhắm vai phải), cộng lineup 4 preset ở `rifleAim`. Ánh sáng studio.
+- [ ] **Step 5:** Commit `feat(v2): TPS gun poses (rifle idle/aim/aim-up/aim-down/hip, pistol aim, crouch aim)`.
+
+**→ Dừng V2-M6.** Gửi:
+- ảnh 7 tư thế súng, ảnh góc qua vai, lineup 4 dáng người cùng ngắm;
+- bảng sai số tay cầm và độ chìm.
+
+---
+
+## V2-M7 — Đưa vào dùng (spec Phase 6)
+
+### Task 16: Template V2, tài liệu, chuyển Kestrel sang V2, nghiệm thu
 
 **Files:**
 - Create: `templates/hero-v2-template.json`, `tests/fixtures/kestrel.v1.json`.
@@ -716,6 +859,7 @@ tests/helpers/fingerprint.ts, tests/fixtures/v1-baseline.json, tests/visual/base
   - `geometrySettings.bevel`;
   - một plate có `layerOverrides`;
   - một item có `material` riêng;
+  - một súng trường và một súng ngắn có `weapon`;
   - `showcase` V2.
 
   File phải qua `loadHeroDefinition` và rig 9/9.
@@ -724,23 +868,26 @@ tests/helpers/fingerprint.ts, tests/fixtures/v1-baseline.json, tests/visual/base
   - `templates.test.ts`: template V2 hợp lệ, rig 9/9, GLB khớp.
   - `kestrel` trong `heroes/` có `version: 2` và `design.geometryProfile: 'hybrid'`.
   - Mọi vai trò kim loại (`armor`, `metal`, hoặc tên thực tế trong file) có preset thuộc nhóm metals.
+  - Kestrel có súng trường (món `rifle`) và súng ngắn trong bao `holster`, cả hai qua đủ test của Task 15. `showcase.pose` là `rifleIdle`.
 - [ ] **Step 2:** Chạy test. Expected: FAIL.
 - [ ] **Step 3: Chuyển Kestrel.**
   1. Chép `heroes/kestrel/hero.json` sang `tests/fixtures/kestrel.v1.json`.
   2. Chạy `npm run heroes:migrate -- --write --only kestrel`.
   3. Xoá `heroes/kestrel/hero.v1.json`, vì fixture đã giữ bản V1.
   4. Chỉnh tay: gán preset vật liệu thật cho từng vai trò (bỏ overrides giữ số cũ), bật bevel, thêm `layerOverrides` cho pauldron.
+  5. Khai báo `weapon` cho `rifle`, chép súng ngắn từ `v2-gunner.json` vào bao `holster`, đặt `showcase.pose: "rifleIdle"`.
 - [ ] **Step 4: Viết tài liệu.** `HERO_TEMPLATE.md` thêm mục "Hero V2", bằng tiếng Việt:
   - bảng trường mới;
   - bảng preset vật liệu với metalness/roughness;
   - bảng geometry profile;
+  - mục "Súng và tư thế súng": quy ước nòng +Z và mặt trên +Y, cách đo `grip`/`support`/`muzzle`/`stock`, bảng 7 tư thế;
   - cách chuyển V1 → V2 (`heroes:migrate`);
   - các trường cố ý chưa có (Quyết định 1).
 
   README thêm các lệnh mới.
-- [ ] **Step 5:** Chạy `npm test && npm run typecheck && npm run build && npm run heroes:validate`. Chụp `v2-final`: mọi hero, 4 góc + 3 tư thế, studio, có kiểm tra lỗi console. Chạy `visual-compare v2-baseline` cho Granite và Morrow: Expected 0.00%. Kestrel đã chuyển nên khác baseline: chấp nhận bằng ảnh cho chủ dự án duyệt.
+- [ ] **Step 5:** Chạy `npm test && npm run typecheck && npm run build && npm run heroes:validate`. Chụp `v2-final`: mọi hero, 4 góc + 3 tư thế, cộng Kestrel ở 7 tư thế súng; ánh sáng studio; có kiểm tra lỗi console. Chạy `visual-compare v2-baseline` cho Granite và Morrow: Expected 0.00%. Kestrel đã chuyển nên khác baseline: chấp nhận bằng ảnh cho chủ dự án duyệt.
 - [ ] **Step 6:** Commit `feat(v2): V2 template and guide; Kestrel migrated to V2`.
 
-**→ Dừng V2-M6.** Gửi:
+**→ Dừng V2-M7.** Gửi:
 - ảnh `v2-final`;
 - checklist 40 mục của spec mục 13, mỗi mục là đạt / chưa đạt kèm bằng chứng (test, ảnh hoặc số đo).
