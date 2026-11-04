@@ -97,3 +97,13 @@ describe('hero.schema.json', () => {
     expect(missing).toEqual([]);
   });
 });
+
+describe('scripts/gen-schema.mjs', () => {
+  it('sinh ra đúng từng byte schema đã commit', async () => {
+    const { execFileSync } = await import('node:child_process');
+    const os = await import('node:os');
+    const out = fs.mkdtempSync(path.join(os.tmpdir(), 'schema-'));
+    execFileSync('node', [path.join(root, 'scripts/gen-schema.mjs'), out]);
+    expect(fs.readFileSync(path.join(out, 'hero.schema.json'), 'utf8')).toBe(fs.readFileSync(path.join(root, 'templates/hero.schema.json'), 'utf8'));
+  });
+});

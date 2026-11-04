@@ -10,7 +10,8 @@
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "snapshot": "node scripts/snapshot.mjs"
+    "snapshot": "node scripts/snapshot.mjs",
+    "schema": "node scripts/gen-schema.mjs"
   },
   "keywords": [],
   "type": "module",

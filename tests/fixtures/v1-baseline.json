@@ -1,0 +1,3641 @@
+{
+ "hero:granite": {
+  "bodyVertexCount": 4458,
+  "bodyPositionHash": 6297.1262,
+  "skinWeightHash": 57224.154,
+  "bbox": {
+   "min": [
+    -1.1035,
+    0,
+    -0.1721
+   ],
+   "max": [
+    1.1035,
+    1.95,
+    0.2175
+   ]
+  },
+  "bones": [
+   {
+    "name": "Root",
+    "world": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "name": "Hips",
+    "world": [
+     0,
+     0.9949,
+     0
+    ]
+   },
+   {
+    "name": "Spine",
+    "world": [
+     0,
+     1.1183,
+     0
+    ]
+   },
+   {
+    "name": "Chest",
+    "world": [
+     0,
+     1.3342,
+     0
+    ]
+   },
+   {
+    "name": "Neck",
+    "world": [
+     0,
+     1.6117,
+     0
+    ]
+   },
+   {
+    "name": "Head",
+    "world": [
+     0,
+     1.7013,
+     0
+    ]
+   },
+   {
+    "name": "LeftShoulder",
+    "world": [
+     0.062,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperArm",
+    "world": [
+     0.2635,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerArm",
+    "world": [
+     0.5935,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "LeftHand",
+    "world": [
+     0.9035,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "RightShoulder",
+    "world": [
+     -0.062,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperArm",
+    "world": [
+     -0.2635,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerArm",
+    "world": [
+     -0.5935,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "RightHand",
+    "world": [
+     -0.9035,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperLeg",
+    "world": [
+     0.132,
+     0.9949,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerLeg",
+    "world": [
+     0.132,
+     0.5372,
+     0
+    ]
+   },
+   {
+    "name": "LeftFoot",
+    "world": [
+     0.132,
+     0.0796,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperLeg",
+    "world": [
+     -0.132,
+     0.9949,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerLeg",
+    "world": [
+     -0.132,
+     0.5372,
+     0
+    ]
+   },
+   {
+    "name": "RightFoot",
+    "world": [
+     -0.132,
+     0.0796,
+     0
+    ]
+   }
+  ],
+  "equipment": [
+   {
+    "name": "equip_back-plate",
+    "parent": "Chest",
+    "vertexCount": 2040,
+    "positionHash": 3407.717
+   },
+   {
+    "name": "equip_belly-band",
+    "parent": "Hips",
+    "vertexCount": 1152,
+    "positionHash": 1790.8771
+   },
+   {
+    "name": "equip_chest-plate",
+    "parent": "Chest",
+    "vertexCount": 2244,
+    "positionHash": 4966.3533
+   },
+   {
+    "name": "equip_core-light",
+    "parent": "Chest",
+    "vertexCount": 76,
+    "positionHash": 180.462
+   },
+   {
+    "name": "equip_gauntlet-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 1920,
+    "positionHash": 5608.19
+   },
+   {
+    "name": "equip_gauntlet-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 1920,
+    "positionHash": 2482.814
+   },
+   {
+    "name": "equip_gorget",
+    "parent": "Neck",
+    "vertexCount": 1152,
+    "positionHash": 2610.0584
+   },
+   {
+    "name": "equip_greave-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 2256,
+    "positionHash": 1456.6297
+   },
+   {
+    "name": "equip_greave-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 2256,
+    "positionHash": 860.8834
+   },
+   {
+    "name": "equip_hammer",
+    "parent": "socket_hip_weapon",
+    "vertexCount": 118,
+    "positionHash": 111.7163
+   },
+   {
+    "name": "equip_helmet",
+    "parent": "Head",
+    "vertexCount": 5208,
+    "positionHash": 12984.2853
+   },
+   {
+    "name": "equip_horn-left",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 52.5718
+   },
+   {
+    "name": "equip_horn-right",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 46.5112
+   },
+   {
+    "name": "equip_knee-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 984,
+    "positionHash": 1011.9293
+   },
+   {
+    "name": "equip_knee-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 984,
+    "positionHash": 752.0158
+   },
+   {
+    "name": "equip_pauldron-left",
+    "parent": "LeftUpperArm",
+    "vertexCount": 5520,
+    "positionHash": 14332.6949
+   },
+   {
+    "name": "equip_pauldron-right",
+    "parent": "RightUpperArm",
+    "vertexCount": 5520,
+    "positionHash": 9794.0794
+   },
+   {
+    "name": "equip_shield",
+    "parent": "socket_back_shield",
+    "vertexCount": 114,
+    "positionHash": 166.7866
+   },
+   {
+    "name": "equip_tasset-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 2544,
+    "positionHash": 3829.8548
+   },
+   {
+    "name": "equip_tasset-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 2544,
+    "positionHash": 2957.329
+   },
+   {
+    "name": "equip_toe-left",
+    "parent": "LeftFoot",
+    "vertexCount": 1272,
+    "positionHash": 678.5484
+   },
+   {
+    "name": "equip_toe-right",
+    "parent": "RightFoot",
+    "vertexCount": 1272,
+    "positionHash": 342.5848
+   }
+  ],
+  "materials": [
+   {
+    "name": "accent",
+    "color": "e8c25a",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "armor",
+    "color": "b07a3c",
+    "metalness": 0.65,
+    "roughness": 0.38,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "armorDark",
+    "color": "6b4426",
+    "metalness": 0.5,
+    "roughness": 0.5,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "glow",
+    "color": "ff7a3d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "ff7a3d",
+    "emissiveIntensity": 1.4,
+    "flatShading": false
+   },
+   {
+    "name": "leather",
+    "color": "4a3022",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "metal",
+    "color": "cbb78c",
+    "metalness": 0.8,
+    "roughness": 0.3,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "skin",
+    "color": "a8714f",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "suit",
+    "color": "5c3b2e",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "suitDark",
+    "color": "3b2620",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   }
+  ]
+ },
+ "hero:kestrel": {
+  "bodyVertexCount": 4138,
+  "bodyPositionHash": 5249.5261,
+  "skinWeightHash": 53818.2847,
+  "bbox": {
+   "min": [
+    -0.904,
+    0,
+    -0.1415
+   ],
+   "max": [
+    0.904,
+    1.8,
+    0.195
+   ]
+  },
+  "bones": [
+   {
+    "name": "Root",
+    "world": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "name": "Hips",
+    "world": [
+     0,
+     0.94,
+     0
+    ]
+   },
+   {
+    "name": "Spine",
+    "world": [
+     0,
+     1.053,
+     0
+    ]
+   },
+   {
+    "name": "Chest",
+    "world": [
+     0,
+     1.2508,
+     0
+    ]
+   },
+   {
+    "name": "Neck",
+    "world": [
+     0,
+     1.505,
+     0
+    ]
+   },
+   {
+    "name": "Head",
+    "world": [
+     0,
+     1.575,
+     0
+    ]
+   },
+   {
+    "name": "LeftShoulder",
+    "world": [
+     0.048,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperArm",
+    "world": [
+     0.204,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerArm",
+    "world": [
+     0.494,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "LeftHand",
+    "world": [
+     0.744,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "RightShoulder",
+    "world": [
+     -0.048,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperArm",
+    "world": [
+     -0.204,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerArm",
+    "world": [
+     -0.494,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "RightHand",
+    "world": [
+     -0.744,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperLeg",
+    "world": [
+     0.105,
+     0.94,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerLeg",
+    "world": [
+     0.105,
+     0.5,
+     0
+    ]
+   },
+   {
+    "name": "LeftFoot",
+    "world": [
+     0.105,
+     0.07,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperLeg",
+    "world": [
+     -0.105,
+     0.94,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerLeg",
+    "world": [
+     -0.105,
+     0.5,
+     0
+    ]
+   },
+   {
+    "name": "RightFoot",
+    "world": [
+     -0.105,
+     0.07,
+     0
+    ]
+   }
+  ],
+  "equipment": [
+   {
+    "name": "equip_ankle-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 238.7354
+   },
+   {
+    "name": "equip_ankle-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 37.1646
+   },
+   {
+    "name": "equip_antenna",
+    "parent": "Head",
+    "vertexCount": 127,
+    "positionHash": 329.9967
+   },
+   {
+    "name": "equip_backpack",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1370.7226
+   },
+   {
+    "name": "equip_backpack-battery",
+    "parent": "Spine",
+    "vertexCount": 900,
+    "positionHash": 1181.9034
+   },
+   {
+    "name": "equip_backpack-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1341.1112
+   },
+   {
+    "name": "equip_belt",
+    "parent": "Hips",
+    "vertexCount": 768,
+    "positionHash": 1068.4045
+   },
+   {
+    "name": "equip_belt-buckle",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1466.0568
+   },
+   {
+    "name": "equip_chest-knife",
+    "parent": "Chest",
+    "vertexCount": 84,
+    "positionHash": 162.7023
+   },
+   {
+    "name": "equip_chest-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1800.0573
+   },
+   {
+    "name": "equip_chest-plate",
+    "parent": "Chest",
+    "vertexCount": 1380,
+    "positionHash": 2831.247
+   },
+   {
+    "name": "equip_collar",
+    "parent": "Neck",
+    "vertexCount": 960,
+    "positionHash": 2008.807
+   },
+   {
+    "name": "equip_ear-left",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 373.3563
+   },
+   {
+    "name": "equip_ear-right",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 333.6843
+   },
+   {
+    "name": "equip_elbow-left",
+    "parent": "LeftUpperArm",
+    "vertexCount": 288,
+    "positionHash": 680.8667
+   },
+   {
+    "name": "equip_elbow-right",
+    "parent": "RightUpperArm",
+    "vertexCount": 288,
+    "positionHash": 396.8219
+   },
+   {
+    "name": "equip_elbow-spike-left",
+    "parent": "LeftUpperArm",
+    "vertexCount": 18,
+    "positionHash": 41.261
+   },
+   {
+    "name": "equip_elbow-spike-right",
+    "parent": "RightUpperArm",
+    "vertexCount": 18,
+    "positionHash": 23.8082
+   },
+   {
+    "name": "equip_forearm-blade",
+    "parent": "RightLowerArm",
+    "vertexCount": 42,
+    "positionHash": 58.9697
+   },
+   {
+    "name": "equip_helmet",
+    "parent": "Head",
+    "vertexCount": 5916,
+    "positionHash": 13909.6565
+   },
+   {
+    "name": "equip_helmet-fin-left",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 45.5314
+   },
+   {
+    "name": "equip_helmet-fin-right",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 41.1584
+   },
+   {
+    "name": "equip_holster",
+    "parent": "socket_hip_holster",
+    "vertexCount": 72,
+    "positionHash": 59.5573
+   },
+   {
+    "name": "equip_jaw-guard",
+    "parent": "Head",
+    "vertexCount": 732,
+    "positionHash": 1739.5592
+   },
+   {
+    "name": "equip_knee-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 816,
+    "positionHash": 750.3264
+   },
+   {
+    "name": "equip_knee-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 816,
+    "positionHash": 578.8863
+   },
+   {
+    "name": "equip_knee-spike-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 18,
+    "positionHash": 18.6296
+   },
+   {
+    "name": "equip_knee-spike-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 18,
+    "positionHash": 14.8496
+   },
+   {
+    "name": "equip_knuckles-left",
+    "parent": "LeftHand",
+    "vertexCount": 54,
+    "positionHash": 155.0977
+   },
+   {
+    "name": "equip_knuckles-right",
+    "parent": "RightHand",
+    "vertexCount": 54,
+    "positionHash": 61.7857
+   },
+   {
+    "name": "equip_left-pauldron",
+    "parent": "LeftUpperArm",
+    "vertexCount": 3096,
+    "positionHash": 7291.1272
+   },
+   {
+    "name": "equip_pauldron-spikes",
+    "parent": "LeftUpperArm",
+    "vertexCount": 54,
+    "positionHash": 136.4393
+   },
+   {
+    "name": "equip_pouch-left",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1572.1614
+   },
+   {
+    "name": "equip_pouch-right",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1233.5768
+   },
+   {
+    "name": "equip_rifle",
+    "parent": "socket_back_weapon",
+    "vertexCount": 342,
+    "positionHash": 437.624
+   },
+   {
+    "name": "equip_right-armband",
+    "parent": "RightUpperArm",
+    "vertexCount": 768,
+    "positionHash": 1231.3395
+   },
+   {
+    "name": "equip_scarf-tail",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1331.0124
+   },
+   {
+    "name": "equip_shin-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 1656,
+    "positionHash": 935.8008
+   },
+   {
+    "name": "equip_shin-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 1656,
+    "positionHash": 587.8785
+   },
+   {
+    "name": "equip_tasset-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 2752.9111
+   },
+   {
+    "name": "equip_tasset-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 2192.8147
+   },
+   {
+    "name": "equip_toe-left",
+    "parent": "LeftFoot",
+    "vertexCount": 1164,
+    "positionHash": 555.69
+   },
+   {
+    "name": "equip_toe-right",
+    "parent": "RightFoot",
+    "vertexCount": 1164,
+    "positionHash": 311.1255
+   },
+   {
+    "name": "equip_visor",
+    "parent": "Head",
+    "vertexCount": 420,
+    "positionHash": 1071.5324
+   },
+   {
+    "name": "equip_wrist-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 768,
+    "positionHash": 2054.5259
+   },
+   {
+    "name": "equip_wrist-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 768,
+    "positionHash": 969.8027
+   }
+  ],
+  "materials": [
+   {
+    "name": "accent",
+    "color": "f2a93b",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "armor",
+    "color": "7a8696",
+    "metalness": 0.35,
+    "roughness": 0.45,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "armorDark",
+    "color": "4b5462",
+    "metalness": 0.3,
+    "roughness": 0.5,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "cloth",
+    "color": "a3333d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "glow",
+    "color": "3fd0c9",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "3fd0c9",
+    "emissiveIntensity": 1.2,
+    "flatShading": false
+   },
+   {
+    "name": "leather",
+    "color": "6e4b34",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "metal",
+    "color": "b8c2cc",
+    "metalness": 0.8,
+    "roughness": 0.3,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "skin",
+    "color": "c8956d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "suit",
+    "color": "4a5564",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "suitDark",
+    "color": "303742",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "visor",
+    "color": "ffb547",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "ffb547",
+    "emissiveIntensity": 0.9,
+    "flatShading": false
+   }
+  ]
+ },
+ "hero:morrow": {
+  "bodyVertexCount": 4746,
+  "bodyPositionHash": 6498.0695,
+  "skinWeightHash": 62262.3336,
+  "bbox": {
+   "min": [
+    -0.9965,
+    0,
+    -0.1625
+   ],
+   "max": [
+    0.9965,
+    1.95,
+    0.2175
+   ]
+  },
+  "bones": [
+   {
+    "name": "Root",
+    "world": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "name": "Hips",
+    "world": [
+     0,
+     1.025,
+     0
+    ]
+   },
+   {
+    "name": "Spine",
+    "world": [
+     0,
+     1.149,
+     0
+    ]
+   },
+   {
+    "name": "Chest",
+    "world": [
+     0,
+     1.366,
+     0
+    ]
+   },
+   {
+    "name": "Neck",
+    "world": [
+     0,
+     1.645,
+     0
+    ]
+   },
+   {
+    "name": "Head",
+    "world": [
+     0,
+     1.715,
+     0
+    ]
+   },
+   {
+    "name": "LeftShoulder",
+    "world": [
+     0.058,
+     1.5706,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperArm",
+    "world": [
+     0.2465,
+     1.5706,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerArm",
+    "world": [
+     0.5565,
+     1.5706,
+     0
+    ]
+   },
+   {
+    "name": "LeftHand",
+    "world": [
+     0.8265,
+     1.5706,
+     0
+    ]
+   },
+   {
+    "name": "RightShoulder",
+    "world": [
+     -0.058,
+     1.5706,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperArm",
+    "world": [
+     -0.2465,
+     1.5706,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerArm",
+    "world": [
+     -0.5565,
+     1.5706,
+     0
+    ]
+   },
+   {
+    "name": "RightHand",
+    "world": [
+     -0.8265,
+     1.5706,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperLeg",
+    "world": [
+     0.129,
+     1.025,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerLeg",
+    "world": [
+     0.129,
+     0.535,
+     0
+    ]
+   },
+   {
+    "name": "LeftFoot",
+    "world": [
+     0.129,
+     0.08,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperLeg",
+    "world": [
+     -0.129,
+     1.025,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerLeg",
+    "world": [
+     -0.129,
+     0.535,
+     0
+    ]
+   },
+   {
+    "name": "RightFoot",
+    "world": [
+     -0.129,
+     0.08,
+     0
+    ]
+   }
+  ],
+  "equipment": [
+   {
+    "name": "equip_ankle-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 278.8611
+   },
+   {
+    "name": "equip_ankle-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 31.2024
+   },
+   {
+    "name": "equip_back-hammer",
+    "parent": "socket_back_hammer",
+    "vertexCount": 196,
+    "positionHash": 280.5837
+   },
+   {
+    "name": "equip_boot-toe-left",
+    "parent": "LeftFoot",
+    "vertexCount": 816,
+    "positionHash": 459.7592
+   },
+   {
+    "name": "equip_boot-toe-right",
+    "parent": "RightFoot",
+    "vertexCount": 816,
+    "positionHash": 249.0883
+   },
+   {
+    "name": "equip_chest-core-frame",
+    "parent": "Chest",
+    "vertexCount": 696,
+    "positionHash": 1652.2608
+   },
+   {
+    "name": "equip_collar-cloth",
+    "parent": "Neck",
+    "vertexCount": 1152,
+    "positionHash": 2628.0042
+   },
+   {
+    "name": "equip_crimson-core",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 2196.0249
+   },
+   {
+    "name": "equip_forearm-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 1404,
+    "positionHash": 4178.9997
+   },
+   {
+    "name": "equip_forearm-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 1404,
+    "positionHash": 2222.9757
+   },
+   {
+    "name": "equip_girdle-buckle",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1641.5407
+   },
+   {
+    "name": "equip_helm-crimson-slit",
+    "parent": "Head",
+    "vertexCount": 240,
+    "positionHash": 669.8561
+   },
+   {
+    "name": "equip_knee-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 1068,
+    "positionHash": 1088.2324
+   },
+   {
+    "name": "equip_knee-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 1068,
+    "positionHash": 812.559
+   },
+   {
+    "name": "equip_left-relic-cage",
+    "parent": "socket_left_relic",
+    "vertexCount": 124,
+    "positionHash": 282.2757
+   },
+   {
+    "name": "equip_lower-face-mask",
+    "parent": "Head",
+    "vertexCount": 840,
+    "positionHash": 2264.7335
+   },
+   {
+    "name": "equip_reactor-pack",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1310.3806
+   },
+   {
+    "name": "equip_reactor-spine",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1281.2289
+   },
+   {
+    "name": "equip_reliquary-helm",
+    "parent": "Head",
+    "vertexCount": 5328,
+    "positionHash": 13394.7194
+   },
+   {
+    "name": "equip_right-hip-pouch",
+    "parent": "socket_right_hip",
+    "vertexCount": 900,
+    "positionHash": 1312.3356
+   },
+   {
+    "name": "equip_right-shoulder-guard",
+    "parent": "RightUpperArm",
+    "vertexCount": 1428,
+    "positionHash": 2705.2699
+   },
+   {
+    "name": "equip_shin-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 1824,
+    "positionHash": 1141.8107
+   },
+   {
+    "name": "equip_shin-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 1824,
+    "positionHash": 671.015
+   },
+   {
+    "name": "equip_siege-pauldron-left",
+    "parent": "LeftUpperArm",
+    "vertexCount": 4608,
+    "positionHash": 12101.551
+   },
+   {
+    "name": "equip_sternum-cuirass",
+    "parent": "Chest",
+    "vertexCount": 2136,
+    "positionHash": 4802.6014
+   },
+   {
+    "name": "equip_tasset-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 2112,
+    "positionHash": 3264.226
+   },
+   {
+    "name": "equip_tasset-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 2112,
+    "positionHash": 2516.1102
+   },
+   {
+    "name": "equip_waist-girdle",
+    "parent": "Hips",
+    "vertexCount": 1152,
+    "positionHash": 1722.3713
+   },
+   {
+    "name": "equip_wrist-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 960,
+    "positionHash": 2825.6851
+   },
+   {
+    "name": "equip_wrist-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 960,
+    "positionHash": 1305.6211
+   }
+  ],
+  "materials": [
+   {
+    "name": "accent",
+    "color": "b77b43",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "armor",
+    "color": "596575",
+    "metalness": 0.62,
+    "roughness": 0.38,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "armorDark",
+    "color": "303a48",
+    "metalness": 0.55,
+    "roughness": 0.46,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "cloth",
+    "color": "d8d0bd",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "glow",
+    "color": "d94855",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "d94855",
+    "emissiveIntensity": 1.8,
+    "flatShading": false
+   },
+   {
+    "name": "leather",
+    "color": "49372f",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "metal",
+    "color": "c2b9a7",
+    "metalness": 0.82,
+    "roughness": 0.27,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "skin",
+    "color": "a8795d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "suit",
+    "color": "252d3a",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "suitDark",
+    "color": "171d28",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   }
+  ]
+ },
+ "preset:athletic": {
+  "bodyVertexCount": 4138,
+  "bodyPositionHash": 5249.5261,
+  "skinWeightHash": 53818.2847,
+  "bbox": {
+   "min": [
+    -0.904,
+    0,
+    -0.1415
+   ],
+   "max": [
+    0.904,
+    1.8,
+    0.195
+   ]
+  },
+  "bones": [
+   {
+    "name": "Root",
+    "world": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "name": "Hips",
+    "world": [
+     0,
+     0.94,
+     0
+    ]
+   },
+   {
+    "name": "Spine",
+    "world": [
+     0,
+     1.053,
+     0
+    ]
+   },
+   {
+    "name": "Chest",
+    "world": [
+     0,
+     1.2508,
+     0
+    ]
+   },
+   {
+    "name": "Neck",
+    "world": [
+     0,
+     1.505,
+     0
+    ]
+   },
+   {
+    "name": "Head",
+    "world": [
+     0,
+     1.575,
+     0
+    ]
+   },
+   {
+    "name": "LeftShoulder",
+    "world": [
+     0.048,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperArm",
+    "world": [
+     0.204,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerArm",
+    "world": [
+     0.494,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "LeftHand",
+    "world": [
+     0.744,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "RightShoulder",
+    "world": [
+     -0.048,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperArm",
+    "world": [
+     -0.204,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerArm",
+    "world": [
+     -0.494,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "RightHand",
+    "world": [
+     -0.744,
+     1.4372,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperLeg",
+    "world": [
+     0.105,
+     0.94,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerLeg",
+    "world": [
+     0.105,
+     0.5,
+     0
+    ]
+   },
+   {
+    "name": "LeftFoot",
+    "world": [
+     0.105,
+     0.07,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperLeg",
+    "world": [
+     -0.105,
+     0.94,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerLeg",
+    "world": [
+     -0.105,
+     0.5,
+     0
+    ]
+   },
+   {
+    "name": "RightFoot",
+    "world": [
+     -0.105,
+     0.07,
+     0
+    ]
+   }
+  ],
+  "equipment": [
+   {
+    "name": "equip_ankle-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 238.7354
+   },
+   {
+    "name": "equip_ankle-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 37.1646
+   },
+   {
+    "name": "equip_antenna",
+    "parent": "Head",
+    "vertexCount": 127,
+    "positionHash": 329.9967
+   },
+   {
+    "name": "equip_backpack",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1370.7226
+   },
+   {
+    "name": "equip_backpack-battery",
+    "parent": "Spine",
+    "vertexCount": 900,
+    "positionHash": 1181.9034
+   },
+   {
+    "name": "equip_backpack-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1341.1112
+   },
+   {
+    "name": "equip_belt",
+    "parent": "Hips",
+    "vertexCount": 768,
+    "positionHash": 1068.4045
+   },
+   {
+    "name": "equip_belt-buckle",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1466.0568
+   },
+   {
+    "name": "equip_chest-knife",
+    "parent": "Chest",
+    "vertexCount": 84,
+    "positionHash": 162.7023
+   },
+   {
+    "name": "equip_chest-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1800.0573
+   },
+   {
+    "name": "equip_chest-plate",
+    "parent": "Chest",
+    "vertexCount": 1380,
+    "positionHash": 2831.247
+   },
+   {
+    "name": "equip_collar",
+    "parent": "Neck",
+    "vertexCount": 960,
+    "positionHash": 2008.807
+   },
+   {
+    "name": "equip_ear-left",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 373.3563
+   },
+   {
+    "name": "equip_ear-right",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 333.6843
+   },
+   {
+    "name": "equip_elbow-left",
+    "parent": "LeftUpperArm",
+    "vertexCount": 288,
+    "positionHash": 680.8667
+   },
+   {
+    "name": "equip_elbow-right",
+    "parent": "RightUpperArm",
+    "vertexCount": 288,
+    "positionHash": 396.8219
+   },
+   {
+    "name": "equip_elbow-spike-left",
+    "parent": "LeftUpperArm",
+    "vertexCount": 18,
+    "positionHash": 41.261
+   },
+   {
+    "name": "equip_elbow-spike-right",
+    "parent": "RightUpperArm",
+    "vertexCount": 18,
+    "positionHash": 23.8082
+   },
+   {
+    "name": "equip_forearm-blade",
+    "parent": "RightLowerArm",
+    "vertexCount": 42,
+    "positionHash": 58.9697
+   },
+   {
+    "name": "equip_helmet",
+    "parent": "Head",
+    "vertexCount": 5916,
+    "positionHash": 13909.6565
+   },
+   {
+    "name": "equip_helmet-fin-left",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 45.5314
+   },
+   {
+    "name": "equip_helmet-fin-right",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 41.1584
+   },
+   {
+    "name": "equip_holster",
+    "parent": "socket_hip_holster",
+    "vertexCount": 72,
+    "positionHash": 59.5573
+   },
+   {
+    "name": "equip_jaw-guard",
+    "parent": "Head",
+    "vertexCount": 732,
+    "positionHash": 1739.5592
+   },
+   {
+    "name": "equip_knee-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 816,
+    "positionHash": 750.3264
+   },
+   {
+    "name": "equip_knee-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 816,
+    "positionHash": 578.8863
+   },
+   {
+    "name": "equip_knee-spike-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 18,
+    "positionHash": 18.6296
+   },
+   {
+    "name": "equip_knee-spike-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 18,
+    "positionHash": 14.8496
+   },
+   {
+    "name": "equip_knuckles-left",
+    "parent": "LeftHand",
+    "vertexCount": 54,
+    "positionHash": 155.0977
+   },
+   {
+    "name": "equip_knuckles-right",
+    "parent": "RightHand",
+    "vertexCount": 54,
+    "positionHash": 61.7857
+   },
+   {
+    "name": "equip_left-pauldron",
+    "parent": "LeftUpperArm",
+    "vertexCount": 3096,
+    "positionHash": 7291.1272
+   },
+   {
+    "name": "equip_pauldron-spikes",
+    "parent": "LeftUpperArm",
+    "vertexCount": 54,
+    "positionHash": 136.4393
+   },
+   {
+    "name": "equip_pouch-left",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1572.1614
+   },
+   {
+    "name": "equip_pouch-right",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1233.5768
+   },
+   {
+    "name": "equip_rifle",
+    "parent": "socket_back_weapon",
+    "vertexCount": 342,
+    "positionHash": 437.624
+   },
+   {
+    "name": "equip_right-armband",
+    "parent": "RightUpperArm",
+    "vertexCount": 768,
+    "positionHash": 1231.3395
+   },
+   {
+    "name": "equip_scarf-tail",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1331.0124
+   },
+   {
+    "name": "equip_shin-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 1656,
+    "positionHash": 935.8008
+   },
+   {
+    "name": "equip_shin-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 1656,
+    "positionHash": 587.8785
+   },
+   {
+    "name": "equip_tasset-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 2752.9111
+   },
+   {
+    "name": "equip_tasset-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 2192.8147
+   },
+   {
+    "name": "equip_toe-left",
+    "parent": "LeftFoot",
+    "vertexCount": 1164,
+    "positionHash": 555.69
+   },
+   {
+    "name": "equip_toe-right",
+    "parent": "RightFoot",
+    "vertexCount": 1164,
+    "positionHash": 311.1255
+   },
+   {
+    "name": "equip_visor",
+    "parent": "Head",
+    "vertexCount": 420,
+    "positionHash": 1071.5324
+   },
+   {
+    "name": "equip_wrist-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 768,
+    "positionHash": 2054.5259
+   },
+   {
+    "name": "equip_wrist-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 768,
+    "positionHash": 969.8027
+   }
+  ],
+  "materials": [
+   {
+    "name": "accent",
+    "color": "f2a93b",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "armor",
+    "color": "7a8696",
+    "metalness": 0.35,
+    "roughness": 0.45,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "armorDark",
+    "color": "4b5462",
+    "metalness": 0.3,
+    "roughness": 0.5,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "cloth",
+    "color": "a3333d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "glow",
+    "color": "3fd0c9",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "3fd0c9",
+    "emissiveIntensity": 1.2,
+    "flatShading": false
+   },
+   {
+    "name": "leather",
+    "color": "6e4b34",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "metal",
+    "color": "b8c2cc",
+    "metalness": 0.8,
+    "roughness": 0.3,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "skin",
+    "color": "c8956d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "suit",
+    "color": "4a5564",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "suitDark",
+    "color": "303742",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": false
+   },
+   {
+    "name": "visor",
+    "color": "ffb547",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "ffb547",
+    "emissiveIntensity": 0.9,
+    "flatShading": false
+   }
+  ]
+ },
+ "preset:heavy": {
+  "bodyVertexCount": 22896,
+  "bodyPositionHash": 32100.3671,
+  "skinWeightHash": 294650.1118,
+  "bbox": {
+   "min": [
+    -1.1035,
+    0,
+    -0.1712
+   ],
+   "max": [
+    1.1035,
+    1.95,
+    0.2175
+   ]
+  },
+  "bones": [
+   {
+    "name": "Root",
+    "world": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "name": "Hips",
+    "world": [
+     0,
+     0.9949,
+     0
+    ]
+   },
+   {
+    "name": "Spine",
+    "world": [
+     0,
+     1.1183,
+     0
+    ]
+   },
+   {
+    "name": "Chest",
+    "world": [
+     0,
+     1.3342,
+     0
+    ]
+   },
+   {
+    "name": "Neck",
+    "world": [
+     0,
+     1.6117,
+     0
+    ]
+   },
+   {
+    "name": "Head",
+    "world": [
+     0,
+     1.7013,
+     0
+    ]
+   },
+   {
+    "name": "LeftShoulder",
+    "world": [
+     0.062,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperArm",
+    "world": [
+     0.2635,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerArm",
+    "world": [
+     0.5935,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "LeftHand",
+    "world": [
+     0.9035,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "RightShoulder",
+    "world": [
+     -0.062,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperArm",
+    "world": [
+     -0.2635,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerArm",
+    "world": [
+     -0.5935,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "RightHand",
+    "world": [
+     -0.9035,
+     1.5377,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperLeg",
+    "world": [
+     0.132,
+     0.9949,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerLeg",
+    "world": [
+     0.132,
+     0.5372,
+     0
+    ]
+   },
+   {
+    "name": "LeftFoot",
+    "world": [
+     0.132,
+     0.0796,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperLeg",
+    "world": [
+     -0.132,
+     0.9949,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerLeg",
+    "world": [
+     -0.132,
+     0.5372,
+     0
+    ]
+   },
+   {
+    "name": "RightFoot",
+    "world": [
+     -0.132,
+     0.0796,
+     0
+    ]
+   }
+  ],
+  "equipment": [
+   {
+    "name": "equip_ankle-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 279.7235
+   },
+   {
+    "name": "equip_ankle-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 26.2929
+   },
+   {
+    "name": "equip_antenna",
+    "parent": "Head",
+    "vertexCount": 127,
+    "positionHash": 357.6873
+   },
+   {
+    "name": "equip_backpack",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1392.2694
+   },
+   {
+    "name": "equip_backpack-battery",
+    "parent": "Spine",
+    "vertexCount": 900,
+    "positionHash": 1195.9793
+   },
+   {
+    "name": "equip_backpack-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1388.4645
+   },
+   {
+    "name": "equip_belt",
+    "parent": "Hips",
+    "vertexCount": 768,
+    "positionHash": 1092.5385
+   },
+   {
+    "name": "equip_belt-buckle",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1579.1739
+   },
+   {
+    "name": "equip_chest-knife",
+    "parent": "Chest",
+    "vertexCount": 84,
+    "positionHash": 177.7531
+   },
+   {
+    "name": "equip_chest-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1980.3874
+   },
+   {
+    "name": "equip_chest-plate",
+    "parent": "Chest",
+    "vertexCount": 1596,
+    "positionHash": 3590.69
+   },
+   {
+    "name": "equip_collar",
+    "parent": "Neck",
+    "vertexCount": 768,
+    "positionHash": 1726.4885
+   },
+   {
+    "name": "equip_ear-left",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 406.7771
+   },
+   {
+    "name": "equip_ear-right",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 358.2891
+   },
+   {
+    "name": "equip_elbow-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 348,
+    "positionHash": 900.4652
+   },
+   {
+    "name": "equip_elbow-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 348,
+    "positionHash": 479.6804
+   },
+   {
+    "name": "equip_elbow-spike-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 18,
+    "positionHash": 45.2271
+   },
+   {
+    "name": "equip_elbow-spike-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 18,
+    "positionHash": 23.7603
+   },
+   {
+    "name": "equip_forearm-blade",
+    "parent": "RightLowerArm",
+    "vertexCount": 42,
+    "positionHash": 60.1486
+   },
+   {
+    "name": "equip_helmet",
+    "parent": "Head",
+    "vertexCount": 5916,
+    "positionHash": 15058.0413
+   },
+   {
+    "name": "equip_helmet-fin-left",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 49.8026
+   },
+   {
+    "name": "equip_helmet-fin-right",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 44.3501
+   },
+   {
+    "name": "equip_holster",
+    "parent": "socket_hip_holster",
+    "vertexCount": 72,
+    "positionHash": 60.315
+   },
+   {
+    "name": "equip_jaw-guard",
+    "parent": "Head",
+    "vertexCount": 732,
+    "positionHash": 1898.1253
+   },
+   {
+    "name": "equip_knee-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 900,
+    "positionHash": 915.7115
+   },
+   {
+    "name": "equip_knee-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 900,
+    "positionHash": 678.0306
+   },
+   {
+    "name": "equip_knee-spike-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 18,
+    "positionHash": 20.5115
+   },
+   {
+    "name": "equip_knee-spike-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 18,
+    "positionHash": 15.7595
+   },
+   {
+    "name": "equip_knuckles-left",
+    "parent": "LeftHand",
+    "vertexCount": 54,
+    "positionHash": 172.9378
+   },
+   {
+    "name": "equip_knuckles-right",
+    "parent": "RightHand",
+    "vertexCount": 54,
+    "positionHash": 59.1598
+   },
+   {
+    "name": "equip_left-pauldron",
+    "parent": "LeftUpperArm",
+    "vertexCount": 3492,
+    "positionHash": 9011.6914
+   },
+   {
+    "name": "equip_pauldron-spikes",
+    "parent": "LeftUpperArm",
+    "vertexCount": 54,
+    "positionHash": 149.3929
+   },
+   {
+    "name": "equip_pouch-left",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1689.0976
+   },
+   {
+    "name": "equip_pouch-right",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1278.157
+   },
+   {
+    "name": "equip_rifle",
+    "parent": "socket_back_weapon",
+    "vertexCount": 342,
+    "positionHash": 454.0673
+   },
+   {
+    "name": "equip_right-armband",
+    "parent": "RightUpperArm",
+    "vertexCount": 768,
+    "positionHash": 1268.5115
+   },
+   {
+    "name": "equip_scarf-tail",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1341.6249
+   },
+   {
+    "name": "equip_shin-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 1740,
+    "positionHash": 1137.3895
+   },
+   {
+    "name": "equip_shin-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 1740,
+    "positionHash": 677.8844
+   },
+   {
+    "name": "equip_tasset-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 3031.8036
+   },
+   {
+    "name": "equip_tasset-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 2335.3607
+   },
+   {
+    "name": "equip_toe-left",
+    "parent": "LeftFoot",
+    "vertexCount": 1164,
+    "positionHash": 635.7602
+   },
+   {
+    "name": "equip_toe-right",
+    "parent": "RightFoot",
+    "vertexCount": 1164,
+    "positionHash": 328.3445
+   },
+   {
+    "name": "equip_visor",
+    "parent": "Head",
+    "vertexCount": 420,
+    "positionHash": 1168.2393
+   },
+   {
+    "name": "equip_wrist-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 768,
+    "positionHash": 2277.4031
+   },
+   {
+    "name": "equip_wrist-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 768,
+    "positionHash": 958.4398
+   }
+  ],
+  "materials": [
+   {
+    "name": "accent",
+    "color": "f2a93b",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "armor",
+    "color": "7a8696",
+    "metalness": 0.35,
+    "roughness": 0.45,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "armorDark",
+    "color": "4b5462",
+    "metalness": 0.3,
+    "roughness": 0.5,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "cloth",
+    "color": "a3333d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "glow",
+    "color": "3fd0c9",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "3fd0c9",
+    "emissiveIntensity": 1.2,
+    "flatShading": true
+   },
+   {
+    "name": "leather",
+    "color": "6e4b34",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "metal",
+    "color": "b8c2cc",
+    "metalness": 0.8,
+    "roughness": 0.3,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "skin",
+    "color": "c8956d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "suit",
+    "color": "4a5564",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "suitDark",
+    "color": "303742",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "visor",
+    "color": "ffb547",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "ffb547",
+    "emissiveIntensity": 0.9,
+    "flatShading": true
+   }
+  ]
+ },
+ "preset:slim": {
+  "bodyVertexCount": 22800,
+  "bodyPositionHash": 29875.1347,
+  "skinWeightHash": 292970.6058,
+  "bbox": {
+   "min": [
+    -0.9515,
+    0,
+    -0.11
+   ],
+   "max": [
+    0.9515,
+    1.85,
+    0.1875
+   ]
+  },
+  "bones": [
+   {
+    "name": "Root",
+    "world": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "name": "Hips",
+    "world": [
+     0,
+     0.9794,
+     0
+    ]
+   },
+   {
+    "name": "Spine",
+    "world": [
+     0,
+     1.0902,
+     0
+    ]
+   },
+   {
+    "name": "Chest",
+    "world": [
+     0,
+     1.2841,
+     0
+    ]
+   },
+   {
+    "name": "Neck",
+    "world": [
+     0,
+     1.5334,
+     0
+    ]
+   },
+   {
+    "name": "Head",
+    "world": [
+     0,
+     1.6225,
+     0
+    ]
+   },
+   {
+    "name": "LeftShoulder",
+    "world": [
+     0.038,
+     1.4669,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperArm",
+    "world": [
+     0.1615,
+     1.4669,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerArm",
+    "world": [
+     0.4815,
+     1.4669,
+     0
+    ]
+   },
+   {
+    "name": "LeftHand",
+    "world": [
+     0.7815,
+     1.4669,
+     0
+    ]
+   },
+   {
+    "name": "RightShoulder",
+    "world": [
+     -0.038,
+     1.4669,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperArm",
+    "world": [
+     -0.1615,
+     1.4669,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerArm",
+    "world": [
+     -0.4815,
+     1.4669,
+     0
+    ]
+   },
+   {
+    "name": "RightHand",
+    "world": [
+     -0.7815,
+     1.4669,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperLeg",
+    "world": [
+     0.084,
+     0.9794,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerLeg",
+    "world": [
+     0.084,
+     0.5243,
+     0
+    ]
+   },
+   {
+    "name": "LeftFoot",
+    "world": [
+     0.084,
+     0.0693,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperLeg",
+    "world": [
+     -0.084,
+     0.9794,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerLeg",
+    "world": [
+     -0.084,
+     0.5243,
+     0
+    ]
+   },
+   {
+    "name": "RightFoot",
+    "world": [
+     -0.084,
+     0.0693,
+     0
+    ]
+   }
+  ],
+  "equipment": [
+   {
+    "name": "equip_ankle-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 219.6566
+   },
+   {
+    "name": "equip_ankle-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 960,
+    "positionHash": 58.3963
+   },
+   {
+    "name": "equip_antenna",
+    "parent": "Head",
+    "vertexCount": 127,
+    "positionHash": 342.0038
+   },
+   {
+    "name": "equip_backpack",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1440.3044
+   },
+   {
+    "name": "equip_backpack-battery",
+    "parent": "Spine",
+    "vertexCount": 900,
+    "positionHash": 1232.5407
+   },
+   {
+    "name": "equip_backpack-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1419.9053
+   },
+   {
+    "name": "equip_belt",
+    "parent": "Hips",
+    "vertexCount": 960,
+    "positionHash": 1350.6771
+   },
+   {
+    "name": "equip_belt-buckle",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1437.4046
+   },
+   {
+    "name": "equip_chest-knife",
+    "parent": "Chest",
+    "vertexCount": 84,
+    "positionHash": 164.7182
+   },
+   {
+    "name": "equip_chest-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1824.7155
+   },
+   {
+    "name": "equip_chest-plate",
+    "parent": "Chest",
+    "vertexCount": 1488,
+    "positionHash": 3018.8777
+   },
+   {
+    "name": "equip_collar",
+    "parent": "Neck",
+    "vertexCount": 768,
+    "positionHash": 1641.7627
+   },
+   {
+    "name": "equip_ear-left",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 384.1383
+   },
+   {
+    "name": "equip_ear-right",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 343.2503
+   },
+   {
+    "name": "equip_elbow-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 348,
+    "positionHash": 847.8306
+   },
+   {
+    "name": "equip_elbow-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 348,
+    "positionHash": 505.2762
+   },
+   {
+    "name": "equip_elbow-spike-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 18,
+    "positionHash": 42.5821
+   },
+   {
+    "name": "equip_elbow-spike-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 18,
+    "positionHash": 25.1617
+   },
+   {
+    "name": "equip_forearm-blade",
+    "parent": "RightLowerArm",
+    "vertexCount": 42,
+    "positionHash": 58.9398
+   },
+   {
+    "name": "equip_helmet",
+    "parent": "Head",
+    "vertexCount": 5916,
+    "positionHash": 14307.5072
+   },
+   {
+    "name": "equip_helmet-fin-left",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 46.4726
+   },
+   {
+    "name": "equip_helmet-fin-right",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 41.8859
+   },
+   {
+    "name": "equip_holster",
+    "parent": "socket_hip_holster",
+    "vertexCount": 72,
+    "positionHash": 66.4001
+   },
+   {
+    "name": "equip_jaw-guard",
+    "parent": "Head",
+    "vertexCount": 732,
+    "positionHash": 1783.8272
+   },
+   {
+    "name": "equip_knee-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 900,
+    "positionHash": 798.7203
+   },
+   {
+    "name": "equip_knee-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 900,
+    "positionHash": 647.4482
+   },
+   {
+    "name": "equip_knee-spike-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 18,
+    "positionHash": 18.0416
+   },
+   {
+    "name": "equip_knee-spike-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 18,
+    "positionHash": 15.0176
+   },
+   {
+    "name": "equip_knuckles-left",
+    "parent": "LeftHand",
+    "vertexCount": 54,
+    "positionHash": 159.2148
+   },
+   {
+    "name": "equip_knuckles-right",
+    "parent": "RightHand",
+    "vertexCount": 54,
+    "positionHash": 61.0428
+   },
+   {
+    "name": "equip_left-pauldron",
+    "parent": "LeftUpperArm",
+    "vertexCount": 3492,
+    "positionHash": 8187.4092
+   },
+   {
+    "name": "equip_pauldron-spikes",
+    "parent": "LeftUpperArm",
+    "vertexCount": 54,
+    "positionHash": 134.2945
+   },
+   {
+    "name": "equip_pouch-left",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1502.0727
+   },
+   {
+    "name": "equip_pouch-right",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1257.4359
+   },
+   {
+    "name": "equip_rifle",
+    "parent": "socket_back_weapon",
+    "vertexCount": 342,
+    "positionHash": 465.1142
+   },
+   {
+    "name": "equip_right-armband",
+    "parent": "RightUpperArm",
+    "vertexCount": 768,
+    "positionHash": 1276.7107
+   },
+   {
+    "name": "equip_scarf-tail",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1452.6494
+   },
+   {
+    "name": "equip_shin-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 1740,
+    "positionHash": 928.6391
+   },
+   {
+    "name": "equip_shin-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 1740,
+    "positionHash": 636.2061
+   },
+   {
+    "name": "equip_tasset-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 2696.3811
+   },
+   {
+    "name": "equip_tasset-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 2261.9145
+   },
+   {
+    "name": "equip_toe-left",
+    "parent": "LeftFoot",
+    "vertexCount": 1056,
+    "positionHash": 466.8331
+   },
+   {
+    "name": "equip_toe-right",
+    "parent": "RightFoot",
+    "vertexCount": 1056,
+    "positionHash": 289.2547
+   },
+   {
+    "name": "equip_visor",
+    "parent": "Head",
+    "vertexCount": 420,
+    "positionHash": 1097.6567
+   },
+   {
+    "name": "equip_wrist-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 768,
+    "positionHash": 2110.3176
+   },
+   {
+    "name": "equip_wrist-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 768,
+    "positionHash": 976.596
+   }
+  ],
+  "materials": [
+   {
+    "name": "accent",
+    "color": "f2a93b",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "armor",
+    "color": "7a8696",
+    "metalness": 0.35,
+    "roughness": 0.45,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "armorDark",
+    "color": "4b5462",
+    "metalness": 0.3,
+    "roughness": 0.5,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "cloth",
+    "color": "a3333d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "glow",
+    "color": "3fd0c9",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "3fd0c9",
+    "emissiveIntensity": 1.2,
+    "flatShading": true
+   },
+   {
+    "name": "leather",
+    "color": "6e4b34",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "metal",
+    "color": "b8c2cc",
+    "metalness": 0.8,
+    "roughness": 0.3,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "skin",
+    "color": "c8956d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "suit",
+    "color": "4a5564",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "suitDark",
+    "color": "303742",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "visor",
+    "color": "ffb547",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "ffb547",
+    "emissiveIntensity": 0.9,
+    "flatShading": true
+   }
+  ]
+ },
+ "preset:feminine": {
+  "bodyVertexCount": 20208,
+  "bodyPositionHash": 24328.3697,
+  "skinWeightHash": 258948.5749,
+  "bbox": {
+   "min": [
+    -0.8315,
+    0,
+    -0.1247
+   ],
+   "max": [
+    0.8315,
+    1.7,
+    0.165
+   ]
+  },
+  "bones": [
+   {
+    "name": "Root",
+    "world": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "name": "Hips",
+    "world": [
+     0,
+     0.8976,
+     0
+    ]
+   },
+   {
+    "name": "Spine",
+    "world": [
+     0,
+     0.9979,
+     0
+    ]
+   },
+   {
+    "name": "Chest",
+    "world": [
+     0,
+     1.1735,
+     0
+    ]
+   },
+   {
+    "name": "Neck",
+    "world": [
+     0,
+     1.3991,
+     0
+    ]
+   },
+   {
+    "name": "Head",
+    "world": [
+     0,
+     1.4794,
+     0
+    ]
+   },
+   {
+    "name": "LeftShoulder",
+    "world": [
+     0.038,
+     1.3389,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperArm",
+    "world": [
+     0.1615,
+     1.3389,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerArm",
+    "world": [
+     0.4315,
+     1.3389,
+     0
+    ]
+   },
+   {
+    "name": "LeftHand",
+    "world": [
+     0.6815,
+     1.3389,
+     0
+    ]
+   },
+   {
+    "name": "RightShoulder",
+    "world": [
+     -0.038,
+     1.3389,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperArm",
+    "world": [
+     -0.1615,
+     1.3389,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerArm",
+    "world": [
+     -0.4315,
+     1.3389,
+     0
+    ]
+   },
+   {
+    "name": "RightHand",
+    "world": [
+     -0.6815,
+     1.3389,
+     0
+    ]
+   },
+   {
+    "name": "LeftUpperLeg",
+    "world": [
+     0.108,
+     0.8976,
+     0
+    ]
+   },
+   {
+    "name": "LeftLowerLeg",
+    "world": [
+     0.108,
+     0.4764,
+     0
+    ]
+   },
+   {
+    "name": "LeftFoot",
+    "world": [
+     0.108,
+     0.0652,
+     0
+    ]
+   },
+   {
+    "name": "RightUpperLeg",
+    "world": [
+     -0.108,
+     0.8976,
+     0
+    ]
+   },
+   {
+    "name": "RightLowerLeg",
+    "world": [
+     -0.108,
+     0.4764,
+     0
+    ]
+   },
+   {
+    "name": "RightFoot",
+    "world": [
+     -0.108,
+     0.0652,
+     0
+    ]
+   }
+  ],
+  "equipment": [
+   {
+    "name": "equip_ankle-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 768,
+    "positionHash": 186.6509
+   },
+   {
+    "name": "equip_ankle-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 768,
+    "positionHash": 20.7718
+   },
+   {
+    "name": "equip_antenna",
+    "parent": "Head",
+    "vertexCount": 127,
+    "positionHash": 316.6741
+   },
+   {
+    "name": "equip_backpack",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1281.1798
+   },
+   {
+    "name": "equip_backpack-battery",
+    "parent": "Spine",
+    "vertexCount": 900,
+    "positionHash": 1072.7719
+   },
+   {
+    "name": "equip_backpack-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1267.6519
+   },
+   {
+    "name": "equip_belt",
+    "parent": "Hips",
+    "vertexCount": 960,
+    "positionHash": 1206.4771
+   },
+   {
+    "name": "equip_belt-buckle",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1339.6833
+   },
+   {
+    "name": "equip_chest-knife",
+    "parent": "Spine",
+    "vertexCount": 84,
+    "positionHash": 153.6245
+   },
+   {
+    "name": "equip_chest-light",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1738.3616
+   },
+   {
+    "name": "equip_chest-plate",
+    "parent": "Chest",
+    "vertexCount": 1380,
+    "positionHash": 2616.9216
+   },
+   {
+    "name": "equip_collar",
+    "parent": "Neck",
+    "vertexCount": 768,
+    "positionHash": 1497.4386
+   },
+   {
+    "name": "equip_ear-left",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 353.548
+   },
+   {
+    "name": "equip_ear-right",
+    "parent": "Head",
+    "vertexCount": 152,
+    "positionHash": 312.66
+   },
+   {
+    "name": "equip_elbow-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 288,
+    "positionHash": 634.98
+   },
+   {
+    "name": "equip_elbow-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 288,
+    "positionHash": 381.4056
+   },
+   {
+    "name": "equip_elbow-spike-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 18,
+    "positionHash": 38.4044
+   },
+   {
+    "name": "equip_elbow-spike-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 18,
+    "positionHash": 22.856
+   },
+   {
+    "name": "equip_forearm-blade",
+    "parent": "RightLowerArm",
+    "vertexCount": 42,
+    "positionHash": 55.003
+   },
+   {
+    "name": "equip_helmet",
+    "parent": "Head",
+    "vertexCount": 5916,
+    "positionHash": 13113.991
+   },
+   {
+    "name": "equip_helmet-fin-left",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 42.7585
+   },
+   {
+    "name": "equip_helmet-fin-right",
+    "parent": "Head",
+    "vertexCount": 18,
+    "positionHash": 38.1584
+   },
+   {
+    "name": "equip_holster",
+    "parent": "socket_hip_holster",
+    "vertexCount": 72,
+    "positionHash": 57.1526
+   },
+   {
+    "name": "equip_jaw-guard",
+    "parent": "Head",
+    "vertexCount": 732,
+    "positionHash": 1628.3277
+   },
+   {
+    "name": "equip_knee-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 816,
+    "positionHash": 702.763
+   },
+   {
+    "name": "equip_knee-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 816,
+    "positionHash": 526.4315
+   },
+   {
+    "name": "equip_knee-spike-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 18,
+    "positionHash": 17.5859
+   },
+   {
+    "name": "equip_knee-spike-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 18,
+    "positionHash": 13.6979
+   },
+   {
+    "name": "equip_knuckles-left",
+    "parent": "LeftHand",
+    "vertexCount": 54,
+    "positionHash": 143.6091
+   },
+   {
+    "name": "equip_knuckles-right",
+    "parent": "RightHand",
+    "vertexCount": 54,
+    "positionHash": 57.8571
+   },
+   {
+    "name": "equip_left-pauldron",
+    "parent": "LeftUpperArm",
+    "vertexCount": 3096,
+    "positionHash": 6667.6284
+   },
+   {
+    "name": "equip_pauldron-spikes",
+    "parent": "LeftUpperArm",
+    "vertexCount": 54,
+    "positionHash": 124.174
+   },
+   {
+    "name": "equip_pouch-left",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1416.4947
+   },
+   {
+    "name": "equip_pouch-right",
+    "parent": "Hips",
+    "vertexCount": 900,
+    "positionHash": 1112.8298
+   },
+   {
+    "name": "equip_rifle",
+    "parent": "socket_back_weapon",
+    "vertexCount": 342,
+    "positionHash": 408.5028
+   },
+   {
+    "name": "equip_right-armband",
+    "parent": "RightUpperArm",
+    "vertexCount": 768,
+    "positionHash": 1165.0271
+   },
+   {
+    "name": "equip_scarf-tail",
+    "parent": "Chest",
+    "vertexCount": 900,
+    "positionHash": 1282.5423
+   },
+   {
+    "name": "equip_shin-left",
+    "parent": "LeftLowerLeg",
+    "vertexCount": 1572,
+    "positionHash": 836.0587
+   },
+   {
+    "name": "equip_shin-right",
+    "parent": "RightLowerLeg",
+    "vertexCount": 1572,
+    "positionHash": 496.3838
+   },
+   {
+    "name": "equip_tasset-left",
+    "parent": "LeftUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 2605.9377
+   },
+   {
+    "name": "equip_tasset-right",
+    "parent": "RightUpperLeg",
+    "vertexCount": 1896,
+    "positionHash": 2061.2092
+   },
+   {
+    "name": "equip_toe-left",
+    "parent": "LeftFoot",
+    "vertexCount": 948,
+    "positionHash": 407.7805
+   },
+   {
+    "name": "equip_toe-right",
+    "parent": "RightFoot",
+    "vertexCount": 948,
+    "positionHash": 202.8118
+   },
+   {
+    "name": "equip_visor",
+    "parent": "Head",
+    "vertexCount": 420,
+    "positionHash": 1009.4363
+   },
+   {
+    "name": "equip_wrist-left",
+    "parent": "LeftLowerArm",
+    "vertexCount": 960,
+    "positionHash": 2380.2673
+   },
+   {
+    "name": "equip_wrist-right",
+    "parent": "RightLowerArm",
+    "vertexCount": 960,
+    "positionHash": 1141.6753
+   }
+  ],
+  "materials": [
+   {
+    "name": "accent",
+    "color": "f2a93b",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "armor",
+    "color": "7a8696",
+    "metalness": 0.35,
+    "roughness": 0.45,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "armorDark",
+    "color": "4b5462",
+    "metalness": 0.3,
+    "roughness": 0.5,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "cloth",
+    "color": "a3333d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "glow",
+    "color": "3fd0c9",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "3fd0c9",
+    "emissiveIntensity": 1.2,
+    "flatShading": true
+   },
+   {
+    "name": "leather",
+    "color": "6e4b34",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "metal",
+    "color": "b8c2cc",
+    "metalness": 0.8,
+    "roughness": 0.3,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "skin",
+    "color": "c8956d",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "suit",
+    "color": "4a5564",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "suitDark",
+    "color": "303742",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "000000",
+    "emissiveIntensity": 1,
+    "flatShading": true
+   },
+   {
+    "name": "visor",
+    "color": "ffb547",
+    "metalness": 0.05,
+    "roughness": 0.7,
+    "emissive": "ffb547",
+    "emissiveIntensity": 0.9,
+    "flatShading": true
+   }
+  ]
+ }
+}
