@@ -31,7 +31,7 @@ declare global {
   }
 }
 
-const heroModules = import.meta.glob('/heroes/*/hero.json', { eager: true, import: 'default' });
+const heroModules = import.meta.glob('/heroes/*/hero.json', { eager: true, query: '?raw', import: 'default' });
 
 interface Figure {
   object: THREE.Object3D;

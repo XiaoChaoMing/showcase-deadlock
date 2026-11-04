@@ -23,7 +23,7 @@ import { renderHeroInfo } from './HeroInfoCard';
 import { colorOf, renderHeroList } from './HeroList';
 import { renderRigChecks } from './RigChecksView';
 
-const heroModules = import.meta.glob('/heroes/*/hero.json', { eager: true, import: 'default' });
+const heroModules = import.meta.glob('/heroes/*/hero.json', { eager: true, query: '?raw', import: 'default' });
 const DEG = Math.PI / 180;
 
 interface Current {

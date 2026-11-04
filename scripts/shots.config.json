@@ -502,5 +502,15 @@
       "name": "morrow-armRaise",
       "query": "preview=1&hero=morrow&stage=full&view=threeQuarter&pose=armRaise"
     }
+  ],
+  "typo": [
+    {
+      "name": "showcase-typo-hero",
+      "query": "hero=kestrel",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    }
   ]
 }
