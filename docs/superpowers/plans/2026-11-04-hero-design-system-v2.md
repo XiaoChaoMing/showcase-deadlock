@@ -26,6 +26,8 @@ Mọi hero V1 hiện có phải render giống hệt như trước.
 
 **Spec:** `docs/superpowers/specs/herov2.md`. Hệ thống nền là v1: spec `docs/superpowers/specs/2026-11-04-hero-showcase-design.md` và plan `docs/superpowers/plans/2026-11-04-hero-showcase.md`. Người thực hiện đọc spec v2 và lướt plan v1.
 
+> **Cập nhật 2026-11-04:** V2-M1 trở đi chỉ bắt đầu sau khi xong plan `docs/superpowers/plans/2026-11-04-anatomical-body-system.md`. Khi đó áp dụng mục "Điều chỉnh plan V2" trong `docs/superpowers/roadmap.md`, ghi thành ruling trong ledger.
+
 ## Global Constraints
 
 **Repo và quy trình**
