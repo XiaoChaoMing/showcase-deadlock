@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { resolveProportions, verticalSum } from '../../src/game/character/definitions/resolveProportions';
-import { kestrelProportions } from '../fixtures/kestrel';
+import { referenceProportions as kestrelProportions } from '../fixtures/reference';
 
 describe('resolveProportions', () => {
   it('co giãn khi lệch ≤ 0.02', () => {

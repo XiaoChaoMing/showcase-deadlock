@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { buildProportionPreview } from '../../src/game/character/debug/ProportionPreview';
 import { computeLayout } from '../../src/game/character/definitions/CharacterLayout';
 import { resolveProportions } from '../../src/game/character/definitions/resolveProportions';
-import { kestrelProportions } from '../fixtures/kestrel';
+import { referenceProportions as kestrelProportions } from '../fixtures/reference';
 
 describe('buildProportionPreview', () => {
   it('hình nhân cao đúng height và đối xứng', () => {

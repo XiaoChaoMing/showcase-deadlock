@@ -2,82 +2,88 @@
   "proportions": {
     "height": 1.8,
     "head": {
-      "width": 0.21,
-      "height": 0.24,
-      "depth": 0.24
+      "width": 0.2,
+      "height": 0.23,
+      "depth": 0.23
     },
     "neck": {
       "length": 0.08,
-      "radius": 0.055
+      "radius": 0.06
     },
     "torso": {
       "length": 0.55,
-      "shoulderWidth": 0.46,
-      "hipWidth": 0.32,
+      "shoulderWidth": 0.48,
+      "hipWidth": 0.33,
       "pelvisDepth": 0.09
     },
     "arms": {
-      "upperLength": 0.3,
-      "lowerLength": 0.28,
-      "handLength": 0.17
+      "upperLength": 0.29,
+      "lowerLength": 0.27,
+      "handLength": 0.16
     },
     "legs": {
       "upperLength": 0.44,
       "lowerLength": 0.43
     },
     "foot": {
-      "length": 0.25,
+      "length": 0.27,
       "height": 0.07,
-      "width": 0.1
+      "width": 0.105
     }
   },
   "bodyShape": {
-    "radialSegments": 12,
-    "ringsPerMeter": 40,
+    "radialSegments": 14,
+    "ringsPerMeter": 45,
     "shading": "flat",
     "torso": {
       "squareness": 2.6,
       "sections": [
         {
           "t": 0,
-          "width": 0.2,
-          "depth": 0.16,
+          "width": 0.26,
+          "depth": 0.17,
           "forward": 0
         },
         {
           "t": 0.12,
-          "width": 0.33,
+          "width": 0.34,
           "depth": 0.21,
           "forward": 0
         },
         {
-          "t": 0.35,
-          "width": 0.27,
-          "depth": 0.18,
+          "t": 0.33,
+          "width": 0.29,
+          "depth": 0.19,
           "forward": 0.01
         },
         {
           "t": 0.5,
-          "width": 0.29,
-          "depth": 0.19,
+          "width": 0.31,
+          "depth": 0.2,
           "forward": 0.015
         },
         {
-          "t": 0.72,
-          "width": 0.34,
-          "depth": 0.22,
-          "forward": 0.02
+          "t": 0.7,
+          "width": 0.37,
+          "depth": 0.235,
+          "forward": 0.025
         },
         {
-          "t": 0.88,
-          "width": 0.4,
-          "depth": 0.18,
+          "t": 0.86,
+          "width": 0.43,
+          "depth": 0.2,
+          "forward": 0.005
+        },
+        {
+          "t": 0.95,
+          "width": 0.3,
+          "depth": 0.16,
           "forward": 0
         },
         {
           "t": 1,
-          "width": 0.14,
-          "depth": 0.12,
+          "width": 0.15,
+          "depth": 0.13,
           "forward": 0
         }
       ]
@@ -131,28 +137,33 @@
       "sections": [
         {
           "t": 0,
-          "width": 0.13,
+          "width": 0.125,
           "depth": 0.12
         },
         {
-          "t": 0.2,
-          "width": 0.11,
-          "depth": 0.1
+          "t": 0.18,
+          "width": 0.115,
+          "depth": 0.105
         },
         {
-          "t": 0.5,
-          "width": 0.075,
-          "depth": 0.075
+          "t": 0.42,
+          "width": 0.09,
+          "depth": 0.085
         },
         {
-          "t": 0.65,
-          "width": 0.085,
+          "t": 0.52,
+          "width": 0.08,
           "depth": 0.08
         },
         {
+          "t": 0.65,
+          "width": 0.09,
+          "depth": 0.085
+        },
+        {
           "t": 1,
-          "width": 0.055,
-          "depth": 0.045
+          "width": 0.06,
+          "depth": 0.05
         }
       ]
     },
@@ -165,35 +176,40 @@
           "depth": 0.19
         },
         {
-          "t": 0.25,
-          "width": 0.16,
-          "depth": 0.16
+          "t": 0.2,
+          "width": 0.175,
+          "depth": 0.17
         },
         {
-          "t": 0.5,
-          "width": 0.1,
-          "depth": 0.1
-        },
-        {
-          "t": 0.62,
+          "t": 0.48,
           "width": 0.11,
           "depth": 0.11
         },
         {
+          "t": 0.6,
+          "width": 0.12,
+          "depth": 0.125
+        },
+        {
+          "t": 0.85,
+          "width": 0.085,
+          "depth": 0.085
+        },
+        {
           "t": 1,
-          "width": 0.07,
-          "depth": 0.07
+          "width": 0.075,
+          "depth": 0.075
         }
       ]
     },
     "hand": {
-      "width": 0.085,
+      "width": 0.09,
       "thickness": 0.045,
       "squareness": 2.5
     },
     "foot": {
       "squareness": 2.8,
-      "toeTaper": 0.7
+      "toeTaper": 0.75
     }
   }
 }

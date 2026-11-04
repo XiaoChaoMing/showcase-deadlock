@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { computeLayout } from '../../src/game/character/definitions/CharacterLayout';
 import { resolveProportions } from '../../src/game/character/definitions/resolveProportions';
 import { BONE_NAMES, BONE_PARENT } from '../../src/game/character/definitions/BoneNames';
-import { kestrelProportions } from '../fixtures/kestrel';
+import { referenceProportions as kestrelProportions } from '../fixtures/reference';
 
 const resolved = () => {
   const r = resolveProportions(kestrelProportions);
@@ -42,5 +42,14 @@ describe('computeLayout', () => {
     expect(L.elbowT).toBeCloseTo(0.3 / 0.58, 9);
     expect(L.handTip.left[0]).toBeCloseTo(L.joints.LeftHand[0] + 0.17, 9);
     expect(L.toeTip.right[2]).toBeCloseTo(0.75 * 0.25, 9);
+  });
+});
+
+describe('nối khớp liền mạch', () => {
+  it('khớp vai đủ thấp để đầu cánh tay nằm dưới gốc cổ', () => {
+    const p = resolved();
+    const L = computeLayout(p);
+    const shoulderToNeck = L.neckBaseY - L.joints.LeftUpperArm[1];
+    expect(shoulderToNeck).toBeGreaterThanOrEqual(0.1 * p.torso.length);
   });
 });

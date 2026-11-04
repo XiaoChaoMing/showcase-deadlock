@@ -41,10 +41,9 @@ describe('Kestrel equipment', () => {
   const model = buildCharacterModel(kestrel);
   const byId = new Map(model.equipment.map((e) => [e.id, e]));
 
-  it('đủ 8 món, đúng id, tên object', () => {
-    expect(model.equipment.map((e) => e.id)).toEqual([
-      'chest-plate', 'left-pauldron', 'helmet', 'visor', 'backpack', 'rifle', 'shin-left', 'shin-right',
-    ]);
+  it('đủ trang bị theo JSON, đúng thứ tự, tên object', () => {
+    expect(model.equipment.map((e) => e.id)).toEqual(kestrel.equipment.map((e) => e.id));
+    expect(model.equipment.length).toBeGreaterThanOrEqual(8);
     for (const e of model.equipment) expect(e.object.name).toBe(`equip:${e.id}`);
   });
 
@@ -56,6 +55,9 @@ describe('Kestrel equipment', () => {
     expect(byId.get('rifle')?.bone).toBe('Chest');
     expect(byId.get('rifle')?.socket).toBe('back_weapon');
     expect(byId.get('shin-right')?.bone).toBe('RightLowerLeg');
+    expect(byId.get('holster')?.bone).toBe('RightUpperLeg');
+    expect(byId.get('collar')?.bone).toBe('Neck');
+    expect(byId.get('tasset-left')?.bone).toBe('LeftUpperLeg');
   });
 
   it('ba lô nằm sau lưng', () => {

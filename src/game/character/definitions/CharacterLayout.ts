@@ -4,7 +4,7 @@ import type { CharacterProportions, Side, Vec3 } from './HeroDefinition';
 /** Hằng số đặt khớp dùng chung cho mọi hero. */
 const SPINE_RATIO = 0.2;
 const CHEST_RATIO = 0.55;
-const SHOULDER_HEIGHT_RATIO = 0.92;
+const SHOULDER_HEIGHT_RATIO = 0.88;
 const CLAVICLE_X_RATIO = 0.1;
 const UPPER_ARM_X_RATIO = 0.425;
 const HIP_JOINT_X_RATIO = 0.3;

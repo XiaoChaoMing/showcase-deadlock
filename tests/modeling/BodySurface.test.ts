@@ -43,13 +43,14 @@ describe('BodySurface', () => {
   });
 
   it('kích thước ring theo section: width theo B, depth theo A', () => {
-    const ring = surface.ringAt('torso', undefined, 0.72);
-    expect(ring.rb).toBeCloseTo(0.34 / 2, 6);
-    expect(ring.ra).toBeCloseTo(0.22 / 2, 6);
+    const section = kestrel.bodyShape.torso.sections[3]!;
+    const ring = surface.ringAt('torso', undefined, section.t);
+    expect(ring.rb).toBeCloseTo(section.width / 2, 6);
+    expect(ring.ra).toBeCloseTo(section.depth / 2, 6);
   });
 
   it('partLength', () => {
-    expect(surface.partLength('arm')).toBeCloseTo(0.58, 9);
+    expect(surface.partLength('arm')).toBeCloseTo(proportions.arms.upperLength + proportions.arms.lowerLength, 9);
     expect(surface.partLength('torso')).toBeCloseTo(layout.neckBaseY - layout.torsoBottomY, 9);
   });
 });
