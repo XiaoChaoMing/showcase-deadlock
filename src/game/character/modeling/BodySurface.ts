@@ -2,6 +2,7 @@ import type { CharacterLayout } from '../definitions/CharacterLayout';
 import type { BodyPart, BodyShape, CharacterProportions, Muscle, Section, Side, SurfaceMount, Vec3 } from '../definitions/HeroDefinition';
 import { sampleProfile } from './geometry/profile';
 import { ringPoint, type SweepRing } from './geometry/RingSweep';
+import type { DisplacementProvider } from '../body/anatomy/MuscleField';
 
 /** Hằng số hình học chung cho mọi hero (mét). */
 export const FOOT_HEEL_RATIO = 0.25;
@@ -86,10 +87,30 @@ const musclesAt = (muscles: Muscle[], part: BodyPart, t: number): ((theta: numbe
   };
 };
 
+const anatomyBulge = (
+  displacement: DisplacementProvider,
+  part: BodyPart,
+  side: Side | undefined,
+  t: number,
+  radius: number,
+): ((theta: number) => number) | undefined => {
+  const f = displacement(part, side, t);
+  return f ? (theta) => f(theta, radius) : undefined;
+};
+
 const FRONT: Vec3 = [0, 0, 1];
 const UP: Vec3 = [0, 1, 0];
 
-export const createBodySurface = (p: CharacterProportions, shape: BodyShape, layout: CharacterLayout): BodySurface => {
+/**
+ * displacement: trường cơ của Anatomical Body System. Có thì dùng thay cho bodyShape.muscles;
+ * không có thì hành vi giữ nguyên như cũ.
+ */
+export const createBodySurface = (
+  p: CharacterProportions,
+  shape: BodyShape,
+  layout: CharacterLayout,
+  displacement?: DisplacementProvider,
+): BodySurface => {
   const J = layout.joints;
   const outward = (side: Side): Vec3 => [side === 'left' ? 1 : -1, 0, 0];
   const pick = (side: Side, left: Vec3, right: Vec3): Vec3 => (side === 'left' ? left : right);
@@ -170,7 +191,7 @@ export const createBodySurface = (p: CharacterProportions, shape: BodyShape, lay
     return {
       center: [base[0] + f.axisA[0] * forward, base[1] + f.axisA[1] * forward, base[2] + f.axisA[2] * forward],
       axisA: f.axisA, axisB: f.axisB, ra, rb, n: f.n, t,
-      bulge: musclesAt(muscles, part, t),
+      bulge: displacement ? anatomyBulge(displacement, part, side, t, Math.sqrt(ra * rb)) : musclesAt(muscles, part, t),
     };
   };
 
