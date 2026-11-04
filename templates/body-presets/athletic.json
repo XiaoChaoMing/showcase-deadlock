@@ -32,11 +32,11 @@
     }
   },
   "bodyShape": {
-    "radialSegments": 14,
+    "radialSegments": 8,
     "ringsPerMeter": 45,
     "shading": "flat",
     "torso": {
-      "squareness": 2.6,
+      "squareness": 3.2,
       "sections": [
         {
           "t": 0,
@@ -92,7 +92,7 @@
       "taper": 0.9
     },
     "head": {
-      "squareness": 2.4,
+      "squareness": 3.2,
       "sections": [
         {
           "t": 0,
@@ -133,7 +133,7 @@
       ]
     },
     "arm": {
-      "squareness": 2.2,
+      "squareness": 2.8,
       "sections": [
         {
           "t": 0,
@@ -168,7 +168,7 @@
       ]
     },
     "leg": {
-      "squareness": 2.2,
+      "squareness": 2.8,
       "sections": [
         {
           "t": 0,
@@ -205,10 +205,10 @@
     "hand": {
       "width": 0.09,
       "thickness": 0.045,
-      "squareness": 2.5
+      "squareness": 3.5
     },
     "foot": {
-      "squareness": 2.8,
+      "squareness": 3.5,
       "toeTaper": 0.75
     }
   }

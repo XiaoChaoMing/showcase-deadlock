@@ -216,9 +216,12 @@
           "enum": [
             "box",
             "cylinder",
-            "cone"
+            "cone",
+            "spike",
+            "wedge",
+            "blade"
           ],
-          "description": "Hình khối: box (hộp), cylinder (trụ), cone (nón). Trụ/nón chạy theo trục +Z."
+          "description": "Hình khối: box (hộp), cylinder (trụ), cone (nón), spike (gai chóp 4 cạnh), wedge (vây tam giác), blade (lưỡi dao). Trụ/nón/gai/lưỡi nhọn về phía +Z."
         },
         "size": {
           "type": "array",
@@ -230,7 +233,7 @@
             "maximum": 1.5,
             "description": "Kích thước (mét)"
           },
-          "description": "box: [rộng x, cao y, dài z]. cylinder/cone: [đường kính, chiều dài, 0] (mét)."
+          "description": "box/spike/wedge/blade: [rộng x, cao y, dài z]. cylinder/cone: [đường kính, chiều dài, 0] (mét)."
         },
         "position": {
           "type": "array",
@@ -785,7 +788,7 @@
     },
     "equipment": {
       "type": "array",
-      "maxItems": 40,
+      "maxItems": 80,
       "description": "Danh sách trang bị (giáp, mũ, phụ kiện, vũ khí).",
       "items": {
         "type": "object",
@@ -932,7 +935,19 @@
                 "type": "number",
                 "minimum": 0,
                 "maximum": 0.3,
-                "description": "Độ phồng ở giữa tấm (mét)"
+                "description": "Độ phồng tròn ở giữa tấm (mét)"
+              },
+              "point": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Vuốt nhọn mép cuối (phía tEnd) thành mũi chữ V ở giữa, dài thêm bấy nhiêu (mét)"
+              },
+              "ridge": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Sống gờ sắc chạy dọc giữa tấm, nhô ra bấy nhiêu (mét)"
               }
             }
           },

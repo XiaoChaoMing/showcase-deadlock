@@ -82,6 +82,10 @@ export interface PlateItem extends ItemBase {
   layers?: number;
   layerOverlap?: number;
   bulge?: number;
+  /** Vuốt nhọn mép cuối (phía tEnd) thành mũi chữ V ở giữa, dài thêm bấy nhiêu mét. */
+  point?: number;
+  /** Sống gờ sắc dọc giữa tấm, nhô ra bấy nhiêu mét. */
+  ridge?: number;
 }
 
 export interface BandItem extends ItemBase {
@@ -114,9 +118,12 @@ export interface BoxItem extends ItemBase {
   rotationDeg?: Vec3;
 }
 
-/** box: size = [x, y, z]. cylinder/cone: size = [đường kính, chiều dài, 0], trục theo +Z. */
+/**
+ * box/spike/wedge/blade: size = [x, y, z], chiều dài theo z, mũi nhọn về +Z.
+ * cylinder/cone: size = [đường kính, chiều dài, 0], trục theo +Z.
+ */
 export interface Primitive {
-  shape: 'box' | 'cylinder' | 'cone';
+  shape: 'box' | 'cylinder' | 'cone' | 'spike' | 'wedge' | 'blade';
   size: Vec3;
   position: Vec3;
   rotationDeg?: Vec3;

@@ -41,11 +41,11 @@
     }
   },
   "bodyShape": {
-    "radialSegments": 14,
+    "radialSegments": 8,
     "ringsPerMeter": 45,
     "shading": "flat",
     "torso": {
-      "squareness": 2.6,
+      "squareness": 3.2,
       "sections": [
         {
           "t": 0,
@@ -101,7 +101,7 @@
       "taper": 0.9
     },
     "head": {
-      "squareness": 2.4,
+      "squareness": 3.2,
       "sections": [
         {
           "t": 0,
@@ -142,7 +142,7 @@
       ]
     },
     "arm": {
-      "squareness": 2.2,
+      "squareness": 2.8,
       "sections": [
         {
           "t": 0,
@@ -177,7 +177,7 @@
       ]
     },
     "leg": {
-      "squareness": 2.2,
+      "squareness": 2.8,
       "sections": [
         {
           "t": 0,
@@ -214,10 +214,10 @@
     "hand": {
       "width": 0.09,
       "thickness": 0.045,
-      "squareness": 2.5
+      "squareness": 3.5
     },
     "foot": {
-      "squareness": 2.8,
+      "squareness": 3.5,
       "toeTaper": 0.75
     }
   },
@@ -299,7 +299,9 @@
       "thickness": 0.015,
       "gap": 0.008,
       "color": "armor",
-      "edgeColor": "accent"
+      "edgeColor": "accent",
+      "ridge": 0.02,
+      "point": 0.05
     },
     {
       "id": "left-pauldron",
@@ -316,7 +318,9 @@
       "thickness": 0.012,
       "gap": 0.012,
       "color": "armor",
-      "edgeColor": "accent"
+      "edgeColor": "accent",
+      "point": 0.035,
+      "ridge": 0.015
     },
     {
       "id": "helmet",
@@ -326,8 +330,8 @@
       "thickness": 0.014,
       "gap": 0.01,
       "crest": {
-        "height": 0.02,
-        "width": 0.03
+        "height": 0.035,
+        "width": 0.02
       },
       "color": "armor",
       "edgeColor": "armorDark"
@@ -359,7 +363,7 @@
         0.24,
         0.09
       ],
-      "cornerRadius": 0.02,
+      "cornerRadius": 0.004,
       "color": "armorDark"
     },
     {
@@ -458,6 +462,34 @@
             0.075
           ],
           "color": "glow"
+        },
+        {
+          "shape": "blade",
+          "size": [
+            0.004,
+            0.022,
+            0.12
+          ],
+          "position": [
+            0,
+            0.0,
+            0.47
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "wedge",
+          "size": [
+            0.012,
+            0.035,
+            0.14
+          ],
+          "position": [
+            0,
+            0.06,
+            -0.12
+          ],
+          "color": "accent"
         }
       ]
     },
@@ -473,7 +505,9 @@
       "thickness": 0.012,
       "gap": 0.008,
       "color": "armor",
-      "edgeColor": "accent"
+      "edgeColor": "accent",
+      "point": 0.03,
+      "ridge": 0.015
     },
     {
       "id": "shin-right",
@@ -487,7 +521,9 @@
       "thickness": 0.012,
       "gap": 0.008,
       "color": "armor",
-      "edgeColor": "accent"
+      "edgeColor": "accent",
+      "point": 0.03,
+      "ridge": 0.015
     },
     {
       "id": "belt",
@@ -517,7 +553,7 @@
         0.045,
         0.012
       ],
-      "cornerRadius": 0.005,
+      "cornerRadius": 0,
       "color": "metal"
     },
     {
@@ -536,7 +572,7 @@
         0.08,
         0.04
       ],
-      "cornerRadius": 0.01,
+      "cornerRadius": 0.003,
       "color": "leather"
     },
     {
@@ -555,7 +591,7 @@
         0.08,
         0.04
       ],
-      "cornerRadius": 0.01,
+      "cornerRadius": 0.003,
       "color": "leather"
     },
     {
@@ -572,7 +608,9 @@
       "thickness": 0.01,
       "gap": 0.012,
       "color": "armorDark",
-      "edgeColor": "accent"
+      "edgeColor": "accent",
+      "point": 0.05,
+      "ridge": 0.01
     },
     {
       "id": "tasset-right",
@@ -588,7 +626,9 @@
       "thickness": 0.01,
       "gap": 0.012,
       "color": "armorDark",
-      "edgeColor": "accent"
+      "edgeColor": "accent",
+      "point": 0.05,
+      "ridge": 0.01
     },
     {
       "id": "collar",
@@ -655,7 +695,8 @@
       "angleEndDeg": 225,
       "thickness": 0.01,
       "gap": 0.006,
-      "color": "armorDark"
+      "color": "armorDark",
+      "point": 0.04
     },
     {
       "id": "elbow-right",
@@ -668,7 +709,8 @@
       "angleEndDeg": 225,
       "thickness": 0.01,
       "gap": 0.006,
-      "color": "armorDark"
+      "color": "armorDark",
+      "point": 0.04
     },
     {
       "id": "wrist-left",
@@ -709,7 +751,9 @@
       "thickness": 0.014,
       "gap": 0.022,
       "color": "armor",
-      "edgeColor": "accent"
+      "edgeColor": "accent",
+      "point": 0.04,
+      "ridge": 0.015
     },
     {
       "id": "knee-right",
@@ -724,7 +768,9 @@
       "thickness": 0.014,
       "gap": 0.022,
       "color": "armor",
-      "edgeColor": "accent"
+      "edgeColor": "accent",
+      "point": 0.04,
+      "ridge": 0.015
     },
     {
       "id": "ankle-left",
@@ -973,7 +1019,7 @@
         0.06,
         0.05
       ],
-      "cornerRadius": 0.01,
+      "cornerRadius": 0.003,
       "color": "armorDark"
     },
     {
@@ -994,6 +1040,544 @@
       ],
       "cornerRadius": 0.003,
       "color": "glow"
+    },
+    {
+      "id": "pauldron-spikes",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "arm",
+          "side": "left",
+          "t": 0.12,
+          "angleDeg": 90,
+          "standoff": 0.08
+        }
+      },
+      "color": "metal",
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.026,
+            0.026,
+            0.085
+          ],
+          "position": [
+            0,
+            0,
+            0.04
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "spike",
+          "size": [
+            0.022,
+            0.022,
+            0.07
+          ],
+          "position": [
+            -0.05,
+            0,
+            0.03
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "spike",
+          "size": [
+            0.018,
+            0.018,
+            0.055
+          ],
+          "position": [
+            -0.1,
+            0,
+            0.02
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "helmet-fin-left",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "head",
+          "t": 0.72,
+          "angleDeg": 80,
+          "standoff": 0.03
+        }
+      },
+      "color": "metal",
+      "rotationDeg": [
+        -90,
+        70,
+        0
+      ],
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.02,
+            0.05,
+            0.17
+          ],
+          "position": [
+            0,
+            0,
+            0.08
+          ],
+          "color": "armorDark"
+        }
+      ]
+    },
+    {
+      "id": "helmet-fin-right",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "head",
+          "t": 0.72,
+          "angleDeg": -80,
+          "standoff": 0.03
+        }
+      },
+      "color": "metal",
+      "rotationDeg": [
+        -90,
+        -70,
+        0
+      ],
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.02,
+            0.05,
+            0.17
+          ],
+          "position": [
+            0,
+            0,
+            0.08
+          ],
+          "color": "armorDark"
+        }
+      ]
+    },
+    {
+      "id": "knee-spike-left",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "leg",
+          "side": "left",
+          "t": 0.5,
+          "angleDeg": 0,
+          "standoff": 0.06
+        }
+      },
+      "color": "metal",
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.026,
+            0.026,
+            0.05
+          ],
+          "position": [
+            0,
+            0,
+            0.02
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "knee-spike-right",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "leg",
+          "side": "right",
+          "t": 0.5,
+          "angleDeg": 0,
+          "standoff": 0.06
+        }
+      },
+      "color": "metal",
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.026,
+            0.026,
+            0.05
+          ],
+          "position": [
+            0,
+            0,
+            0.02
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "elbow-spike-left",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "arm",
+          "side": "left",
+          "t": 0.52,
+          "angleDeg": 180,
+          "standoff": 0.03
+        }
+      },
+      "color": "metal",
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.022,
+            0.022,
+            0.06
+          ],
+          "position": [
+            0,
+            0,
+            0.025
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "elbow-spike-right",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "arm",
+          "side": "right",
+          "t": 0.52,
+          "angleDeg": 180,
+          "standoff": 0.03
+        }
+      },
+      "color": "metal",
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.022,
+            0.022,
+            0.06
+          ],
+          "position": [
+            0,
+            0,
+            0.025
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "knuckles-left",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "hand",
+          "side": "left",
+          "t": 0.75,
+          "angleDeg": 90,
+          "standoff": 0.004
+        }
+      },
+      "color": "metal",
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.012,
+            0.012,
+            0.03
+          ],
+          "position": [
+            0,
+            -0.025,
+            0.012
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "spike",
+          "size": [
+            0.012,
+            0.012,
+            0.032
+          ],
+          "position": [
+            0,
+            0,
+            0.013
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "spike",
+          "size": [
+            0.012,
+            0.012,
+            0.03
+          ],
+          "position": [
+            0,
+            0.025,
+            0.012
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "knuckles-right",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "hand",
+          "side": "right",
+          "t": 0.75,
+          "angleDeg": 90,
+          "standoff": 0.004
+        }
+      },
+      "color": "metal",
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.012,
+            0.012,
+            0.03
+          ],
+          "position": [
+            0,
+            -0.025,
+            0.012
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "spike",
+          "size": [
+            0.012,
+            0.012,
+            0.032
+          ],
+          "position": [
+            0,
+            0,
+            0.013
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "spike",
+          "size": [
+            0.012,
+            0.012,
+            0.03
+          ],
+          "position": [
+            0,
+            0.025,
+            0.012
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "forearm-blade",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "arm",
+          "side": "right",
+          "t": 0.78,
+          "angleDeg": 90,
+          "standoff": 0.015
+        }
+      },
+      "color": "metal",
+      "rotationDeg": [
+        0,
+        90,
+        0
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "size": [
+            0.05,
+            0.03,
+            0.09
+          ],
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "color": "armorDark"
+        },
+        {
+          "shape": "blade",
+          "size": [
+            0.045,
+            0.006,
+            0.24
+          ],
+          "position": [
+            0,
+            0,
+            0.12
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "chest-knife",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "torso",
+          "t": 0.62,
+          "angleDeg": -35,
+          "standoff": 0.03
+        }
+      },
+      "color": "metal",
+      "rotationDeg": [
+        90,
+        0,
+        0
+      ],
+      "parts": [
+        {
+          "shape": "blade",
+          "size": [
+            0.006,
+            0.03,
+            0.15
+          ],
+          "position": [
+            0,
+            0,
+            0.05
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "box",
+          "size": [
+            0.012,
+            0.05,
+            0.012
+          ],
+          "position": [
+            0,
+            0,
+            -0.03
+          ],
+          "color": "armorDark"
+        },
+        {
+          "shape": "box",
+          "size": [
+            0.018,
+            0.022,
+            0.07
+          ],
+          "position": [
+            0,
+            0,
+            -0.07
+          ],
+          "color": "leather"
+        },
+        {
+          "shape": "spike",
+          "size": [
+            0.02,
+            0.02,
+            0.025
+          ],
+          "position": [
+            0,
+            0,
+            -0.115
+          ],
+          "color": "metal",
+          "rotationDeg": [
+            180,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "toe-left",
+      "kind": "plate",
+      "part": "foot",
+      "side": "left",
+      "tStart": 0.55,
+      "tEnd": 1,
+      "angleStartDeg": -70,
+      "angleEndDeg": 70,
+      "ridge": 0.01,
+      "point": 0.03,
+      "thickness": 0.01,
+      "gap": 0.006,
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "toe-right",
+      "kind": "plate",
+      "part": "foot",
+      "side": "right",
+      "tStart": 0.55,
+      "tEnd": 1,
+      "angleStartDeg": -70,
+      "angleEndDeg": 70,
+      "ridge": 0.01,
+      "point": 0.03,
+      "thickness": 0.01,
+      "gap": 0.006,
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "jaw-guard",
+      "kind": "plate",
+      "part": "head",
+      "tStart": 0.04,
+      "tEnd": 0.3,
+      "angleStartDeg": -85,
+      "angleEndDeg": 85,
+      "ridge": 0.015,
+      "thickness": 0.01,
+      "gap": 0.006,
+      "color": "armorDark",
+      "edgeColor": "accent"
     }
   ],
   "showcase": {
