@@ -542,5 +542,71 @@
       "name": "morrow-threeQuarter",
       "query": "preview=1&hero=morrow&stage=full&view=threeQuarter&pose=idle"
     }
+  ],
+  "v2-baseline": [
+    {
+      "name": "kestrel-front",
+      "query": "preview=1&hero=kestrel&stage=full&view=front&lighting=legacy"
+    },
+    {
+      "name": "kestrel-threeQuarter",
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter&lighting=legacy"
+    },
+    {
+      "name": "kestrel-side",
+      "query": "preview=1&hero=kestrel&stage=full&view=side&lighting=legacy"
+    },
+    {
+      "name": "kestrel-back",
+      "query": "preview=1&hero=kestrel&stage=full&view=back&lighting=legacy"
+    },
+    {
+      "name": "granite-front",
+      "query": "preview=1&hero=granite&stage=full&view=front&lighting=legacy"
+    },
+    {
+      "name": "granite-threeQuarter",
+      "query": "preview=1&hero=granite&stage=full&view=threeQuarter&lighting=legacy"
+    },
+    {
+      "name": "granite-side",
+      "query": "preview=1&hero=granite&stage=full&view=side&lighting=legacy"
+    },
+    {
+      "name": "granite-back",
+      "query": "preview=1&hero=granite&stage=full&view=back&lighting=legacy"
+    },
+    {
+      "name": "morrow-front",
+      "query": "preview=1&hero=morrow&stage=full&view=front&lighting=legacy"
+    },
+    {
+      "name": "morrow-threeQuarter",
+      "query": "preview=1&hero=morrow&stage=full&view=threeQuarter&lighting=legacy"
+    },
+    {
+      "name": "morrow-side",
+      "query": "preview=1&hero=morrow&stage=full&view=side&lighting=legacy"
+    },
+    {
+      "name": "morrow-back",
+      "query": "preview=1&hero=morrow&stage=full&view=back&lighting=legacy"
+    },
+    {
+      "name": "kestrel-armRaise",
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter&pose=armRaise&lighting=legacy"
+    },
+    {
+      "name": "kestrel-kneeBend",
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter&pose=kneeBend&lighting=legacy"
+    },
+    {
+      "name": "kestrel-torsoTwist",
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter&pose=torsoTwist&lighting=legacy"
+    },
+    {
+      "name": "lineup-presets",
+      "query": "preview=1&lineup=presets&stage=full&view=front&lighting=legacy"
+    }
   ]
 }
