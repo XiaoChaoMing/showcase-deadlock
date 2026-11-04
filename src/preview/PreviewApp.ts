@@ -296,7 +296,8 @@ export class PreviewApp {
       return;
     }
     const target = new THREE.Vector3(0, height / 2, 0);
-    const distance = count > 1 ? this.lineupWidth * 1.2 : 3.9 * Math.max(1, height / 1.8);
+    const fitHeight = 3.9 * Math.max(1, height / 1.8);
+    const distance = count > 1 ? Math.max(this.lineupWidth * 1.2, fitHeight) : fitHeight;
     this.viewport.setView(this.params.view, target, distance);
   }
 
