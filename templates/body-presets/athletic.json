@@ -269,11 +269,11 @@
       },
       {
         "part": "torso",
-        "t": 0.12,
-        "length": 0.1,
-        "angleDeg": 150,
-        "spreadDeg": 35,
-        "amount": 0.024
+        "t": 0.06,
+        "length": 0.14,
+        "angleDeg": 160,
+        "spreadDeg": 42,
+        "amount": 0.035
       },
       {
         "part": "arm",
@@ -338,6 +338,14 @@
         "angleDeg": 40,
         "spreadDeg": 35,
         "amount": 0.008
+      },
+      {
+        "part": "leg",
+        "t": 0.11,
+        "length": 0.1,
+        "angleDeg": 180,
+        "spreadDeg": 60,
+        "amount": 0.035
       }
     ]
   }
