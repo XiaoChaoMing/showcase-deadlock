@@ -1,0 +1,1387 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "hero.schema.json",
+  "title": "Hero definition",
+  "description": "Định nghĩa một hero: tỷ lệ, hình dáng, màu, trang bị. Đơn vị độ dài là mét (1 đơn vị Three.js).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "profile",
+    "proportions",
+    "bodyShape",
+    "palette",
+    "bodyPaint",
+    "sockets",
+    "equipment",
+    "showcase"
+  ],
+  "definitions": {
+    "hexColor": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}$",
+      "description": "Mã màu dạng #RRGGBB."
+    },
+    "section": {
+      "type": "object",
+      "description": "Một tiết diện ngang dọc theo bộ phận.",
+      "additionalProperties": false,
+      "required": [
+        "t",
+        "width",
+        "depth"
+      ],
+      "properties": {
+        "t": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Vị trí dọc bộ phận, 0 = đầu, 1 = cuối"
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0.005,
+          "maximum": 1.5,
+          "description": "Bề ngang tiết diện (theo hướng 90°) (mét)"
+        },
+        "depth": {
+          "type": "number",
+          "minimum": 0.005,
+          "maximum": 1.5,
+          "description": "Bề dày tiết diện (theo hướng 0°) (mét)"
+        },
+        "forward": {
+          "type": "number",
+          "minimum": -0.5,
+          "maximum": 0.5,
+          "description": "Dịch tâm tiết diện về phía trước (+) hoặc sau (−) (mét, hoặc tỷ lệ với đầu)"
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 12,
+      "items": {
+        "$ref": "#/definitions/section"
+      },
+      "description": "Các tiết diện, t tăng dần, phần tử đầu t = 0, phần tử cuối t = 1."
+    },
+    "colorSpec": {
+      "description": "Màu: mã \"#RRGGBB\" hoặc object có thêm độ phát sáng, kim loại, nhám.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/hexColor"
+        },
+        {
+          "type": "object",
+          "description": "Màu có thông số vật liệu.",
+          "additionalProperties": false,
+          "required": [
+            "color"
+          ],
+          "properties": {
+            "color": {
+              "$ref": "#/definitions/hexColor"
+            },
+            "emissive": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5,
+              "description": "Độ phát sáng, 0 = không phát sáng"
+            },
+            "metalness": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Độ kim loại, 0 = nhựa/vải, 1 = kim loại"
+            },
+            "roughness": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Độ nhám, 0 = bóng loáng, 1 = mờ hoàn toàn"
+            }
+          }
+        }
+      ]
+    },
+    "surfaceMount": {
+      "type": "object",
+      "description": "Một điểm trên bề mặt thân.",
+      "additionalProperties": false,
+      "required": [
+        "part",
+        "t",
+        "angleDeg"
+      ],
+      "properties": {
+        "part": {
+          "type": "string",
+          "enum": [
+            "torso",
+            "neck",
+            "head",
+            "arm",
+            "hand",
+            "leg",
+            "foot"
+          ],
+          "description": "Bộ phận cơ thể: torso (thân), neck (cổ), head (đầu), arm (cả cánh tay), hand (bàn tay), leg (cả chân), foot (bàn chân)."
+        },
+        "side": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right"
+          ],
+          "description": "Bên trái/phải của nhân vật. Bắt buộc với arm/hand/leg/foot, không dùng với torso/neck/head."
+        },
+        "t": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Vị trí dọc bộ phận, 0 = đầu, 1 = cuối"
+        },
+        "angleDeg": {
+          "type": "number",
+          "minimum": -360,
+          "maximum": 360,
+          "description": "Góc quanh bộ phận: 0 = phía trước; 90 = bên trái (thân/đầu), phía trên (tay), phía ngoài (chân) (độ)"
+        },
+        "standoff": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.3,
+          "description": "Khoảng đẩy ra khỏi bề mặt (mét)"
+        }
+      }
+    },
+    "attach": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "description": "Điểm gắn: chọn MỘT trong hai, \"socket\" hoặc \"mount\".",
+      "properties": {
+        "socket": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "Tên socket đã khai báo trong \"sockets\""
+        },
+        "mount": {
+          "$ref": "#/definitions/surfaceMount"
+        }
+      }
+    },
+    "vec3Offset": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number",
+        "minimum": -2,
+        "maximum": 2,
+        "description": "Thành phần toạ độ (mét)"
+      },
+      "description": "Dịch thêm [x, y, z] theo hệ toạ độ của điểm gắn (mét)."
+    },
+    "vec3Rotation": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number",
+        "minimum": -360,
+        "maximum": 360,
+        "description": "Góc xoay (độ)"
+      },
+      "description": "Xoay thêm [x, y, z] (độ)."
+    },
+    "primitive": {
+      "type": "object",
+      "description": "Một khối trong vũ khí/đồ ghép.",
+      "additionalProperties": false,
+      "required": [
+        "shape",
+        "size",
+        "position",
+        "color"
+      ],
+      "properties": {
+        "shape": {
+          "type": "string",
+          "enum": [
+            "box",
+            "cylinder",
+            "cone"
+          ],
+          "description": "Hình khối: box (hộp), cylinder (trụ), cone (nón). Trụ/nón chạy theo trục +Z."
+        },
+        "size": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1.5,
+            "description": "Kích thước (mét)"
+          },
+          "description": "box: [rộng x, cao y, dài z]. cylinder/cone: [đường kính, chiều dài, 0] (mét)."
+        },
+        "position": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number",
+            "minimum": -2,
+            "maximum": 2,
+            "description": "Toạ độ (mét)"
+          },
+          "description": "Vị trí tâm khối trong đồ ghép [x, y, z] (mét)."
+        },
+        "rotationDeg": {
+          "$ref": "#/definitions/vec3Rotation"
+        },
+        "color": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Màu của khối. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+        }
+      }
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Đường dẫn tới hero.schema.json để VS Code gợi ý."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,31}$",
+      "description": "Mã hero, chữ thường và gạch nối, phải trùng tên thư mục heroes/<id>/."
+    },
+    "version": {
+      "const": 1,
+      "description": "Phiên bản format. Hiện là 1."
+    },
+    "profile": {
+      "type": "object",
+      "description": "Thông tin hiển thị trên trang showcase.",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "role",
+        "tagline",
+        "description"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "description": "Tên hero"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "description": "Vai trò"
+        },
+        "tagline": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "description": "Câu giới thiệu ngắn"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1200,
+          "description": "Đoạn mô tả 2–3 câu"
+        }
+      }
+    },
+    "proportions": {
+      "type": "object",
+      "description": "Tỷ lệ cơ thể. Tổng (foot.height + legs + torso.length + neck.length + head.height) phải gần bằng height (lệch tối đa 0.02).",
+      "additionalProperties": false,
+      "required": [
+        "height",
+        "head",
+        "neck",
+        "torso",
+        "arms",
+        "legs",
+        "foot"
+      ],
+      "properties": {
+        "height": {
+          "type": "number",
+          "minimum": 0.8,
+          "maximum": 3,
+          "description": "Chiều cao thân từ đáy bàn chân tới đỉnh đầu, không tính trang bị (mét)"
+        },
+        "head": {
+          "type": "object",
+          "description": "Kích thước đầu.",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height",
+            "depth"
+          ],
+          "properties": {
+            "width": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Bề ngang đầu (mét)"
+            },
+            "height": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Chiều cao đầu từ cằm tới đỉnh (mét)"
+            },
+            "depth": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Bề dày đầu trước–sau (mét)"
+            }
+          }
+        },
+        "neck": {
+          "type": "object",
+          "description": "Cổ.",
+          "additionalProperties": false,
+          "required": [
+            "length",
+            "radius"
+          ],
+          "properties": {
+            "length": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Chiều dài cổ (mét)"
+            },
+            "radius": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Bán kính gốc cổ (mét)"
+            }
+          }
+        },
+        "torso": {
+          "type": "object",
+          "description": "Thân (thông số ảnh hưởng bộ xương).",
+          "additionalProperties": false,
+          "required": [
+            "length",
+            "shoulderWidth",
+            "hipWidth",
+            "pelvisDepth"
+          ],
+          "properties": {
+            "length": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Chiều dài thân từ khớp hông tới gốc cổ (mét)"
+            },
+            "shoulderWidth": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Bề ngang vai; khớp vai đặt ở ±0.425 × giá trị này (mét)"
+            },
+            "hipWidth": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Bề ngang hông; khớp hông đặt ở ±0.30 × giá trị này (mét)"
+            },
+            "pelvisDepth": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Phần chậu thò xuống dưới khớp hông (mét)"
+            }
+          }
+        },
+        "arms": {
+          "type": "object",
+          "description": "Tay.",
+          "additionalProperties": false,
+          "required": [
+            "upperLength",
+            "lowerLength",
+            "handLength"
+          ],
+          "properties": {
+            "upperLength": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Cánh tay trên (vai → khuỷu) (mét)"
+            },
+            "lowerLength": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Cẳng tay (khuỷu → cổ tay) (mét)"
+            },
+            "handLength": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Bàn tay (mét)"
+            }
+          }
+        },
+        "legs": {
+          "type": "object",
+          "description": "Chân.",
+          "additionalProperties": false,
+          "required": [
+            "upperLength",
+            "lowerLength"
+          ],
+          "properties": {
+            "upperLength": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Đùi (hông → gối) (mét)"
+            },
+            "lowerLength": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Cẳng chân (gối → cổ chân) (mét)"
+            }
+          }
+        },
+        "foot": {
+          "type": "object",
+          "description": "Bàn chân.",
+          "additionalProperties": false,
+          "required": [
+            "length",
+            "height",
+            "width"
+          ],
+          "properties": {
+            "length": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Chiều dài bàn chân (mét)"
+            },
+            "height": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Chiều cao cổ chân so với mặt đất (mét)"
+            },
+            "width": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Bề ngang bàn chân (mét)"
+            }
+          }
+        }
+      }
+    },
+    "bodyShape": {
+      "type": "object",
+      "description": "Hình dáng mesh thân.",
+      "additionalProperties": false,
+      "required": [
+        "radialSegments",
+        "ringsPerMeter",
+        "shading",
+        "torso",
+        "neck",
+        "head",
+        "arm",
+        "leg",
+        "hand",
+        "foot"
+      ],
+      "properties": {
+        "radialSegments": {
+          "type": "integer",
+          "minimum": 6,
+          "maximum": 32,
+          "description": "Số cạnh quanh mỗi vòng tiết diện (càng nhiều càng tròn)"
+        },
+        "ringsPerMeter": {
+          "type": "number",
+          "minimum": 10,
+          "maximum": 120,
+          "description": "Mật độ vòng tiết diện dọc cơ thể (vòng/mét)"
+        },
+        "shading": {
+          "type": "string",
+          "enum": [
+            "flat",
+            "smooth"
+          ],
+          "description": "flat = mặt phẳng low-poly, smooth = mượt."
+        },
+        "torso": {
+          "type": "object",
+          "description": "Thân. t: 0 = đáy chậu, 1 = gốc cổ. Kích thước tính bằng mét.",
+          "additionalProperties": false,
+          "required": [
+            "squareness",
+            "sections"
+          ],
+          "properties": {
+            "squareness": {
+              "type": "number",
+              "minimum": 1.5,
+              "maximum": 6,
+              "description": "Độ vuông của tiết diện: 2 = elip, cao hơn = vuông hơn"
+            },
+            "sections": {
+              "$ref": "#/definitions/sections"
+            }
+          }
+        },
+        "neck": {
+          "type": "object",
+          "description": "Cổ.",
+          "additionalProperties": false,
+          "required": [
+            "taper"
+          ],
+          "properties": {
+            "taper": {
+              "type": "number",
+              "minimum": 0.2,
+              "maximum": 2,
+              "description": "Bán kính đỉnh cổ / bán kính gốc cổ"
+            }
+          }
+        },
+        "head": {
+          "type": "object",
+          "description": "Đầu. t: 0 = cằm, 1 = đỉnh. width/depth/forward là TỶ LỆ so với proportions.head.",
+          "additionalProperties": false,
+          "required": [
+            "squareness",
+            "sections"
+          ],
+          "properties": {
+            "squareness": {
+              "type": "number",
+              "minimum": 1.5,
+              "maximum": 6,
+              "description": "Độ vuông của tiết diện"
+            },
+            "sections": {
+              "$ref": "#/definitions/sections"
+            }
+          }
+        },
+        "arm": {
+          "type": "object",
+          "description": "Cánh tay. t: 0 = khớp vai, 1 = cổ tay. Mét.",
+          "additionalProperties": false,
+          "required": [
+            "squareness",
+            "sections"
+          ],
+          "properties": {
+            "squareness": {
+              "type": "number",
+              "minimum": 1.5,
+              "maximum": 6,
+              "description": "Độ vuông của tiết diện"
+            },
+            "sections": {
+              "$ref": "#/definitions/sections"
+            }
+          }
+        },
+        "leg": {
+          "type": "object",
+          "description": "Chân. t: 0 = khớp hông, 1 = cổ chân. Mét.",
+          "additionalProperties": false,
+          "required": [
+            "squareness",
+            "sections"
+          ],
+          "properties": {
+            "squareness": {
+              "type": "number",
+              "minimum": 1.5,
+              "maximum": 6,
+              "description": "Độ vuông của tiết diện"
+            },
+            "sections": {
+              "$ref": "#/definitions/sections"
+            }
+          }
+        },
+        "hand": {
+          "type": "object",
+          "description": "Bàn tay.",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "thickness",
+            "squareness"
+          ],
+          "properties": {
+            "width": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Bề ngang bàn tay (mét)"
+            },
+            "thickness": {
+              "type": "number",
+              "minimum": 0.005,
+              "maximum": 1.5,
+              "description": "Độ dày bàn tay (mét)"
+            },
+            "squareness": {
+              "type": "number",
+              "minimum": 1.5,
+              "maximum": 6,
+              "description": "Độ vuông của tiết diện"
+            }
+          }
+        },
+        "foot": {
+          "type": "object",
+          "description": "Bàn chân.",
+          "additionalProperties": false,
+          "required": [
+            "squareness",
+            "toeTaper"
+          ],
+          "properties": {
+            "squareness": {
+              "type": "number",
+              "minimum": 1.5,
+              "maximum": 6,
+              "description": "Độ vuông của tiết diện"
+            },
+            "toeTaper": {
+              "type": "number",
+              "minimum": 0.2,
+              "maximum": 1.5,
+              "description": "Độ thu nhỏ ở mũi chân (1 = không thu)"
+            }
+          }
+        }
+      }
+    },
+    "palette": {
+      "type": "object",
+      "description": "Bảng màu theo vai trò. Bắt buộc có skin, suit, armor, accent; được thêm vai trò tuỳ ý.",
+      "required": [
+        "skin",
+        "suit",
+        "armor",
+        "accent"
+      ],
+      "propertyNames": {
+        "pattern": "^[a-z][a-zA-Z0-9-]{0,31}$"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/colorSpec"
+      }
+    },
+    "bodyPaint": {
+      "type": "object",
+      "description": "Màu từng vùng thân, theo tên vai trò trong palette hoặc mã màu.",
+      "additionalProperties": false,
+      "required": [
+        "torso",
+        "neck",
+        "head",
+        "arm",
+        "hand",
+        "leg",
+        "foot"
+      ],
+      "properties": {
+        "torso": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Màu vùng torso. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+        },
+        "neck": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Màu vùng neck. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+        },
+        "head": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Màu vùng head. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+        },
+        "arm": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Màu vùng arm. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+        },
+        "hand": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Màu vùng hand. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+        },
+        "leg": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Màu vùng leg. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+        },
+        "foot": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Màu vùng foot. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+        }
+      }
+    },
+    "sockets": {
+      "type": "array",
+      "maxItems": 16,
+      "description": "Điểm gắn đồ (không phải bone).",
+      "items": {
+        "type": "object",
+        "description": "Một socket.",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "mount"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,31}$",
+            "description": "Tên socket, chữ thường và gạch dưới."
+          },
+          "mount": {
+            "$ref": "#/definitions/surfaceMount"
+          },
+          "rotationDeg": {
+            "$ref": "#/definitions/vec3Rotation"
+          }
+        }
+      }
+    },
+    "equipment": {
+      "type": "array",
+      "maxItems": 40,
+      "description": "Danh sách trang bị (giáp, mũ, phụ kiện, vũ khí).",
+      "items": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "kind"
+        },
+        "required": [
+          "kind"
+        ],
+        "description": "Một món trang bị. \"kind\" quyết định các trường còn lại.",
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "Tấm giáp cong ôm theo bộ phận cơ thể.",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "id",
+              "color",
+              "part",
+              "tStart",
+              "tEnd",
+              "angleStartDeg",
+              "angleEndDeg",
+              "thickness",
+              "gap"
+            ],
+            "properties": {
+              "kind": {
+                "const": "plate",
+                "description": "Kiểu trang bị: \"plate\"."
+              },
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,47}$",
+                "description": "Mã món đồ, chữ thường và gạch nối, không trùng."
+              },
+              "color": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu chính. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "edgeColor": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu viền (tuỳ chọn). Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "bone": {
+                "type": "string",
+                "enum": [
+                  "Root",
+                  "Hips",
+                  "Spine",
+                  "Chest",
+                  "Neck",
+                  "Head",
+                  "LeftShoulder",
+                  "LeftUpperArm",
+                  "LeftLowerArm",
+                  "LeftHand",
+                  "RightShoulder",
+                  "RightUpperArm",
+                  "RightLowerArm",
+                  "RightHand",
+                  "LeftUpperLeg",
+                  "LeftLowerLeg",
+                  "LeftFoot",
+                  "RightUpperLeg",
+                  "RightLowerLeg",
+                  "RightFoot"
+                ],
+                "description": "Ép gắn vào bone này thay vì bone tự suy ra từ vị trí."
+              },
+              "part": {
+                "type": "string",
+                "enum": [
+                  "torso",
+                  "neck",
+                  "head",
+                  "arm",
+                  "hand",
+                  "leg",
+                  "foot"
+                ],
+                "description": "Bộ phận cơ thể: torso (thân), neck (cổ), head (đầu), arm (cả cánh tay), hand (bàn tay), leg (cả chân), foot (bàn chân)."
+              },
+              "side": {
+                "type": "string",
+                "enum": [
+                  "left",
+                  "right"
+                ],
+                "description": "Bên trái/phải của nhân vật. Bắt buộc với arm/hand/leg/foot, không dùng với torso/neck/head."
+              },
+              "tStart": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Bắt đầu dọc bộ phận"
+              },
+              "tEnd": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Kết thúc dọc bộ phận (lớn hơn tStart)"
+              },
+              "angleStartDeg": {
+                "type": "number",
+                "minimum": -360,
+                "maximum": 360,
+                "description": "Góc bắt đầu quanh bộ phận (độ)"
+              },
+              "angleEndDeg": {
+                "type": "number",
+                "minimum": -360,
+                "maximum": 360,
+                "description": "Góc kết thúc quanh bộ phận (độ)"
+              },
+              "thickness": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Độ dày tấm (mét)"
+              },
+              "gap": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Khe hở giữa tấm và da (mét)"
+              },
+              "layers": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 6,
+                "description": "Số lớp chồng nhau (giáp vai nhiều lớp)"
+              },
+              "layerOverlap": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.9,
+                "description": "Tỷ lệ chồng giữa các lớp"
+              },
+              "bulge": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Độ phồng ở giữa tấm (mét)"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "description": "Dải vòng quanh bộ phận (kính mũ, thắt lưng, băng tay).",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "id",
+              "color",
+              "part",
+              "t",
+              "height",
+              "angleStartDeg",
+              "angleEndDeg",
+              "thickness",
+              "gap"
+            ],
+            "properties": {
+              "kind": {
+                "const": "band",
+                "description": "Kiểu trang bị: \"band\"."
+              },
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,47}$",
+                "description": "Mã món đồ, chữ thường và gạch nối, không trùng."
+              },
+              "color": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu chính. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "edgeColor": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu viền (tuỳ chọn). Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "bone": {
+                "type": "string",
+                "enum": [
+                  "Root",
+                  "Hips",
+                  "Spine",
+                  "Chest",
+                  "Neck",
+                  "Head",
+                  "LeftShoulder",
+                  "LeftUpperArm",
+                  "LeftLowerArm",
+                  "LeftHand",
+                  "RightShoulder",
+                  "RightUpperArm",
+                  "RightLowerArm",
+                  "RightHand",
+                  "LeftUpperLeg",
+                  "LeftLowerLeg",
+                  "LeftFoot",
+                  "RightUpperLeg",
+                  "RightLowerLeg",
+                  "RightFoot"
+                ],
+                "description": "Ép gắn vào bone này thay vì bone tự suy ra từ vị trí."
+              },
+              "part": {
+                "type": "string",
+                "enum": [
+                  "torso",
+                  "neck",
+                  "head",
+                  "arm",
+                  "hand",
+                  "leg",
+                  "foot"
+                ],
+                "description": "Bộ phận cơ thể: torso (thân), neck (cổ), head (đầu), arm (cả cánh tay), hand (bàn tay), leg (cả chân), foot (bàn chân)."
+              },
+              "side": {
+                "type": "string",
+                "enum": [
+                  "left",
+                  "right"
+                ],
+                "description": "Bên trái/phải của nhân vật. Bắt buộc với arm/hand/leg/foot, không dùng với torso/neck/head."
+              },
+              "t": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Vị trí tâm dải dọc bộ phận"
+              },
+              "height": {
+                "type": "number",
+                "minimum": 0.005,
+                "maximum": 1.5,
+                "description": "Bề cao của dải (mét)"
+              },
+              "angleStartDeg": {
+                "type": "number",
+                "minimum": -360,
+                "maximum": 360,
+                "description": "Góc bắt đầu (độ)"
+              },
+              "angleEndDeg": {
+                "type": "number",
+                "minimum": -360,
+                "maximum": 360,
+                "description": "Góc kết thúc (độ)"
+              },
+              "thickness": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Độ dày dải (mét)"
+              },
+              "gap": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Khe hở giữa dải và da (mét)"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "description": "Vỏ mũ ôm đầu.",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "id",
+              "color",
+              "coverage",
+              "faceOpeningDeg",
+              "thickness",
+              "gap"
+            ],
+            "properties": {
+              "kind": {
+                "const": "shell",
+                "description": "Kiểu trang bị: \"shell\"."
+              },
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,47}$",
+                "description": "Mã món đồ, chữ thường và gạch nối, không trùng."
+              },
+              "color": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu chính. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "edgeColor": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu viền (tuỳ chọn). Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "bone": {
+                "type": "string",
+                "enum": [
+                  "Root",
+                  "Hips",
+                  "Spine",
+                  "Chest",
+                  "Neck",
+                  "Head",
+                  "LeftShoulder",
+                  "LeftUpperArm",
+                  "LeftLowerArm",
+                  "LeftHand",
+                  "RightShoulder",
+                  "RightUpperArm",
+                  "RightLowerArm",
+                  "RightHand",
+                  "LeftUpperLeg",
+                  "LeftLowerLeg",
+                  "LeftFoot",
+                  "RightUpperLeg",
+                  "RightLowerLeg",
+                  "RightFoot"
+                ],
+                "description": "Ép gắn vào bone này thay vì bone tự suy ra từ vị trí."
+              },
+              "coverage": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Phần đầu được che, tính từ đỉnh xuống (1 = che hết)"
+              },
+              "faceOpeningDeg": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 360,
+                "description": "Độ rộng ô hở mặt quanh phía trước (độ, 0 = kín)"
+              },
+              "thickness": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Độ dày vỏ (mét)"
+              },
+              "gap": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Khe hở giữa vỏ và đầu (mét)"
+              },
+              "crest": {
+                "type": "object",
+                "description": "Gờ chạy dọc giữa đỉnh mũ.",
+                "additionalProperties": false,
+                "required": [
+                  "height",
+                  "width"
+                ],
+                "properties": {
+                  "height": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 0.3,
+                    "description": "Chiều cao gờ (mét)"
+                  },
+                  "width": {
+                    "type": "number",
+                    "minimum": 0.005,
+                    "maximum": 1.5,
+                    "description": "Bề rộng gờ (mét)"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "description": "Hộp bo góc áp vào thân (ba lô, túi).",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "id",
+              "color",
+              "attach",
+              "size",
+              "cornerRadius"
+            ],
+            "properties": {
+              "kind": {
+                "const": "box",
+                "description": "Kiểu trang bị: \"box\"."
+              },
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,47}$",
+                "description": "Mã món đồ, chữ thường và gạch nối, không trùng."
+              },
+              "color": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu chính. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "edgeColor": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu viền (tuỳ chọn). Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "bone": {
+                "type": "string",
+                "enum": [
+                  "Root",
+                  "Hips",
+                  "Spine",
+                  "Chest",
+                  "Neck",
+                  "Head",
+                  "LeftShoulder",
+                  "LeftUpperArm",
+                  "LeftLowerArm",
+                  "LeftHand",
+                  "RightShoulder",
+                  "RightUpperArm",
+                  "RightLowerArm",
+                  "RightHand",
+                  "LeftUpperLeg",
+                  "LeftLowerLeg",
+                  "LeftFoot",
+                  "RightUpperLeg",
+                  "RightLowerLeg",
+                  "RightFoot"
+                ],
+                "description": "Ép gắn vào bone này thay vì bone tự suy ra từ vị trí."
+              },
+              "attach": {
+                "$ref": "#/definitions/attach"
+              },
+              "size": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "number",
+                  "minimum": 0.005,
+                  "maximum": 1.5,
+                  "description": "Kích thước (mét)"
+                },
+                "description": "Kích thước [rộng, cao, dày] (mét). Mặt \"dày\" áp vào thân."
+              },
+              "cornerRadius": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.3,
+                "description": "Bán kính bo góc (mét)"
+              },
+              "offset": {
+                "$ref": "#/definitions/vec3Offset"
+              },
+              "rotationDeg": {
+                "$ref": "#/definitions/vec3Rotation"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "description": "Đồ ghép từ nhiều khối (vũ khí, khiên).",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "id",
+              "color",
+              "attach",
+              "parts"
+            ],
+            "properties": {
+              "kind": {
+                "const": "assembly",
+                "description": "Kiểu trang bị: \"assembly\"."
+              },
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,47}$",
+                "description": "Mã món đồ, chữ thường và gạch nối, không trùng."
+              },
+              "color": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu chính. Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "edgeColor": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Màu viền (tuỳ chọn). Tên vai trò màu trong palette (ví dụ \"armor\") hoặc mã \"#RRGGBB\"."
+              },
+              "bone": {
+                "type": "string",
+                "enum": [
+                  "Root",
+                  "Hips",
+                  "Spine",
+                  "Chest",
+                  "Neck",
+                  "Head",
+                  "LeftShoulder",
+                  "LeftUpperArm",
+                  "LeftLowerArm",
+                  "LeftHand",
+                  "RightShoulder",
+                  "RightUpperArm",
+                  "RightLowerArm",
+                  "RightHand",
+                  "LeftUpperLeg",
+                  "LeftLowerLeg",
+                  "LeftFoot",
+                  "RightUpperLeg",
+                  "RightLowerLeg",
+                  "RightFoot"
+                ],
+                "description": "Ép gắn vào bone này thay vì bone tự suy ra từ vị trí."
+              },
+              "attach": {
+                "$ref": "#/definitions/attach"
+              },
+              "parts": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 32,
+                "items": {
+                  "$ref": "#/definitions/primitive"
+                },
+                "description": "Các khối tạo nên món đồ."
+              },
+              "offset": {
+                "$ref": "#/definitions/vec3Offset"
+              },
+              "rotationDeg": {
+                "$ref": "#/definitions/vec3Rotation"
+              },
+              "scale": {
+                "type": "number",
+                "minimum": 0.1,
+                "maximum": 10,
+                "description": "Phóng to/thu nhỏ cả món đồ"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "showcase": {
+      "type": "object",
+      "description": "Thiết lập hiển thị trên trang showcase.",
+      "additionalProperties": false,
+      "required": [
+        "defaultPose",
+        "cameraAzimuthDeg",
+        "cameraElevationDeg",
+        "cameraDistance"
+      ],
+      "properties": {
+        "defaultPose": {
+          "type": "string",
+          "enum": [
+            "idle",
+            "tpose",
+            "armRaise",
+            "elbowBend",
+            "kneeBend",
+            "legRaise",
+            "torsoTwist",
+            "headTurn"
+          ],
+          "description": "Tư thế khi mở trang."
+        },
+        "cameraAzimuthDeg": {
+          "type": "number",
+          "minimum": -360,
+          "maximum": 360,
+          "description": "Góc camera quanh nhân vật, 0 = nhìn chính diện (độ)"
+        },
+        "cameraElevationDeg": {
+          "type": "number",
+          "minimum": -89,
+          "maximum": 89,
+          "description": "Góc ngẩng camera (độ)"
+        },
+        "cameraDistance": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 20,
+          "description": "Khoảng cách camera (mét)"
+        }
+      }
+    }
+  }
+}
