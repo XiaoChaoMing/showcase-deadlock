@@ -31,6 +31,7 @@ export const createRigDebugPanel = (
   animator: PoseAnimator,
   hooks: { onOverlay(o: RigOverlayState): void; onChange?(): void },
   initialOverlay: RigOverlayState = { skeleton: false, joints: true, labels: false, weights: false },
+  sections: { poses?: boolean; display?: boolean } = {},
 ): void => {
   const DEG = THREE.MathUtils.RAD2DEG;
   const rig = gui.addFolder('Rig');
@@ -64,10 +65,14 @@ export const createRigDebugPanel = (
     'reset',
   ).name('Reset bind pose');
 
-  const poses = gui.addFolder('Tư thế');
-  for (const id of POSE_IDS) {
-    poses.add({ [id]: () => { animator.setPose(id); hooks.onChange?.(); } }, id).name(POSE_LABELS[id]);
+  if (sections.poses !== false) {
+    const poses = gui.addFolder('Tư thế');
+    for (const id of POSE_IDS) {
+      poses.add({ [id]: () => { animator.setPose(id); hooks.onChange?.(); } }, id).name(POSE_LABELS[id]);
+    }
   }
+  readBone();
+  if (sections.display === false) return;
 
   const display = gui.addFolder('Hiển thị');
   const overlay = { ...initialOverlay };
@@ -76,5 +81,4 @@ export const createRigDebugPanel = (
   display.add(overlay, 'joints').name('Khớp').onChange(emit);
   display.add(overlay, 'labels').name('Tên bone').onChange(emit);
   display.add(overlay, 'weights').name('Weight (bone đang chọn)').onChange(emit);
-  readBone();
 };

@@ -2,393 +2,445 @@
   "m1": [
     {
       "name": "lineup-front",
-      "query": "stage=proportions&lineup=presets&view=front"
+      "query": "preview=1&stage=proportions&lineup=presets&view=front"
     },
     {
       "name": "kestrel-front",
-      "query": "hero=kestrel&stage=proportions&view=front"
+      "query": "preview=1&hero=kestrel&stage=proportions&view=front"
     },
     {
       "name": "kestrel-side",
-      "query": "hero=kestrel&stage=proportions&view=side"
+      "query": "preview=1&hero=kestrel&stage=proportions&view=side"
     },
     {
       "name": "kestrel-back",
-      "query": "hero=kestrel&stage=proportions&view=back"
+      "query": "preview=1&hero=kestrel&stage=proportions&view=back"
     }
   ],
   "m2": [
     {
       "name": "kestrel-body-front",
-      "query": "hero=kestrel&stage=body&view=front"
+      "query": "preview=1&hero=kestrel&stage=body&view=front"
     },
     {
       "name": "kestrel-body-side",
-      "query": "hero=kestrel&stage=body&view=side"
+      "query": "preview=1&hero=kestrel&stage=body&view=side"
     },
     {
       "name": "kestrel-body-back",
-      "query": "hero=kestrel&stage=body&view=back"
+      "query": "preview=1&hero=kestrel&stage=body&view=back"
     },
     {
       "name": "kestrel-body-threeQuarter",
-      "query": "hero=kestrel&stage=body&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=body&view=threeQuarter"
     },
     {
       "name": "kestrel-full-front",
-      "query": "hero=kestrel&stage=full&view=front"
+      "query": "preview=1&hero=kestrel&stage=full&view=front"
     },
     {
       "name": "kestrel-full-side",
-      "query": "hero=kestrel&stage=full&view=side"
+      "query": "preview=1&hero=kestrel&stage=full&view=side"
     },
     {
       "name": "kestrel-full-back",
-      "query": "hero=kestrel&stage=full&view=back"
+      "query": "preview=1&hero=kestrel&stage=full&view=back"
     },
     {
       "name": "kestrel-full-threeQuarter",
-      "query": "hero=kestrel&stage=full&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter"
     },
     {
       "name": "kestrel-wireframe-front",
-      "query": "hero=kestrel&stage=body&view=front&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=body&view=front&overlay=wireframe"
     },
     {
       "name": "lineup-body-front",
-      "query": "stage=body&lineup=presets&view=front"
+      "query": "preview=1&stage=body&lineup=presets&view=front"
     },
     {
       "name": "kestrel-head",
-      "query": "hero=kestrel&stage=full&view=threeQuarter&zoom=head"
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter&zoom=head"
     }
   ],
   "m3": [
     {
       "name": "skeleton-front",
-      "query": "hero=kestrel&stage=skeleton&view=front&overlay=labels"
+      "query": "preview=1&hero=kestrel&stage=skeleton&view=front&overlay=labels"
     },
     {
       "name": "skeleton-side",
-      "query": "hero=kestrel&stage=skeleton&view=side&overlay=labels"
+      "query": "preview=1&hero=kestrel&stage=skeleton&view=side&overlay=labels"
     },
     {
       "name": "skeleton-threeQuarter",
-      "query": "hero=kestrel&stage=skeleton&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=skeleton&view=threeQuarter"
     },
     {
       "name": "skeleton-shoulderL",
-      "query": "hero=kestrel&stage=skeleton&view=front&overlay=labels&zoom=shoulderL"
+      "query": "preview=1&hero=kestrel&stage=skeleton&view=front&overlay=labels&zoom=shoulderL"
     },
     {
       "name": "skeleton-hipL",
-      "query": "hero=kestrel&stage=skeleton&view=front&overlay=labels&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skeleton&view=front&overlay=labels&zoom=hipL"
     }
   ],
   "m4": [
     {
       "name": "weights-LeftUpperArm",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftUpperArm"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftUpperArm"
     },
     {
       "name": "weights-LeftLowerArm",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftLowerArm"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftLowerArm"
     },
     {
       "name": "weights-Chest",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Chest"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Chest"
     },
     {
       "name": "weights-Spine",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Spine"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Spine"
     },
     {
       "name": "weights-LeftUpperLeg",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftUpperLeg"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftUpperLeg"
     },
     {
       "name": "weights-LeftLowerLeg",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftLowerLeg"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftLowerLeg"
     },
     {
       "name": "weights-Head",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Head"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Head"
     },
     {
       "name": "weights-Hips",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Hips"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=weights&bone=Hips"
     },
     {
       "name": "weights-LeftShoulder",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftShoulder"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=weights&bone=LeftShoulder"
     },
     {
       "name": "weights-LeftUpperLeg-side",
-      "query": "hero=kestrel&stage=skinned&view=side&overlay=weights&bone=LeftUpperLeg"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&overlay=weights&bone=LeftUpperLeg"
     },
     {
       "name": "kestrel-full-tpose",
-      "query": "hero=kestrel&stage=full&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter"
     }
   ],
   "m4b": [
     {
       "name": "body-threeQuarter",
-      "query": "hero=kestrel&stage=skinned&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter"
     },
     {
       "name": "body-front-wire",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=wireframe"
     },
     {
       "name": "body-shoulder-wire",
-      "query": "hero=kestrel&stage=skinned&view=threeQuarter&overlay=wireframe&zoom=shoulderL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&overlay=wireframe&zoom=shoulderL"
     },
     {
       "name": "body-hip-wire",
-      "query": "hero=kestrel&stage=skinned&view=front&overlay=wireframe&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&overlay=wireframe&zoom=hipL"
     },
     {
       "name": "body-back",
-      "query": "hero=kestrel&stage=skinned&view=back"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=back"
     },
     {
       "name": "full-threeQuarter",
-      "query": "hero=kestrel&stage=full&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter"
     },
     {
       "name": "lineup-presets",
-      "query": "stage=skinned&lineup=presets&view=threeQuarter"
+      "query": "preview=1&stage=skinned&lineup=presets&view=threeQuarter"
     }
   ],
   "m4c": [
     {
       "name": "body-front",
-      "query": "hero=kestrel&stage=skinned&view=front"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front"
     },
     {
       "name": "body-threeQuarter",
-      "query": "hero=kestrel&stage=skinned&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter"
     },
     {
       "name": "body-side",
-      "query": "hero=kestrel&stage=skinned&view=side"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side"
     },
     {
       "name": "body-back",
-      "query": "hero=kestrel&stage=skinned&view=back"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=back"
     },
     {
       "name": "full-threeQuarter",
-      "query": "hero=kestrel&stage=full&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter"
     },
     {
       "name": "full-front",
-      "query": "hero=kestrel&stage=full&view=front"
+      "query": "preview=1&hero=kestrel&stage=full&view=front"
     },
     {
       "name": "lineup-presets",
-      "query": "stage=skinned&lineup=presets&view=threeQuarter"
+      "query": "preview=1&stage=skinned&lineup=presets&view=threeQuarter"
     }
   ],
   "m4d": [
     {
       "name": "body-side",
-      "query": "hero=kestrel&stage=skinned&view=side"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side"
     },
     {
       "name": "body-back",
-      "query": "hero=kestrel&stage=skinned&view=back"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=back"
     },
     {
       "name": "body-backThreeQuarter",
-      "query": "hero=kestrel&stage=skinned&view=back&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=back&zoom=hipL"
     },
     {
       "name": "full-side",
-      "query": "hero=kestrel&stage=full&view=side"
+      "query": "preview=1&hero=kestrel&stage=full&view=side"
     },
     {
       "name": "hip-side",
-      "query": "hero=kestrel&stage=skinned&view=side&zoom=hipL&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&zoom=hipL&overlay=wireframe"
     },
     {
       "name": "hip-side-solid",
-      "query": "hero=kestrel&stage=skinned&view=side&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&zoom=hipL"
     }
   ],
   "m4e": [
     {
       "name": "chest-side",
-      "query": "hero=kestrel&stage=skinned&view=side&zoom=shoulderL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&zoom=shoulderL"
     },
     {
       "name": "chest-side-wire",
-      "query": "hero=kestrel&stage=skinned&view=side&zoom=shoulderL&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&zoom=shoulderL&overlay=wireframe"
     },
     {
       "name": "body-side",
-      "query": "hero=kestrel&stage=skinned&view=side"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side"
     },
     {
       "name": "body-threeQuarter",
-      "query": "hero=kestrel&stage=skinned&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter"
     },
     {
       "name": "body-front",
-      "query": "hero=kestrel&stage=skinned&view=front"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front"
     },
     {
       "name": "hip-side",
-      "query": "hero=kestrel&stage=skinned&view=side&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&zoom=hipL"
     },
     {
       "name": "full-threeQuarter",
-      "query": "hero=kestrel&stage=full&view=threeQuarter"
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter"
     },
     {
       "name": "full-side",
-      "query": "hero=kestrel&stage=full&view=side"
+      "query": "preview=1&hero=kestrel&stage=full&view=side"
     }
   ],
   "m5": [
     {
       "name": "idle-front",
-      "query": "hero=kestrel&stage=full&view=front&pose=idle"
+      "query": "preview=1&hero=kestrel&stage=full&view=front&pose=idle"
     },
     {
       "name": "idle-side",
-      "query": "hero=kestrel&stage=full&view=side&pose=idle"
+      "query": "preview=1&hero=kestrel&stage=full&view=side&pose=idle"
     },
     {
       "name": "armRaise-front",
-      "query": "hero=kestrel&stage=full&view=front&pose=armRaise"
+      "query": "preview=1&hero=kestrel&stage=full&view=front&pose=armRaise"
     },
     {
       "name": "armRaise-side",
-      "query": "hero=kestrel&stage=full&view=side&pose=armRaise"
+      "query": "preview=1&hero=kestrel&stage=full&view=side&pose=armRaise"
     },
     {
       "name": "elbowBend-front",
-      "query": "hero=kestrel&stage=full&view=front&pose=elbowBend"
+      "query": "preview=1&hero=kestrel&stage=full&view=front&pose=elbowBend"
     },
     {
       "name": "elbowBend-side",
-      "query": "hero=kestrel&stage=full&view=side&pose=elbowBend"
+      "query": "preview=1&hero=kestrel&stage=full&view=side&pose=elbowBend"
     },
     {
       "name": "kneeBend-front",
-      "query": "hero=kestrel&stage=full&view=front&pose=kneeBend"
+      "query": "preview=1&hero=kestrel&stage=full&view=front&pose=kneeBend"
     },
     {
       "name": "kneeBend-side",
-      "query": "hero=kestrel&stage=full&view=side&pose=kneeBend"
+      "query": "preview=1&hero=kestrel&stage=full&view=side&pose=kneeBend"
     },
     {
       "name": "legRaise-front",
-      "query": "hero=kestrel&stage=full&view=front&pose=legRaise"
+      "query": "preview=1&hero=kestrel&stage=full&view=front&pose=legRaise"
     },
     {
       "name": "legRaise-side",
-      "query": "hero=kestrel&stage=full&view=side&pose=legRaise"
+      "query": "preview=1&hero=kestrel&stage=full&view=side&pose=legRaise"
     },
     {
       "name": "torsoTwist-front",
-      "query": "hero=kestrel&stage=full&view=front&pose=torsoTwist"
+      "query": "preview=1&hero=kestrel&stage=full&view=front&pose=torsoTwist"
     },
     {
       "name": "torsoTwist-side",
-      "query": "hero=kestrel&stage=full&view=side&pose=torsoTwist"
+      "query": "preview=1&hero=kestrel&stage=full&view=side&pose=torsoTwist"
     },
     {
       "name": "headTurn-front",
-      "query": "hero=kestrel&stage=full&view=front&pose=headTurn"
+      "query": "preview=1&hero=kestrel&stage=full&view=front&pose=headTurn"
     },
     {
       "name": "headTurn-side",
-      "query": "hero=kestrel&stage=full&view=side&pose=headTurn"
+      "query": "preview=1&hero=kestrel&stage=full&view=side&pose=headTurn"
     },
     {
       "name": "armRaise-shoulderL-front-skin",
-      "query": "hero=kestrel&stage=skinned&view=front&pose=armRaise&zoom=shoulderL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&pose=armRaise&zoom=shoulderL"
     },
     {
       "name": "armRaise-shoulderL-front-wire",
-      "query": "hero=kestrel&stage=skinned&view=front&pose=armRaise&zoom=shoulderL&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&pose=armRaise&zoom=shoulderL&overlay=wireframe"
     },
     {
       "name": "elbowBend-elbowL-threeQuarter-skin",
-      "query": "hero=kestrel&stage=skinned&view=threeQuarter&pose=elbowBend&zoom=elbowL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&pose=elbowBend&zoom=elbowL"
     },
     {
       "name": "elbowBend-elbowL-threeQuarter-wire",
-      "query": "hero=kestrel&stage=skinned&view=threeQuarter&pose=elbowBend&zoom=elbowL&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&pose=elbowBend&zoom=elbowL&overlay=wireframe"
     },
     {
       "name": "kneeBend-kneeL-side-skin",
-      "query": "hero=kestrel&stage=skinned&view=side&pose=kneeBend&zoom=kneeL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&pose=kneeBend&zoom=kneeL"
     },
     {
       "name": "kneeBend-kneeL-side-wire",
-      "query": "hero=kestrel&stage=skinned&view=side&pose=kneeBend&zoom=kneeL&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&pose=kneeBend&zoom=kneeL&overlay=wireframe"
     },
     {
       "name": "legRaise-hipL-side-skin",
-      "query": "hero=kestrel&stage=skinned&view=side&pose=legRaise&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&pose=legRaise&zoom=hipL"
     },
     {
       "name": "legRaise-hipL-side-wire",
-      "query": "hero=kestrel&stage=skinned&view=side&pose=legRaise&zoom=hipL&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&pose=legRaise&zoom=hipL&overlay=wireframe"
     },
     {
       "name": "legRaise-hipL-threeQuarter-skin",
-      "query": "hero=kestrel&stage=skinned&view=threeQuarter&pose=legRaise&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&pose=legRaise&zoom=hipL"
     },
     {
       "name": "legRaise-hipL-threeQuarter-wire",
-      "query": "hero=kestrel&stage=skinned&view=threeQuarter&pose=legRaise&zoom=hipL&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&pose=legRaise&zoom=hipL&overlay=wireframe"
     },
     {
       "name": "torsoTwist-hipL-front-skin",
-      "query": "hero=kestrel&stage=skinned&view=front&pose=torsoTwist&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&pose=torsoTwist&zoom=hipL"
     },
     {
       "name": "torsoTwist-hipL-front-wire",
-      "query": "hero=kestrel&stage=skinned&view=front&pose=torsoTwist&zoom=hipL&overlay=wireframe"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&pose=torsoTwist&zoom=hipL&overlay=wireframe"
     }
   ],
   "m5b": [
     {
       "name": "armRaise-front",
-      "query": "hero=kestrel&stage=full&view=front&pose=armRaise"
+      "query": "preview=1&hero=kestrel&stage=full&view=front&pose=armRaise"
     },
     {
       "name": "armRaise-threeQuarter",
-      "query": "hero=kestrel&stage=full&view=threeQuarter&pose=armRaise"
+      "query": "preview=1&hero=kestrel&stage=full&view=threeQuarter&pose=armRaise"
     },
     {
       "name": "armRaise-side",
-      "query": "hero=kestrel&stage=full&view=side&pose=armRaise"
+      "query": "preview=1&hero=kestrel&stage=full&view=side&pose=armRaise"
     },
     {
       "name": "armRaise-body-front",
-      "query": "hero=kestrel&stage=skinned&view=front&pose=armRaise"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&pose=armRaise"
     },
     {
       "name": "armRaise-shoulder-skin",
-      "query": "hero=kestrel&stage=skinned&view=front&pose=armRaise&zoom=shoulderL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=front&pose=armRaise&zoom=shoulderL"
     },
     {
       "name": "armRaise-shoulder-back",
-      "query": "hero=kestrel&stage=skinned&view=back&pose=armRaise&zoom=shoulderL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=back&pose=armRaise&zoom=shoulderL"
     },
     {
       "name": "legRaise-hip-side",
-      "query": "hero=kestrel&stage=skinned&view=side&pose=legRaise&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=side&pose=legRaise&zoom=hipL"
     },
     {
       "name": "legRaise-hip-threeQuarter",
-      "query": "hero=kestrel&stage=skinned&view=threeQuarter&pose=legRaise&zoom=hipL"
+      "query": "preview=1&hero=kestrel&stage=skinned&view=threeQuarter&pose=legRaise&zoom=hipL"
+    }
+  ],
+  "m7": [
+    {
+      "name": "showcase-idle",
+      "query": "hero=kestrel",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "name": "showcase-skeleton",
+      "query": "hero=kestrel&overlay=skeleton",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "name": "showcase-weights",
+      "query": "hero=kestrel&overlay=weights&bone=Chest",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "name": "showcase-armRaise",
+      "query": "hero=kestrel&pose=armRaise",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "name": "showcase-narrow",
+      "query": "hero=kestrel",
+      "viewport": {
+        "width": 800,
+        "height": 1000
+      }
+    }
+  ],
+  "m7broken": [
+    {
+      "name": "showcase-broken-hero",
+      "query": "hero=kestrel",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
     }
   ]
 }

@@ -6,7 +6,7 @@
     "name": "Kestrel",
     "role": "Trinh sát / Scout",
     "tagline": "Thấy trước, đến trước, rút trước.",
-    "description": "Kestrel là trinh sát tiền tuyến, luôn đi trước đội hình để đánh dấu mục tiêu và mở đường. Bộ giáp nhẹ đổi lấy tốc độ, chỉ giữ lại tấm giáp vai trái từng đỡ cho cô một phát bắn tỉa. Dải kính hổ phách trên mũ là thứ cuối cùng đối thủ nhìn thấy trước khi mất dấu cô."
+    "description": "Kestrel là trinh sát tiền tuyến, luôn đi trước đội hình để đánh dấu mục tiêu và mở đường. Bộ giáp nhẹ đổi lấy tốc độ, chỉ giữ lại tấm giáp vai trái từng đỡ một phát bắn tỉa định mệnh. Dải kính hổ phách trên mũ là thứ cuối cùng đối thủ nhìn thấy trước khi mất dấu Kestrel."
   },
   "proportions": {
     "height": 1.8,
@@ -1720,7 +1720,7 @@
   "showcase": {
     "defaultPose": "idle",
     "cameraAzimuthDeg": 30,
-    "cameraElevationDeg": 10,
-    "cameraDistance": 3.2
+    "cameraElevationDeg": 6,
+    "cameraDistance": 4.6
   }
 }

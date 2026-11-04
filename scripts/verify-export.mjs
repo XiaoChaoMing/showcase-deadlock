@@ -10,9 +10,9 @@ await server.listen();
 const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 try {
   const page = await browser.newPage({ acceptDownloads: true, viewport: { width: 1280, height: 900 } });
-  await page.goto(`http://localhost:5180/?hero=${hero}&stage=full&pose=idle`);
+  await page.goto(`http://localhost:5180/?hero=${hero}`);
   await page.waitForFunction(() => window.__heroReady === true, null, { timeout: 30000 });
-  const [download] = await Promise.all([page.waitForEvent('download'), page.getByText('Xuất GLB + kiểm tra').click()]);
+  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Xuất GLB', exact: true }).click()]);
   const out = path.resolve('snapshots', 'm6', download.suggestedFilename());
   fs.mkdirSync(path.dirname(out), { recursive: true });
   await download.saveAs(out);
