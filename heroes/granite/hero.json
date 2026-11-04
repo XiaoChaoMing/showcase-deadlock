@@ -1,0 +1,878 @@
+{
+  "$schema": "../../templates/hero.schema.json",
+  "id": "granite",
+  "version": 1,
+  "profile": {
+    "name": "Granite",
+    "role": "Tiên phong / Vanguard",
+    "tagline": "Đứng yên, và để chúng tự vỡ.",
+    "description": "Granite là bức tường di động của đội hình, mang tấm khiên đúc từ cửa hầm một pháo đài đổ nát. Bộ giáp đồng nặng nề làm chậm bước chân nhưng chưa từng để lọt một đòn nào ra phía sau. Khi Granite cắm khiên xuống đất, đồng đội biết đó là nơi an toàn nhất trên chiến trường."
+  },
+  "proportions": {
+    "height": 1.95,
+    "head": {
+      "width": 0.24,
+      "height": 0.25,
+      "depth": 0.26
+    },
+    "neck": {
+      "length": 0.09,
+      "radius": 0.085
+    },
+    "torso": {
+      "length": 0.62,
+      "shoulderWidth": 0.62,
+      "hipWidth": 0.44,
+      "pelvisDepth": 0.11
+    },
+    "arms": {
+      "upperLength": 0.33,
+      "lowerLength": 0.31,
+      "handLength": 0.2
+    },
+    "legs": {
+      "upperLength": 0.46,
+      "lowerLength": 0.46
+    },
+    "foot": {
+      "length": 0.29,
+      "height": 0.08,
+      "width": 0.13
+    }
+  },
+  "bodyShape": {
+    "radialSegments": 16,
+    "ringsPerMeter": 60,
+    "shading": "smooth",
+    "torso": {
+      "squareness": 3.2,
+      "sections": [
+        {
+          "t": 0,
+          "width": 0.3,
+          "depth": 0.24,
+          "forward": 0
+        },
+        {
+          "t": 0.12,
+          "width": 0.44,
+          "depth": 0.3,
+          "forward": 0
+        },
+        {
+          "t": 0.35,
+          "width": 0.42,
+          "depth": 0.3,
+          "forward": 0.03
+        },
+        {
+          "t": 0.5,
+          "width": 0.44,
+          "depth": 0.32,
+          "forward": 0.04
+        },
+        {
+          "t": 0.72,
+          "width": 0.5,
+          "depth": 0.32,
+          "forward": 0.03
+        },
+        {
+          "t": 0.88,
+          "width": 0.58,
+          "depth": 0.26,
+          "forward": 0
+        },
+        {
+          "t": 1,
+          "width": 0.22,
+          "depth": 0.18,
+          "forward": 0
+        }
+      ]
+    },
+    "neck": {
+      "taper": 0.85
+    },
+    "head": {
+      "squareness": 3,
+      "sections": [
+        {
+          "t": 0,
+          "width": 0.6,
+          "depth": 0.6,
+          "forward": 0.1
+        },
+        {
+          "t": 0.2,
+          "width": 0.9,
+          "depth": 0.9,
+          "forward": 0.05
+        },
+        {
+          "t": 0.5,
+          "width": 1,
+          "depth": 1,
+          "forward": 0
+        },
+        {
+          "t": 0.75,
+          "width": 1,
+          "depth": 1,
+          "forward": 0
+        },
+        {
+          "t": 0.92,
+          "width": 0.85,
+          "depth": 0.85,
+          "forward": 0
+        },
+        {
+          "t": 1,
+          "width": 0.4,
+          "depth": 0.4,
+          "forward": 0
+        }
+      ]
+    },
+    "arm": {
+      "squareness": 2.6,
+      "sections": [
+        {
+          "t": 0,
+          "width": 0.2,
+          "depth": 0.18
+        },
+        {
+          "t": 0.2,
+          "width": 0.17,
+          "depth": 0.16
+        },
+        {
+          "t": 0.5,
+          "width": 0.12,
+          "depth": 0.12
+        },
+        {
+          "t": 0.65,
+          "width": 0.14,
+          "depth": 0.13
+        },
+        {
+          "t": 1,
+          "width": 0.09,
+          "depth": 0.08
+        }
+      ]
+    },
+    "leg": {
+      "squareness": 2.6,
+      "sections": [
+        {
+          "t": 0,
+          "width": 0.25,
+          "depth": 0.25
+        },
+        {
+          "t": 0.25,
+          "width": 0.22,
+          "depth": 0.22
+        },
+        {
+          "t": 0.5,
+          "width": 0.15,
+          "depth": 0.15
+        },
+        {
+          "t": 0.62,
+          "width": 0.16,
+          "depth": 0.16
+        },
+        {
+          "t": 1,
+          "width": 0.11,
+          "depth": 0.11
+        }
+      ]
+    },
+    "hand": {
+      "width": 0.12,
+      "thickness": 0.05,
+      "squareness": 2.8
+    },
+    "foot": {
+      "squareness": 3,
+      "toeTaper": 0.8
+    },
+    "muscles": [
+      {
+        "part": "torso",
+        "t": 0.77,
+        "length": 0.09,
+        "angleDeg": 28,
+        "spreadDeg": 32,
+        "amount": 0.0364
+      },
+      {
+        "part": "torso",
+        "t": 0.45,
+        "length": 0.14,
+        "angleDeg": 0,
+        "spreadDeg": 30,
+        "amount": 0.0154
+      },
+      {
+        "part": "torso",
+        "t": 0.6,
+        "length": 0.35,
+        "angleDeg": 180,
+        "spreadDeg": 25,
+        "amount": -0.0112
+      },
+      {
+        "part": "torso",
+        "t": 0.68,
+        "length": 0.14,
+        "angleDeg": 110,
+        "spreadDeg": 35,
+        "amount": 0.042
+      },
+      {
+        "part": "torso",
+        "t": 0.95,
+        "length": 0.07,
+        "angleDeg": 150,
+        "spreadDeg": 45,
+        "amount": 0.0364
+      },
+      {
+        "part": "torso",
+        "t": 0.12,
+        "length": 0.1,
+        "angleDeg": 150,
+        "spreadDeg": 35,
+        "amount": 0.0336
+      },
+      {
+        "part": "arm",
+        "t": 0.06,
+        "length": 0.12,
+        "angleDeg": 90,
+        "spreadDeg": 85,
+        "amount": 0.028
+      },
+      {
+        "part": "arm",
+        "t": 0.28,
+        "length": 0.16,
+        "angleDeg": 0,
+        "spreadDeg": 55,
+        "amount": 0.0224
+      },
+      {
+        "part": "arm",
+        "t": 0.3,
+        "length": 0.17,
+        "angleDeg": 180,
+        "spreadDeg": 55,
+        "amount": 0.0196
+      },
+      {
+        "part": "arm",
+        "t": 0.66,
+        "length": 0.14,
+        "angleDeg": 60,
+        "spreadDeg": 70,
+        "amount": 0.0168
+      },
+      {
+        "part": "leg",
+        "t": 0.24,
+        "length": 0.2,
+        "angleDeg": 15,
+        "spreadDeg": 60,
+        "amount": 0.0252
+      },
+      {
+        "part": "leg",
+        "t": 0.26,
+        "length": 0.2,
+        "angleDeg": 190,
+        "spreadDeg": 50,
+        "amount": 0.0168
+      },
+      {
+        "part": "leg",
+        "t": 0.65,
+        "length": 0.11,
+        "angleDeg": 190,
+        "spreadDeg": 60,
+        "amount": 0.028
+      },
+      {
+        "part": "neck",
+        "t": 0.3,
+        "length": 0.4,
+        "angleDeg": 40,
+        "spreadDeg": 35,
+        "amount": 0.0112
+      }
+    ]
+  },
+  "palette": {
+    "skin": "#A8714F",
+    "suit": "#5C3B2E",
+    "suitDark": "#3B2620",
+    "armor": {
+      "color": "#B07A3C",
+      "metalness": 0.65,
+      "roughness": 0.38
+    },
+    "armorDark": {
+      "color": "#6B4426",
+      "metalness": 0.5,
+      "roughness": 0.5
+    },
+    "accent": "#E8C25A",
+    "glow": {
+      "color": "#FF7A3D",
+      "emissive": 1.4
+    },
+    "leather": "#4A3022",
+    "cloth": "#2F5D50",
+    "metal": {
+      "color": "#CBB78C",
+      "metalness": 0.8,
+      "roughness": 0.3
+    }
+  },
+  "bodyPaint": {
+    "torso": "suit",
+    "neck": "skin",
+    "head": "skin",
+    "arm": "suit",
+    "hand": "leather",
+    "leg": "suitDark",
+    "foot": "armorDark"
+  },
+  "sockets": [
+    {
+      "name": "back_shield",
+      "mount": {
+        "part": "torso",
+        "t": 0.62,
+        "angleDeg": 180,
+        "standoff": 0.07
+      }
+    },
+    {
+      "name": "hip_weapon",
+      "mount": {
+        "part": "leg",
+        "side": "right",
+        "t": 0.2,
+        "angleDeg": 90,
+        "standoff": 0.035
+      }
+    }
+  ],
+  "equipment": [
+    {
+      "id": "chest-plate",
+      "kind": "plate",
+      "part": "torso",
+      "tStart": 0.45,
+      "tEnd": 0.86,
+      "angleStartDeg": -80,
+      "angleEndDeg": 80,
+      "ridge": 0.03,
+      "point": 0.06,
+      "thickness": 0.025,
+      "gap": 0.01,
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "back-plate",
+      "kind": "plate",
+      "part": "torso",
+      "tStart": 0.45,
+      "tEnd": 0.86,
+      "angleStartDeg": 100,
+      "angleEndDeg": 260,
+      "thickness": 0.02,
+      "gap": 0.01,
+      "color": "armorDark"
+    },
+    {
+      "id": "helmet",
+      "kind": "shell",
+      "coverage": 0.8,
+      "faceOpeningDeg": 120,
+      "thickness": 0.02,
+      "gap": 0.012,
+      "crest": {
+        "height": 0.05,
+        "width": 0.05
+      },
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "horn-left",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "head",
+          "t": 0.82,
+          "angleDeg": 75,
+          "standoff": 0.03
+        }
+      },
+      "color": "armor",
+      "rotationDeg": [
+        -40,
+        0,
+        0
+      ],
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.05,
+            0.05,
+            0.18
+          ],
+          "position": [
+            0,
+            0,
+            0.08
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "horn-right",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "head",
+          "t": 0.82,
+          "angleDeg": -75,
+          "standoff": 0.03
+        }
+      },
+      "color": "armor",
+      "rotationDeg": [
+        -40,
+        0,
+        0
+      ],
+      "parts": [
+        {
+          "shape": "spike",
+          "size": [
+            0.05,
+            0.05,
+            0.18
+          ],
+          "position": [
+            0,
+            0,
+            0.08
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "gorget",
+      "kind": "band",
+      "part": "neck",
+      "t": 0.45,
+      "height": 0.07,
+      "angleStartDeg": -180,
+      "angleEndDeg": 180,
+      "thickness": 0.025,
+      "gap": 0.006,
+      "color": "armor"
+    },
+    {
+      "id": "pauldron-left",
+      "kind": "plate",
+      "part": "arm",
+      "side": "left",
+      "tStart": 0,
+      "tEnd": 0.4,
+      "angleStartDeg": -30,
+      "angleEndDeg": 210,
+      "layers": 4,
+      "layerOverlap": 0.35,
+      "bulge": 0.035,
+      "point": 0.04,
+      "ridge": 0.02,
+      "thickness": 0.018,
+      "gap": 0.014,
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "gauntlet-left",
+      "kind": "band",
+      "part": "arm",
+      "side": "left",
+      "t": 0.86,
+      "height": 0.14,
+      "angleStartDeg": -180,
+      "angleEndDeg": 180,
+      "thickness": 0.02,
+      "gap": 0.004,
+      "color": "armorDark"
+    },
+    {
+      "id": "tasset-left",
+      "kind": "plate",
+      "part": "leg",
+      "side": "left",
+      "tStart": 0,
+      "tEnd": 0.25,
+      "angleStartDeg": -60,
+      "angleEndDeg": 120,
+      "layers": 2,
+      "layerOverlap": 0.3,
+      "point": 0.05,
+      "thickness": 0.015,
+      "gap": 0.014,
+      "color": "armorDark",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "knee-left",
+      "kind": "plate",
+      "part": "leg",
+      "side": "left",
+      "tStart": 0.42,
+      "tEnd": 0.57,
+      "angleStartDeg": -60,
+      "angleEndDeg": 60,
+      "bulge": 0.02,
+      "point": 0.05,
+      "ridge": 0.02,
+      "thickness": 0.02,
+      "gap": 0.02,
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "greave-left",
+      "kind": "plate",
+      "part": "leg",
+      "side": "left",
+      "tStart": 0.6,
+      "tEnd": 0.95,
+      "angleStartDeg": -80,
+      "angleEndDeg": 80,
+      "ridge": 0.015,
+      "thickness": 0.02,
+      "gap": 0.008,
+      "color": "armor"
+    },
+    {
+      "id": "toe-left",
+      "kind": "plate",
+      "part": "foot",
+      "side": "left",
+      "tStart": 0.5,
+      "tEnd": 1,
+      "angleStartDeg": -80,
+      "angleEndDeg": 80,
+      "ridge": 0.012,
+      "point": 0.03,
+      "thickness": 0.015,
+      "gap": 0.006,
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "pauldron-right",
+      "kind": "plate",
+      "part": "arm",
+      "side": "right",
+      "tStart": 0,
+      "tEnd": 0.4,
+      "angleStartDeg": -30,
+      "angleEndDeg": 210,
+      "layers": 4,
+      "layerOverlap": 0.35,
+      "bulge": 0.035,
+      "point": 0.04,
+      "ridge": 0.02,
+      "thickness": 0.018,
+      "gap": 0.014,
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "gauntlet-right",
+      "kind": "band",
+      "part": "arm",
+      "side": "right",
+      "t": 0.86,
+      "height": 0.14,
+      "angleStartDeg": -180,
+      "angleEndDeg": 180,
+      "thickness": 0.02,
+      "gap": 0.004,
+      "color": "armorDark"
+    },
+    {
+      "id": "tasset-right",
+      "kind": "plate",
+      "part": "leg",
+      "side": "right",
+      "tStart": 0,
+      "tEnd": 0.25,
+      "angleStartDeg": -60,
+      "angleEndDeg": 120,
+      "layers": 2,
+      "layerOverlap": 0.3,
+      "point": 0.05,
+      "thickness": 0.015,
+      "gap": 0.014,
+      "color": "armorDark",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "knee-right",
+      "kind": "plate",
+      "part": "leg",
+      "side": "right",
+      "tStart": 0.42,
+      "tEnd": 0.57,
+      "angleStartDeg": -60,
+      "angleEndDeg": 60,
+      "bulge": 0.02,
+      "point": 0.05,
+      "ridge": 0.02,
+      "thickness": 0.02,
+      "gap": 0.02,
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "greave-right",
+      "kind": "plate",
+      "part": "leg",
+      "side": "right",
+      "tStart": 0.6,
+      "tEnd": 0.95,
+      "angleStartDeg": -80,
+      "angleEndDeg": 80,
+      "ridge": 0.015,
+      "thickness": 0.02,
+      "gap": 0.008,
+      "color": "armor"
+    },
+    {
+      "id": "toe-right",
+      "kind": "plate",
+      "part": "foot",
+      "side": "right",
+      "tStart": 0.5,
+      "tEnd": 1,
+      "angleStartDeg": -80,
+      "angleEndDeg": 80,
+      "ridge": 0.012,
+      "point": 0.03,
+      "thickness": 0.015,
+      "gap": 0.006,
+      "color": "armor",
+      "edgeColor": "accent"
+    },
+    {
+      "id": "belly-band",
+      "kind": "band",
+      "part": "torso",
+      "t": 0.3,
+      "height": 0.08,
+      "angleStartDeg": -180,
+      "angleEndDeg": 180,
+      "thickness": 0.02,
+      "gap": 0.006,
+      "color": "leather"
+    },
+    {
+      "id": "shield",
+      "kind": "assembly",
+      "attach": {
+        "socket": "back_shield"
+      },
+      "color": "armorDark",
+      "parts": [
+        {
+          "shape": "box",
+          "size": [
+            0.52,
+            0.62,
+            0.04
+          ],
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "color": "armorDark"
+        },
+        {
+          "shape": "box",
+          "size": [
+            0.54,
+            0.04,
+            0.05
+          ],
+          "position": [
+            0,
+            0.31,
+            0.005
+          ],
+          "color": "accent"
+        },
+        {
+          "shape": "box",
+          "size": [
+            0.54,
+            0.04,
+            0.05
+          ],
+          "position": [
+            0,
+            -0.31,
+            0.005
+          ],
+          "color": "accent"
+        },
+        {
+          "shape": "spike",
+          "size": [
+            0.1,
+            0.1,
+            0.1
+          ],
+          "position": [
+            0,
+            0,
+            0.07
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "box",
+          "size": [
+            0.06,
+            0.5,
+            0.045
+          ],
+          "position": [
+            0,
+            0,
+            0.005
+          ],
+          "color": "armor"
+        }
+      ]
+    },
+    {
+      "id": "hammer",
+      "kind": "assembly",
+      "attach": {
+        "socket": "hip_weapon"
+      },
+      "color": "metal",
+      "parts": [
+        {
+          "shape": "cylinder",
+          "size": [
+            0.035,
+            0.5,
+            0
+          ],
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "color": "leather",
+          "rotationDeg": [
+            90,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "box",
+          "size": [
+            0.1,
+            0.1,
+            0.2
+          ],
+          "position": [
+            0,
+            0.27,
+            0
+          ],
+          "color": "metal"
+        },
+        {
+          "shape": "spike",
+          "size": [
+            0.05,
+            0.05,
+            0.08
+          ],
+          "position": [
+            0,
+            0.27,
+            0.13
+          ],
+          "color": "metal"
+        }
+      ]
+    },
+    {
+      "id": "core-light",
+      "kind": "assembly",
+      "attach": {
+        "mount": {
+          "part": "torso",
+          "t": 0.66,
+          "angleDeg": 0,
+          "standoff": 0.06
+        }
+      },
+      "color": "glow",
+      "parts": [
+        {
+          "shape": "cylinder",
+          "size": [
+            0.06,
+            0.02,
+            0
+          ],
+          "position": [
+            0,
+            0,
+            0.01
+          ],
+          "color": "glow"
+        }
+      ]
+    }
+  ],
+  "showcase": {
+    "defaultPose": "idle",
+    "cameraAzimuthDeg": -30,
+    "cameraElevationDeg": 6,
+    "cameraDistance": 5.2
+  }
+}

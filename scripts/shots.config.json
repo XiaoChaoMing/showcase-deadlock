@@ -442,5 +442,39 @@
         "height": 900
       }
     }
+  ],
+  "m8": [
+    {
+      "name": "granite-showcase",
+      "query": "hero=granite",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "name": "granite-front",
+      "query": "preview=1&hero=granite&stage=full&view=front&pose=idle"
+    },
+    {
+      "name": "granite-threeQuarter",
+      "query": "preview=1&hero=granite&stage=full&view=threeQuarter&pose=idle"
+    },
+    {
+      "name": "granite-back",
+      "query": "preview=1&hero=granite&stage=full&view=back&pose=idle"
+    },
+    {
+      "name": "granite-armRaise",
+      "query": "preview=1&hero=granite&stage=full&view=threeQuarter&pose=armRaise"
+    },
+    {
+      "name": "granite-kneeBend",
+      "query": "preview=1&hero=granite&stage=full&view=side&pose=kneeBend"
+    },
+    {
+      "name": "heroes-lineup",
+      "query": "preview=1&lineup=heroes&stage=full&view=threeQuarter&pose=idle"
+    }
   ]
 }
