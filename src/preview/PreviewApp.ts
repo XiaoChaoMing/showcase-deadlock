@@ -6,6 +6,7 @@ import { resolveProportions } from '../game/character/definitions/resolveProport
 import { applyPreset, BODY_PRESETS, isBodyPresetName } from '../game/character/definitions/presets';
 import type { HeroDefinition } from '../game/character/definitions/HeroDefinition';
 import { buildProportionPreview } from '../game/character/debug/ProportionPreview';
+import { buildCharacterModel } from '../game/character/modeling/CharacterModelBuilder';
 import { loadHeroRegistry, type RegistryEntry } from '../game/character/runtime/HeroRegistry';
 import { parsePreviewParams, type PreviewParams, type PreviewStage, type PreviewZoom } from './PreviewParams';
 import { Viewport } from './Viewport';
@@ -44,13 +45,26 @@ const buildProportionFigure: StageBuilder = (hero) => {
   };
 };
 
-/** Các stage chưa làm sẽ được thêm ở milestone sau; tạm dùng hình nhân tỷ lệ. */
+const buildModelFigure = (withEquipment: boolean): StageBuilder => (hero, params) => {
+  const model = buildCharacterModel(hero);
+  const group = new THREE.Group();
+  const body = new THREE.Mesh(model.bodyGeometry, model.bodyMaterials);
+  body.name = 'Body';
+  body.castShadow = true;
+  body.receiveShadow = true;
+  group.add(body);
+  if (withEquipment) for (const e of model.equipment) group.add(e.object);
+  const proportionFigure = buildProportionFigure(hero, params);
+  return { object: group, height: hero.proportions.height, focus: proportionFigure.focus };
+};
+
+/** Các stage chưa làm sẽ được thêm ở milestone sau; tạm dùng stage gần nhất đã có. */
 const STAGE_BUILDERS: Record<PreviewStage, StageBuilder> = {
   proportions: buildProportionFigure,
-  body: buildProportionFigure,
-  skeleton: buildProportionFigure,
-  skinned: buildProportionFigure,
-  full: buildProportionFigure,
+  body: buildModelFigure(false),
+  skeleton: buildModelFigure(true),
+  skinned: buildModelFigure(true),
+  full: buildModelFigure(true),
 };
 
 const makeLabel = (text: string): CSS2DObject => {

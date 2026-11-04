@@ -10,12 +10,35 @@
   },
   "proportions": {
     "height": 1.8,
-    "head": { "width": 0.21, "height": 0.24, "depth": 0.24 },
-    "neck": { "length": 0.08, "radius": 0.055 },
-    "torso": { "length": 0.55, "shoulderWidth": 0.46, "hipWidth": 0.32, "pelvisDepth": 0.09 },
-    "arms": { "upperLength": 0.3, "lowerLength": 0.28, "handLength": 0.17 },
-    "legs": { "upperLength": 0.44, "lowerLength": 0.43 },
-    "foot": { "length": 0.25, "height": 0.07, "width": 0.1 }
+    "head": {
+      "width": 0.21,
+      "height": 0.24,
+      "depth": 0.24
+    },
+    "neck": {
+      "length": 0.08,
+      "radius": 0.055
+    },
+    "torso": {
+      "length": 0.55,
+      "shoulderWidth": 0.46,
+      "hipWidth": 0.32,
+      "pelvisDepth": 0.09
+    },
+    "arms": {
+      "upperLength": 0.3,
+      "lowerLength": 0.28,
+      "handLength": 0.17
+    },
+    "legs": {
+      "upperLength": 0.44,
+      "lowerLength": 0.43
+    },
+    "foot": {
+      "length": 0.25,
+      "height": 0.07,
+      "width": 0.1
+    }
   },
   "bodyShape": {
     "radialSegments": 12,
@@ -24,56 +47,177 @@
     "torso": {
       "squareness": 2.6,
       "sections": [
-        { "t": 0, "width": 0.2, "depth": 0.16, "forward": 0 },
-        { "t": 0.12, "width": 0.32, "depth": 0.2, "forward": 0 },
-        { "t": 0.35, "width": 0.27, "depth": 0.18, "forward": 0.01 },
-        { "t": 0.5, "width": 0.29, "depth": 0.19, "forward": 0.015 },
-        { "t": 0.72, "width": 0.34, "depth": 0.22, "forward": 0.02 },
-        { "t": 0.88, "width": 0.4, "depth": 0.18, "forward": 0 },
-        { "t": 1, "width": 0.14, "depth": 0.12, "forward": 0 }
+        {
+          "t": 0,
+          "width": 0.2,
+          "depth": 0.16,
+          "forward": 0
+        },
+        {
+          "t": 0.12,
+          "width": 0.33,
+          "depth": 0.21,
+          "forward": 0
+        },
+        {
+          "t": 0.35,
+          "width": 0.27,
+          "depth": 0.18,
+          "forward": 0.01
+        },
+        {
+          "t": 0.5,
+          "width": 0.29,
+          "depth": 0.19,
+          "forward": 0.015
+        },
+        {
+          "t": 0.72,
+          "width": 0.34,
+          "depth": 0.22,
+          "forward": 0.02
+        },
+        {
+          "t": 0.88,
+          "width": 0.4,
+          "depth": 0.18,
+          "forward": 0
+        },
+        {
+          "t": 1,
+          "width": 0.14,
+          "depth": 0.12,
+          "forward": 0
+        }
       ]
     },
-    "neck": { "taper": 0.9 },
+    "neck": {
+      "taper": 0.9
+    },
     "head": {
       "squareness": 2.4,
       "sections": [
-        { "t": 0, "width": 0.45, "depth": 0.5, "forward": 0.15 },
-        { "t": 0.2, "width": 0.8, "depth": 0.85, "forward": 0.05 },
-        { "t": 0.5, "width": 1, "depth": 1, "forward": 0 },
-        { "t": 0.75, "width": 1, "depth": 1, "forward": 0 },
-        { "t": 0.92, "width": 0.8, "depth": 0.85, "forward": 0 },
-        { "t": 1, "width": 0.3, "depth": 0.35, "forward": 0 }
+        {
+          "t": 0,
+          "width": 0.45,
+          "depth": 0.5,
+          "forward": 0.15
+        },
+        {
+          "t": 0.2,
+          "width": 0.8,
+          "depth": 0.85,
+          "forward": 0.05
+        },
+        {
+          "t": 0.5,
+          "width": 1,
+          "depth": 1,
+          "forward": 0
+        },
+        {
+          "t": 0.75,
+          "width": 1,
+          "depth": 1,
+          "forward": 0
+        },
+        {
+          "t": 0.92,
+          "width": 0.8,
+          "depth": 0.85,
+          "forward": 0
+        },
+        {
+          "t": 1,
+          "width": 0.3,
+          "depth": 0.35,
+          "forward": 0
+        }
       ]
     },
     "arm": {
       "squareness": 2.2,
       "sections": [
-        { "t": 0, "width": 0.13, "depth": 0.12 },
-        { "t": 0.2, "width": 0.11, "depth": 0.1 },
-        { "t": 0.5, "width": 0.075, "depth": 0.075 },
-        { "t": 0.65, "width": 0.085, "depth": 0.08 },
-        { "t": 1, "width": 0.055, "depth": 0.045 }
+        {
+          "t": 0,
+          "width": 0.13,
+          "depth": 0.12
+        },
+        {
+          "t": 0.2,
+          "width": 0.11,
+          "depth": 0.1
+        },
+        {
+          "t": 0.5,
+          "width": 0.075,
+          "depth": 0.075
+        },
+        {
+          "t": 0.65,
+          "width": 0.085,
+          "depth": 0.08
+        },
+        {
+          "t": 1,
+          "width": 0.055,
+          "depth": 0.045
+        }
       ]
     },
     "leg": {
       "squareness": 2.2,
       "sections": [
-        { "t": 0, "width": 0.17, "depth": 0.17 },
-        { "t": 0.25, "width": 0.15, "depth": 0.15 },
-        { "t": 0.5, "width": 0.1, "depth": 0.1 },
-        { "t": 0.62, "width": 0.11, "depth": 0.11 },
-        { "t": 1, "width": 0.07, "depth": 0.07 }
+        {
+          "t": 0,
+          "width": 0.19,
+          "depth": 0.19
+        },
+        {
+          "t": 0.25,
+          "width": 0.16,
+          "depth": 0.16
+        },
+        {
+          "t": 0.5,
+          "width": 0.1,
+          "depth": 0.1
+        },
+        {
+          "t": 0.62,
+          "width": 0.11,
+          "depth": 0.11
+        },
+        {
+          "t": 1,
+          "width": 0.07,
+          "depth": 0.07
+        }
       ]
     },
-    "hand": { "width": 0.085, "thickness": 0.035, "squareness": 2.5 },
-    "foot": { "squareness": 2.8, "toeTaper": 0.7 }
+    "hand": {
+      "width": 0.085,
+      "thickness": 0.045,
+      "squareness": 2.5
+    },
+    "foot": {
+      "squareness": 2.8,
+      "toeTaper": 0.7
+    }
   },
   "palette": {
     "skin": "#C8956D",
     "suit": "#3D4550",
-    "armor": { "color": "#5B6573", "metalness": 0.3, "roughness": 0.5 },
+    "armor": {
+      "color": "#5B6573",
+      "metalness": 0.3,
+      "roughness": 0.5
+    },
     "accent": "#F2A93B",
-    "visor": { "color": "#FFB547", "emissive": 1.6 }
+    "visor": {
+      "color": "#FFB547",
+      "emissive": 0.9
+    }
   },
   "bodyPaint": {
     "torso": "suit",
@@ -87,57 +231,211 @@
   "sockets": [
     {
       "name": "back_weapon",
-      "mount": { "part": "torso", "t": 0.7, "angleDeg": 180, "standoff": 0.12 },
-      "rotationDeg": [0, 0, -35]
+      "mount": {
+        "part": "torso",
+        "t": 0.7,
+        "angleDeg": 180,
+        "standoff": 0.12
+      },
+      "rotationDeg": [
+        0,
+        0,
+        -35
+      ]
     }
   ],
   "equipment": [
     {
-      "id": "chest-plate", "kind": "plate", "part": "torso",
-      "tStart": 0.55, "tEnd": 0.85, "angleStartDeg": -70, "angleEndDeg": 70,
-      "thickness": 0.015, "gap": 0.008, "color": "armor", "edgeColor": "accent"
+      "id": "chest-plate",
+      "kind": "plate",
+      "part": "torso",
+      "tStart": 0.55,
+      "tEnd": 0.85,
+      "angleStartDeg": -70,
+      "angleEndDeg": 70,
+      "thickness": 0.015,
+      "gap": 0.008,
+      "color": "armor",
+      "edgeColor": "accent"
     },
     {
-      "id": "left-pauldron", "kind": "plate", "part": "arm", "side": "left",
-      "tStart": 0, "tEnd": 0.35, "angleStartDeg": -60, "angleEndDeg": 240,
-      "layers": 3, "layerOverlap": 0.4, "thickness": 0.012, "gap": 0.01, "bulge": 0.02,
-      "color": "armor", "edgeColor": "accent"
+      "id": "left-pauldron",
+      "kind": "plate",
+      "part": "arm",
+      "side": "left",
+      "tStart": 0,
+      "tEnd": 0.35,
+      "angleStartDeg": -15,
+      "angleEndDeg": 195,
+      "layers": 3,
+      "layerOverlap": 0.45,
+      "thickness": 0.012,
+      "gap": 0.01,
+      "bulge": 0.025,
+      "color": "armor",
+      "edgeColor": "accent"
     },
     {
-      "id": "helmet", "kind": "shell", "coverage": 0.72, "faceOpeningDeg": 0,
-      "thickness": 0.014, "gap": 0.01, "crest": { "height": 0.02, "width": 0.03 },
+      "id": "helmet",
+      "kind": "shell",
+      "coverage": 0.72,
+      "faceOpeningDeg": 0,
+      "thickness": 0.014,
+      "gap": 0.01,
+      "crest": {
+        "height": 0.02,
+        "width": 0.03
+      },
       "color": "armor"
     },
     {
-      "id": "visor", "kind": "band", "part": "head", "t": 0.62, "height": 0.045,
-      "angleStartDeg": -70, "angleEndDeg": 70, "thickness": 0.01, "gap": 0.026,
+      "id": "visor",
+      "kind": "band",
+      "part": "head",
+      "t": 0.62,
+      "height": 0.045,
+      "angleStartDeg": -70,
+      "angleEndDeg": 70,
+      "thickness": 0.01,
+      "gap": 0.026,
       "color": "visor"
     },
     {
-      "id": "backpack", "kind": "box",
-      "attach": { "mount": { "part": "torso", "t": 0.68, "angleDeg": 180 } },
-      "size": [0.22, 0.24, 0.09], "cornerRadius": 0.02, "color": "armor"
+      "id": "backpack",
+      "kind": "box",
+      "attach": {
+        "mount": {
+          "part": "torso",
+          "t": 0.68,
+          "angleDeg": 180
+        }
+      },
+      "size": [
+        0.22,
+        0.24,
+        0.09
+      ],
+      "cornerRadius": 0.02,
+      "color": "armor"
     },
     {
-      "id": "rifle", "kind": "assembly", "attach": { "socket": "back_weapon" }, "color": "armor",
+      "id": "rifle",
+      "kind": "assembly",
+      "attach": {
+        "socket": "back_weapon"
+      },
+      "color": "armor",
+      "rotationDeg": [
+        90,
+        0,
+        0
+      ],
       "parts": [
-        { "shape": "box", "size": [0.07, 0.09, 0.42], "position": [0, 0, 0], "color": "armor" },
-        { "shape": "cylinder", "size": [0.03, 0.22, 0], "position": [0, 0.01, 0.3], "color": "suit" },
-        { "shape": "box", "size": [0.05, 0.08, 0.16], "position": [0, -0.01, -0.27], "color": "suit" },
-        { "shape": "box", "size": [0.04, 0.12, 0.06], "position": [0, -0.09, 0.06], "color": "accent" },
-        { "shape": "cylinder", "size": [0.03, 0.08, 0], "position": [0, 0.065, 0.02], "color": "suit" }
+        {
+          "shape": "box",
+          "size": [
+            0.07,
+            0.09,
+            0.42
+          ],
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "color": "armor"
+        },
+        {
+          "shape": "cylinder",
+          "size": [
+            0.03,
+            0.22,
+            0
+          ],
+          "position": [
+            0,
+            0.01,
+            0.3
+          ],
+          "color": "suit"
+        },
+        {
+          "shape": "box",
+          "size": [
+            0.05,
+            0.08,
+            0.16
+          ],
+          "position": [
+            0,
+            -0.01,
+            -0.27
+          ],
+          "color": "suit"
+        },
+        {
+          "shape": "box",
+          "size": [
+            0.04,
+            0.12,
+            0.06
+          ],
+          "position": [
+            0,
+            -0.09,
+            0.06
+          ],
+          "color": "accent"
+        },
+        {
+          "shape": "cylinder",
+          "size": [
+            0.03,
+            0.08,
+            0
+          ],
+          "position": [
+            0,
+            0.065,
+            0.02
+          ],
+          "color": "suit"
+        }
       ]
     },
     {
-      "id": "shin-left", "kind": "plate", "part": "leg", "side": "left",
-      "tStart": 0.55, "tEnd": 0.92, "angleStartDeg": -60, "angleEndDeg": 60,
-      "thickness": 0.012, "gap": 0.008, "color": "armor", "edgeColor": "accent"
+      "id": "shin-left",
+      "kind": "plate",
+      "part": "leg",
+      "side": "left",
+      "tStart": 0.55,
+      "tEnd": 0.92,
+      "angleStartDeg": -60,
+      "angleEndDeg": 60,
+      "thickness": 0.012,
+      "gap": 0.008,
+      "color": "armor",
+      "edgeColor": "accent"
     },
     {
-      "id": "shin-right", "kind": "plate", "part": "leg", "side": "right",
-      "tStart": 0.55, "tEnd": 0.92, "angleStartDeg": -60, "angleEndDeg": 60,
-      "thickness": 0.012, "gap": 0.008, "color": "armor", "edgeColor": "accent"
+      "id": "shin-right",
+      "kind": "plate",
+      "part": "leg",
+      "side": "right",
+      "tStart": 0.55,
+      "tEnd": 0.92,
+      "angleStartDeg": -60,
+      "angleEndDeg": 60,
+      "thickness": 0.012,
+      "gap": 0.008,
+      "color": "armor",
+      "edgeColor": "accent"
     }
   ],
-  "showcase": { "defaultPose": "idle", "cameraAzimuthDeg": 30, "cameraElevationDeg": 10, "cameraDistance": 3.2 }
+  "showcase": {
+    "defaultPose": "idle",
+    "cameraAzimuthDeg": 30,
+    "cameraElevationDeg": 10,
+    "cameraDistance": 3.2
+  }
 }

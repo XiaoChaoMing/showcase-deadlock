@@ -1,8 +1,66 @@
 {
   "m1": [
-    { "name": "lineup-front", "query": "stage=proportions&lineup=presets&view=front" },
-    { "name": "kestrel-front", "query": "hero=kestrel&stage=proportions&view=front" },
-    { "name": "kestrel-side", "query": "hero=kestrel&stage=proportions&view=side" },
-    { "name": "kestrel-back", "query": "hero=kestrel&stage=proportions&view=back" }
+    {
+      "name": "lineup-front",
+      "query": "stage=proportions&lineup=presets&view=front"
+    },
+    {
+      "name": "kestrel-front",
+      "query": "hero=kestrel&stage=proportions&view=front"
+    },
+    {
+      "name": "kestrel-side",
+      "query": "hero=kestrel&stage=proportions&view=side"
+    },
+    {
+      "name": "kestrel-back",
+      "query": "hero=kestrel&stage=proportions&view=back"
+    }
+  ],
+  "m2": [
+    {
+      "name": "kestrel-body-front",
+      "query": "hero=kestrel&stage=body&view=front"
+    },
+    {
+      "name": "kestrel-body-side",
+      "query": "hero=kestrel&stage=body&view=side"
+    },
+    {
+      "name": "kestrel-body-back",
+      "query": "hero=kestrel&stage=body&view=back"
+    },
+    {
+      "name": "kestrel-body-threeQuarter",
+      "query": "hero=kestrel&stage=body&view=threeQuarter"
+    },
+    {
+      "name": "kestrel-full-front",
+      "query": "hero=kestrel&stage=full&view=front"
+    },
+    {
+      "name": "kestrel-full-side",
+      "query": "hero=kestrel&stage=full&view=side"
+    },
+    {
+      "name": "kestrel-full-back",
+      "query": "hero=kestrel&stage=full&view=back"
+    },
+    {
+      "name": "kestrel-full-threeQuarter",
+      "query": "hero=kestrel&stage=full&view=threeQuarter"
+    },
+    {
+      "name": "kestrel-wireframe-front",
+      "query": "hero=kestrel&stage=body&view=front&overlay=wireframe"
+    },
+    {
+      "name": "lineup-body-front",
+      "query": "stage=body&lineup=presets&view=front"
+    },
+    {
+      "name": "kestrel-head",
+      "query": "hero=kestrel&stage=full&view=threeQuarter&zoom=head"
+    }
   ]
 }
