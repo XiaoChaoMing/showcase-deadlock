@@ -4,14 +4,19 @@ import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 import { computeLayout } from '../game/character/definitions/CharacterLayout';
 import { resolveProportions } from '../game/character/definitions/resolveProportions';
 import { applyPreset, BODY_PRESETS, isBodyPresetName } from '../game/character/definitions/presets';
-import type { HeroDefinition } from '../game/character/definitions/HeroDefinition';
+import { POSE_IDS, type HeroDefinition } from '../game/character/definitions/HeroDefinition';
 import { buildProportionPreview } from '../game/character/debug/ProportionPreview';
 import { buildCharacterModel } from '../game/character/modeling/CharacterModelBuilder';
 import { buildSkeleton } from '../game/character/rigging/SkeletonBuilder';
 import { createSockets } from '../game/character/rigging/Sockets';
 import { createSkeletonDebug, type SkeletonDebug } from '../game/character/debug/SkeletonDebug';
 import { setWeightView } from '../game/character/debug/WeightVisualizer';
-import { buildCharacter } from '../game/character/runtime/CharacterFactory';
+import { buildCharacter, type CharacterInstance } from '../game/character/runtime/CharacterFactory';
+import { PoseAnimator } from '../game/character/animation/ProceduralAnimator';
+import { createRigDebugPanel } from '../game/character/debug/RigDebugPanel';
+import { validateRig } from '../game/character/rigging/RigValidator';
+import { resetToBindPose } from '../game/character/rigging/SkeletonBuilder';
+import type { BoneName } from '../game/character/definitions/BoneNames';
 import { loadHeroRegistry, type RegistryEntry } from '../game/character/runtime/HeroRegistry';
 import { parsePreviewParams, type PreviewParams, type PreviewStage, type PreviewZoom } from './PreviewParams';
 import { Viewport } from './Viewport';
@@ -27,6 +32,8 @@ const heroModules = import.meta.glob('/heroes/*/hero.json', { eager: true, impor
 interface Figure {
   object: THREE.Object3D;
   skeletonDebug?: SkeletonDebug;
+  instance?: CharacterInstance;
+  animator?: PoseAnimator;
   height: number;
   focus: Partial<Record<PreviewZoom, THREE.Vector3>>;
 }
@@ -92,14 +99,17 @@ const buildRiggedFigure = (withEquipment: boolean): StageBuilder => (hero, param
   const showWeights = params.overlay.has('weights');
   for (const e of inst.equipment) e.object.visible = withEquipment && !showWeights;
   if (showWeights) setWeightView(inst, params.bone ?? 'Chest');
-  let skeletonDebug: SkeletonDebug | undefined;
+  const animator = new PoseAnimator(inst.rig);
+  animator.setBreathing(true);
+  animator.setPose(params.pose, 0);
+  animator.update(0);
   const group = new THREE.Group();
   group.add(inst.root);
-  if (params.overlay.has('skeleton')) {
-    skeletonDebug = createSkeletonDebug(inst.rig);
-    group.add(skeletonDebug.group);
-  }
-  return { object: group, skeletonDebug, height: hero.proportions.height, focus: buildProportionFigure(hero, params).focus };
+  const skeletonDebug = createSkeletonDebug(inst.rig);
+  group.add(skeletonDebug.group);
+  const overlaySkeleton = params.overlay.has('skeleton');
+  skeletonDebug.setVisible({ lines: overlaySkeleton, joints: overlaySkeleton, labels: params.overlay.has('labels'), axes: false });
+  return { object: group, skeletonDebug, instance: inst, animator, height: hero.proportions.height, focus: buildProportionFigure(hero, params).focus };
 };
 
 /** Các stage chưa làm sẽ được thêm ở milestone sau; tạm dùng stage gần nhất đã có. */
@@ -137,11 +147,21 @@ export class PreviewApp {
   private readonly content = new THREE.Group();
   private lineupWidth = 0;
   private skeletonDebugs: SkeletonDebug[] = [];
+  private animators: PoseAnimator[] = [];
+  private gui!: GUI;
+  private rigGui?: GUI;
+  private readonly checksEl = document.createElement('div');
   private readonly debugVisibility = { lines: true, joints: true, labels: false, axes: false };
 
   constructor(container: HTMLElement) {
     this.viewport = new Viewport(container);
     this.viewport.scene.add(this.content);
+    this.viewport.onFrame((dt) => {
+      for (const a of this.animators) a.update(dt);
+    });
+    this.checksEl.style.cssText =
+      'position:absolute;left:12px;bottom:12px;font:12px/1.5 system-ui;color:#e6e8eb;background:#0f1115cc;padding:8px 10px;border-radius:6px;pointer-events:none;max-width:420px';
+    container.appendChild(this.checksEl);
     this.entries = loadHeroRegistry(heroModules);
     this.params = parsePreviewParams(window.location.search);
     for (const e of this.entries) if (!e.ok) console.error(`Hero "${e.id}" lỗi dữ liệu:`, e.errors);
@@ -173,6 +193,10 @@ export class PreviewApp {
     window.__heroReady = false;
     for (const d of this.skeletonDebugs) d.dispose();
     this.skeletonDebugs = [];
+    this.animators = [];
+    this.rigGui?.destroy();
+    this.rigGui = undefined;
+    this.checksEl.innerHTML = '';
     this.content.clear();
     this.debugVisibility.labels = this.params.overlay.has('labels');
     const builder = STAGE_BUILDERS[this.params.stage];
@@ -186,9 +210,10 @@ export class PreviewApp {
       maxHeight = Math.max(maxHeight, figure.height);
       focusFigure ??= figure;
       if (figure.skeletonDebug) {
-        figure.skeletonDebug.setVisible(this.debugVisibility);
+        if (!figure.instance) figure.skeletonDebug.setVisible(this.debugVisibility);
         this.skeletonDebugs.push(figure.skeletonDebug);
       }
+      if (figure.animator) this.animators.push(figure.animator);
       return figure;
     });
     const widths = figures.map((f) => new THREE.Box3().setFromObject(f.object).getSize(new THREE.Vector3()).x + 0.15);
@@ -202,7 +227,39 @@ export class PreviewApp {
     });
     this.lineupWidth = totalWidth;
     this.placeCamera(items.length, maxHeight, focusFigure);
+    if (focusFigure?.instance && focusFigure.animator && items.length === 1) this.attachRigTools(focusFigure);
     requestAnimationFrame(() => requestAnimationFrame(() => (window.__heroReady = true)));
+  }
+
+  private attachRigTools(figure: Figure): void {
+    const inst = figure.instance!;
+    const animator = figure.animator!;
+    const debug = figure.skeletonDebug!;
+    const showChecks = (): void => {
+      // Kiểm tra trên bản dựng mới ở bind pose, để tư thế đang xem không làm fail check "bind-pose".
+      const fresh = buildCharacter(inst.hero);
+      resetToBindPose(fresh.rig);
+      const checks = validateRig(fresh);
+      this.checksEl.innerHTML =
+        '<b>Kiểm tra rig</b><br>' +
+        checks.map((c) => `${c.pass ? '✓' : '✗'} ${c.label}${c.pass ? '' : ` — ${c.detail}`}`).join('<br>');
+    };
+    showChecks();
+    this.rigGui = this.gui.addFolder('Kiểm tra rig');
+    const overlay = this.params.overlay;
+    createRigDebugPanel(
+      this.rigGui,
+      inst,
+      animator,
+      {
+        onOverlay: (o) => {
+          debug.setVisible({ lines: o.skeleton, joints: o.joints && o.skeleton, labels: o.labels, axes: false });
+          setWeightView(inst, o.weights ? ((this.params.bone ?? 'Chest') as BoneName) : null);
+          for (const e of inst.equipment) e.object.visible = !o.weights && this.params.stage === 'full';
+        },
+      },
+      { skeleton: overlay.has('skeleton'), joints: overlay.has('skeleton'), labels: overlay.has('labels'), weights: overlay.has('weights') },
+    );
   }
 
   private placeCamera(count: number, height: number, figure: Figure | undefined): void {
@@ -225,11 +282,13 @@ export class PreviewApp {
     q.set('view', p.view);
     if (p.overlay.size) q.set('overlay', [...p.overlay].join(','));
     if (p.lineup !== 'none') q.set('lineup', p.lineup);
+    q.set('pose', p.pose);
     window.history.replaceState(null, '', `?${q.toString()}`);
   }
 
   private buildGui(): void {
     const gui = new GUI({ title: 'Preview' });
+    this.gui = gui;
     const p = this.params;
     const state = {
       hero: p.hero ?? this.heroes()[0]?.id ?? '',
@@ -237,6 +296,7 @@ export class PreviewApp {
       stage: p.stage,
       view: p.view,
       lineup: p.lineup,
+      pose: p.pose,
       wireframe: p.overlay.has('wireframe'),
     };
     const changed = (): void => {
@@ -245,6 +305,7 @@ export class PreviewApp {
       p.stage = state.stage;
       p.view = state.view;
       p.lineup = state.lineup;
+      p.pose = state.pose;
       if (state.wireframe) p.overlay.add('wireframe');
       else p.overlay.delete('wireframe');
       this.updateUrl();
@@ -255,6 +316,7 @@ export class PreviewApp {
     gui.add(state, 'stage', ['proportions', 'body', 'skeleton', 'skinned', 'full']).name('Giai đoạn').onChange(changed);
     gui.add(state, 'view', ['front', 'side', 'back', 'threeQuarter']).name('Góc nhìn').onChange(changed);
     gui.add(state, 'lineup', ['none', 'presets', 'heroes']).name('Xếp hàng').onChange(changed);
+    gui.add(state, 'pose', [...POSE_IDS]).name('Tư thế ban đầu').onChange(changed);
     gui.add(state, 'wireframe').name('Wireframe').onChange(changed);
     const bones = gui.addFolder('Bộ xương (stage skeleton)');
     const apply = (): void => {
