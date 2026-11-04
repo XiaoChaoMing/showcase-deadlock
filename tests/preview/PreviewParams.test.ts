@@ -18,4 +18,10 @@ describe('parsePreviewParams', () => {
     expect(parsePreviewParams('?zoom=kneeL').zoom).toBe('kneeL');
     expect(parsePreviewParams('?zoom=nose').zoom).toBeUndefined();
   });
+
+  it('thân theo archetype, zoom thân trên, bóng mềm', () => {
+    const p = parsePreviewParams('?archetype=tank&bodyType=feminine&zoom=torso&shadows=soft&lineup=archetypes');
+    expect(p).toMatchObject({ archetype: 'tank', bodyType: 'feminine', zoom: 'torso', softShadows: true, lineup: 'archetypes' });
+    expect(parsePreviewParams('?archetype=ninja&bodyType=x')).toMatchObject({ archetype: undefined, bodyType: undefined, softShadows: false });
+  });
 });

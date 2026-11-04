@@ -62,6 +62,7 @@ const buildProportionFigure: StageBuilder = (hero) => {
       hipL: new THREE.Vector3(...J.LeftUpperLeg),
       kneeL: new THREE.Vector3(...J.LeftLowerLeg),
       head: new THREE.Vector3(J.Head[0], J.Head[1] + resolved.value.head.height / 2, 0),
+      torso: new THREE.Vector3(0, (layout.torsoBottomY + layout.neckBaseY) / 2 + 0.03, 0),
     },
   };
 };
@@ -211,6 +212,7 @@ export class PreviewApp {
 
   private rebuild(): void {
     window.__heroReady = false;
+    this.viewport.setSoftShadows(this.params.softShadows);
     for (const d of this.skeletonDebugs) d.dispose();
     this.skeletonDebugs = [];
     this.animators = [];
@@ -305,7 +307,8 @@ export class PreviewApp {
   private placeCamera(count: number, height: number, figure: Figure | undefined): void {
     const zoomTarget = this.params.zoom ? figure?.focus[this.params.zoom] : undefined;
     if (zoomTarget) {
-      this.viewport.setView(this.params.view, zoomTarget, 0.9, 5);
+      // Khung thân trên rộng hơn các khung khớp: từ hông tới cằm.
+      this.viewport.setView(this.params.view, zoomTarget, this.params.zoom === 'torso' ? 2.1 * (height / 1.8) : 0.9, 5);
       return;
     }
     const target = new THREE.Vector3(0, height / 2, 0);
@@ -329,6 +332,7 @@ export class PreviewApp {
     if (p.lineup !== 'none') q.set('lineup', p.lineup);
     if (p.archetype) q.set('archetype', p.archetype);
     if (p.bodyType) q.set('bodyType', p.bodyType);
+    if (p.softShadows) q.set('shadows', 'soft');
     q.set('pose', p.pose);
     window.history.replaceState(null, '', `?${q.toString()}`);
   }

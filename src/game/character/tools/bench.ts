@@ -6,6 +6,8 @@ import { resolveProportions } from '../definitions/resolveProportions';
 import { createBodySurface } from '../modeling/BodySurface';
 import { buildBodyGeometry } from '../modeling/BodyGeometry';
 import { generateSkinWeights } from '../rigging/SkinWeightGenerator';
+import { resolveBodyDesign } from '../body/config/resolveBodyDesign';
+import { createAnatomyField } from '../body/anatomy/anatomyField';
 
 export interface BenchRow {
   id: string;
@@ -63,7 +65,8 @@ const timeBody = (hero: HeroDefinition): number => {
   const r = resolveProportions(hero.proportions);
   if (!r.ok) throw new Error(r.error);
   const layout = computeLayout(r.value);
-  const geometry = buildBodyGeometry(createBodySurface(r.value, hero.bodyShape, layout), hero.bodyShape);
+  const field = hero.bodyDesign ? createAnatomyField(resolveBodyDesign(hero.bodyDesign).anatomy) : undefined;
+  const geometry = buildBodyGeometry(createBodySurface(r.value, hero.bodyShape, layout, field), hero.bodyShape);
   generateSkinWeights(geometry, layout);
   const ms = performance.now() - t0;
   geometry.dispose();

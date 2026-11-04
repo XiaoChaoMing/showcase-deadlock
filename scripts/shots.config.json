@@ -698,5 +698,183 @@
       "name": "tank-feminine-body-threeQuarter",
       "query": "preview=1&hero=kestrel&archetype=tank&bodyType=feminine&stage=body&view=threeQuarter&lighting=legacy"
     }
+  ],
+  "b-m2": [
+    {
+      "name": "tank-masculine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=masculine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-masculine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=masculine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-masculine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=masculine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-masculine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=masculine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-feminine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=feminine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-feminine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=feminine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-feminine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=feminine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "tank-feminine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=tank&bodyType=feminine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-masculine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=masculine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-masculine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=masculine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-masculine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=masculine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-masculine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=masculine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-feminine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=feminine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-feminine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=feminine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-feminine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=feminine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "fighter-feminine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=fighter&bodyType=feminine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "assassin-masculine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=assassin&bodyType=masculine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "assassin-masculine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=assassin&bodyType=masculine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "assassin-masculine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=assassin&bodyType=masculine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "assassin-masculine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=assassin&bodyType=masculine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "assassin-feminine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=assassin&bodyType=feminine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "assassin-feminine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=assassin&bodyType=feminine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "assassin-feminine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=assassin&bodyType=feminine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "assassin-feminine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=assassin&bodyType=feminine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "mage-masculine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=mage&bodyType=masculine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "mage-masculine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=mage&bodyType=masculine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "mage-masculine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=mage&bodyType=masculine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "mage-masculine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=mage&bodyType=masculine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "mage-feminine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=mage&bodyType=feminine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "mage-feminine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=mage&bodyType=feminine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "mage-feminine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=mage&bodyType=feminine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "mage-feminine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=mage&bodyType=feminine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "bruiser-masculine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=bruiser&bodyType=masculine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "bruiser-masculine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=bruiser&bodyType=masculine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "bruiser-masculine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=bruiser&bodyType=masculine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "bruiser-masculine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=bruiser&bodyType=masculine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "bruiser-feminine-torso-front",
+      "query": "preview=1&hero=kestrel&archetype=bruiser&bodyType=feminine&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "bruiser-feminine-torso-side",
+      "query": "preview=1&hero=kestrel&archetype=bruiser&bodyType=feminine&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "bruiser-feminine-torso-back",
+      "query": "preview=1&hero=kestrel&archetype=bruiser&bodyType=feminine&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "bruiser-feminine-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&archetype=bruiser&bodyType=feminine&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "old-kestrel-torso-front",
+      "query": "preview=1&hero=kestrel&stage=body&zoom=torso&view=front&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "old-kestrel-torso-side",
+      "query": "preview=1&hero=kestrel&stage=skinned&pose=idle&zoom=torso&view=side&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "old-kestrel-torso-back",
+      "query": "preview=1&hero=kestrel&stage=body&zoom=torso&view=back&lighting=legacy&shadows=soft"
+    },
+    {
+      "name": "old-kestrel-torso-threeQuarter",
+      "query": "preview=1&hero=kestrel&stage=body&zoom=torso&view=threeQuarter&lighting=legacy&shadows=soft"
+    }
   ]
 }

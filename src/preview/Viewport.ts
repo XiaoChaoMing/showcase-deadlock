@@ -21,6 +21,7 @@ export class Viewport {
   private readonly clock = new THREE.Clock();
   private readonly resizeObserver: ResizeObserver;
   private disposed = false;
+  private keyLight?: THREE.DirectionalLight;
 
   constructor(private readonly container: HTMLElement) {
     this.renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
@@ -67,6 +68,20 @@ export class Viewport {
     );
     this.controls.target.copy(target);
     this.controls.update();
+  }
+
+  /**
+   * Bóng mềm + bias chống răng cưa khi bề mặt tự đổ bóng (ví dụ dưới khối ngực). Mặc định tắt để ảnh mốc cũ giữ nguyên;
+   * V2 Task 10 (ánh sáng studio) sẽ thay hẳn.
+   */
+  setSoftShadows(on: boolean): void {
+    this.renderer.shadowMap.type = on ? THREE.PCFSoftShadowMap : THREE.PCFShadowMap;
+    if (this.keyLight) {
+      this.keyLight.shadow.bias = on ? -0.0005 : 0;
+      this.keyLight.shadow.normalBias = on ? 0.02 : 0;
+      this.keyLight.shadow.radius = on ? 3 : 1;
+    }
+    this.renderer.shadowMap.needsUpdate = true;
   }
 
   onFrame(cb: (dt: number) => void): void {
@@ -121,6 +136,7 @@ export class Viewport {
     fill.position.set(-3, 2, 1.5);
     const rim = new THREE.DirectionalLight('#ffffff', 1.4);
     rim.position.set(0, 3, -4);
+    this.keyLight = key;
     this.scene.add(key, fill, rim);
   }
 

@@ -5,7 +5,7 @@ import { ARCHETYPE_IDS, BODY_TYPES, type Archetype, type BodyType } from '../gam
 
 export type PreviewStage = 'proportions' | 'body' | 'skeleton' | 'skinned' | 'full';
 export type PreviewOverlay = 'skeleton' | 'wireframe' | 'weights' | 'labels';
-export type PreviewZoom = 'shoulderL' | 'elbowL' | 'hipL' | 'kneeL' | 'head';
+export type PreviewZoom = 'shoulderL' | 'elbowL' | 'hipL' | 'kneeL' | 'head' | 'torso';
 export type PreviewLineup = 'none' | 'presets' | 'heroes' | 'archetypes';
 
 export interface PreviewParams {
@@ -21,12 +21,14 @@ export interface PreviewParams {
   /** Thân theo bodyDesign: archetype (và bodyType, mặc định masculine) thay cho thân của hero. */
   archetype?: Archetype;
   bodyType?: BodyType;
+  /** Bóng mềm (chống răng cưa khi bề mặt tự đổ bóng). */
+  softShadows: boolean;
 }
 
 const STAGES: readonly PreviewStage[] = ['proportions', 'body', 'skeleton', 'skinned', 'full'];
 const VIEWS: readonly ViewName[] = ['front', 'side', 'back', 'threeQuarter'];
 const OVERLAYS: readonly PreviewOverlay[] = ['skeleton', 'wireframe', 'weights', 'labels'];
-const ZOOMS: readonly PreviewZoom[] = ['shoulderL', 'elbowL', 'hipL', 'kneeL', 'head'];
+const ZOOMS: readonly PreviewZoom[] = ['shoulderL', 'elbowL', 'hipL', 'kneeL', 'head', 'torso'];
 const LINEUPS: readonly PreviewLineup[] = ['none', 'presets', 'heroes', 'archetypes'];
 
 const pick = <T extends string>(allowed: readonly T[], value: string | null): T | undefined =>
@@ -50,5 +52,6 @@ export const parsePreviewParams = (search: string): PreviewParams => {
     lineup: pick(LINEUPS, q.get('lineup')) ?? 'none',
     archetype: pick(ARCHETYPE_IDS, q.get('archetype')),
     bodyType: pick(BODY_TYPES, q.get('bodyType')),
+    softShadows: q.get('shadows') === 'soft',
   };
 };
