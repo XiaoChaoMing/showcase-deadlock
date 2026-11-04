@@ -1,0 +1,8 @@
+{
+  "m1": [
+    { "name": "lineup-front", "query": "stage=proportions&lineup=presets&view=front" },
+    { "name": "kestrel-front", "query": "hero=kestrel&stage=proportions&view=front" },
+    { "name": "kestrel-side", "query": "hero=kestrel&stage=proportions&view=side" },
+    { "name": "kestrel-back", "query": "hero=kestrel&stage=proportions&view=back" }
+  ]
+}

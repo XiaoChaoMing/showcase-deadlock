@@ -1,5 +1,5 @@
-import { Viewport } from './preview/Viewport';
+import { PreviewApp } from './preview/PreviewApp';
 
 const container = document.getElementById('app');
 if (!container) throw new Error('Missing #app container');
-new Viewport(container);
+new PreviewApp(container);

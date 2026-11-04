@@ -1,0 +1,199 @@
+{
+  "proportions": {
+    "height": 1.95,
+    "head": {
+      "width": 0.24,
+      "height": 0.25,
+      "depth": 0.26
+    },
+    "neck": {
+      "length": 0.09,
+      "radius": 0.085
+    },
+    "torso": {
+      "length": 0.62,
+      "shoulderWidth": 0.62,
+      "hipWidth": 0.44,
+      "pelvisDepth": 0.11
+    },
+    "arms": {
+      "upperLength": 0.33,
+      "lowerLength": 0.31,
+      "handLength": 0.2
+    },
+    "legs": {
+      "upperLength": 0.46,
+      "lowerLength": 0.46
+    },
+    "foot": {
+      "length": 0.29,
+      "height": 0.08,
+      "width": 0.13
+    }
+  },
+  "bodyShape": {
+    "radialSegments": 12,
+    "ringsPerMeter": 40,
+    "shading": "flat",
+    "torso": {
+      "squareness": 3.2,
+      "sections": [
+        {
+          "t": 0,
+          "width": 0.3,
+          "depth": 0.24,
+          "forward": 0
+        },
+        {
+          "t": 0.12,
+          "width": 0.44,
+          "depth": 0.3,
+          "forward": 0
+        },
+        {
+          "t": 0.35,
+          "width": 0.42,
+          "depth": 0.3,
+          "forward": 0.03
+        },
+        {
+          "t": 0.5,
+          "width": 0.44,
+          "depth": 0.32,
+          "forward": 0.04
+        },
+        {
+          "t": 0.72,
+          "width": 0.5,
+          "depth": 0.32,
+          "forward": 0.03
+        },
+        {
+          "t": 0.88,
+          "width": 0.58,
+          "depth": 0.26,
+          "forward": 0
+        },
+        {
+          "t": 1,
+          "width": 0.22,
+          "depth": 0.18,
+          "forward": 0
+        }
+      ]
+    },
+    "neck": {
+      "taper": 0.85
+    },
+    "head": {
+      "squareness": 3,
+      "sections": [
+        {
+          "t": 0,
+          "width": 0.6,
+          "depth": 0.6,
+          "forward": 0.1
+        },
+        {
+          "t": 0.2,
+          "width": 0.9,
+          "depth": 0.9,
+          "forward": 0.05
+        },
+        {
+          "t": 0.5,
+          "width": 1,
+          "depth": 1,
+          "forward": 0
+        },
+        {
+          "t": 0.75,
+          "width": 1,
+          "depth": 1,
+          "forward": 0
+        },
+        {
+          "t": 0.92,
+          "width": 0.85,
+          "depth": 0.85,
+          "forward": 0
+        },
+        {
+          "t": 1,
+          "width": 0.4,
+          "depth": 0.4,
+          "forward": 0
+        }
+      ]
+    },
+    "arm": {
+      "squareness": 2.6,
+      "sections": [
+        {
+          "t": 0,
+          "width": 0.2,
+          "depth": 0.18
+        },
+        {
+          "t": 0.2,
+          "width": 0.17,
+          "depth": 0.16
+        },
+        {
+          "t": 0.5,
+          "width": 0.12,
+          "depth": 0.12
+        },
+        {
+          "t": 0.65,
+          "width": 0.14,
+          "depth": 0.13
+        },
+        {
+          "t": 1,
+          "width": 0.09,
+          "depth": 0.08
+        }
+      ]
+    },
+    "leg": {
+      "squareness": 2.6,
+      "sections": [
+        {
+          "t": 0,
+          "width": 0.25,
+          "depth": 0.25
+        },
+        {
+          "t": 0.25,
+          "width": 0.22,
+          "depth": 0.22
+        },
+        {
+          "t": 0.5,
+          "width": 0.15,
+          "depth": 0.15
+        },
+        {
+          "t": 0.62,
+          "width": 0.16,
+          "depth": 0.16
+        },
+        {
+          "t": 1,
+          "width": 0.11,
+          "depth": 0.11
+        }
+      ]
+    },
+    "hand": {
+      "width": 0.12,
+      "thickness": 0.05,
+      "squareness": 2.8
+    },
+    "foot": {
+      "squareness": 3,
+      "toeTaper": 0.8
+    }
+  }
+}
